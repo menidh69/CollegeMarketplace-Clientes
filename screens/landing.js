@@ -7,7 +7,7 @@ export default function landing() {
   render(){
     return (
       <View style={styles.container}>
-        //<Image style={styles.logo} source={require("../assets/splash.png")} />
+        <Image style={styles.logo} source={require("../assets/splash.png")} />
         <StatusBar style="auto" />
           <TouchableOpacity
             style={styles.loginBtn}
