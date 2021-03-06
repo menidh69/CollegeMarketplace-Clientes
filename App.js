@@ -1,6 +1,8 @@
+import 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import Landing from './screens/landing'
 
 
 
@@ -8,10 +10,9 @@ import { StyleSheet, Text, View } from 'react-native';
 export default function App() {
 
   return (
-    <View style={styles.container}>
-      <Text>esto q mande al landing</Text>
-      <StatusBar style="auto" />
-    </View>
+      <>
+        <Landing/>
+      </>
 
   );
 }
