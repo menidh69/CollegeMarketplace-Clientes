@@ -2,18 +2,18 @@ import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import { StyleSheet, Text, View, Image, TextInput, Button, TouchableOpacity, } from "react-native";
 
-export default function login() {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   return (
     <View style={styles.container}>
-      <Image style={styles.image} source={require("assets/icon.png")} />
+      <Image style={styles.image} source={require("../assets/icon.png")} />
 
       <StatusBar style="auto" />
       <View style={styles.inputView}>
         <Image
-        source={require('assets/email.png')}
+        source={require('../assets/email.png')}
         style={styles.icono}
         />
         <TextInput
@@ -26,7 +26,7 @@ export default function login() {
 
       <View style={styles.inputView}>
         <Image
-        source={require('assets/padlock.png')}
+        source={require('../assets/padlock.png')}
         style={styles.icono}
         />
         <TextInput
@@ -48,8 +48,8 @@ export default function login() {
 
       <View style={styles.fbView}>
         <Image
-        source={require('./assets/fbicon.png')}
-        style={styles.iconoStyle}
+        source={require('../assets/fbicon.png')}
+        style={styles.fbIconoStyle}
         />
       <TouchableOpacity style={styles.fbBtn}>
         <Text style={styles.loginText}>Conectarse con Facebook</Text>
@@ -69,6 +69,8 @@ const styles = StyleSheet.create({
 
   image: {
     marginBottom: 40,
+    width: '30%',
+    height: '15%'
   },
 
   icono: {
@@ -119,6 +121,7 @@ const styles = StyleSheet.create({
     marginTop:30,
     flexDirection: 'row',
     alignItems: "center",
+    justifyContent: 'center'
   },
   fbBtn: {
     width: "80%",
@@ -127,4 +130,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  fbIconoStyle: {
+      width: 25,
+      height: 25,
+  }
 });
+
+export default Login;
