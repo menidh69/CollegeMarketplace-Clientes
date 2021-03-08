@@ -1,6 +1,14 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import { StyleSheet, Text, View, Image, TextInput, Button, TouchableOpacity, } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TextInput,
+  Button,
+  TouchableOpacity,
+} from "react-native";
 
 export default function login() {
   const [email, setEmail] = useState("");
@@ -8,7 +16,7 @@ export default function login() {
 
   return (
     <View style={styles.container}>
-      <Image style={styles.image} source={("assets/icon.png")} />
+      <Image style={styles.image} source={"assets/icon.png"} />
 
       <StatusBar style="auto" />
       <View style={styles.inputView}>
