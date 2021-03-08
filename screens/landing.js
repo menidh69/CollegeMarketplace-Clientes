@@ -4,6 +4,7 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image, Button, } from 'react-native';
 import Login from './login'
+import Home from './Home'
 
 const Stack = createStackNavigator();
 
@@ -22,8 +23,7 @@ const Landing = () => {
                             shadowOffset: {
                                 height: 0
                             }
-                        },
-                        headerTintColor: 'black',
+                        }
                     }}
                 />
                 <Stack.Screen
@@ -44,6 +44,15 @@ const Landing = () => {
                     }
                 />
             </Stack.Navigator>
+            <Stack.Screen
+                name="Home"
+                component={Home}
+                options={
+                    {
+                        title: 'Home'
+                    }
+                }
+            />
 
         </NavigationContainer>
     );
