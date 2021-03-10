@@ -1,62 +1,41 @@
 import 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
 import React, { useContext, useState, useEffect } from 'react';
-import { StyleSheet, TabBarIOS, Text, View } from 'react-native';
+import { StyleSheet, TabBarIOS, Text, View, Image, TouchableOpacity } from 'react-native';
 import { UserContext } from '../UserContext';
 import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { useNavigation } from "@react-navigation/native";
+const Stack = createStackNavigator();
 
 
-
-
-const Carrito = ({ route }) => {
-
-
-    const Tab = createBottomTabNavigator();
-
+const Micarrito = ({ user }) => {
     return (
-        <>
-            <Tab.Navigator>
-                <Tab.Screen
-                    name='Inicio'
-                    children={() => <HomeScreen user={items} />}
-                />
-                <Tab.Screen
-                    name='Buscar'
-                    children={() => <HomeScreen user={items} />}
-                />
-                <Tab.Screen
-                    name='Pedidos'
-                    children={() => <HomeScreen user={items} />}
-                />
-                <Tab.Screen
-                    name='Carrito'
-                    children={() => <HomeScreen user={items} />}
-                />
-                <Tab.Screen
-                    name='Cuenta'
-                    children={() => <Micuenta user={items} />}
-                />
-
-            </Tab.Navigator>
-        </>
-
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Carrito"
+            children={()=> <MicarritoScreen user={user} />}
+            initialParams={{user:user}}
+            options={{
+              headerShown: false
+            }}
+          />
+        </Stack.Navigator>
     );
 }
 
-const CarritoScreen = ({ user }) => {
-
+const MicarritoScreen = ({ user }) => {
     return (
         <>
             <View style={styles.container}>
               <Image style={styles.image} source={require("../assets/carrito.png")} />
-              <View>
+
                 <Text>Tu carrito esta vacio, comienza a agregar productos</Text>
                 <TouchableOpacity style={styles.comprarbtn}>
                     <Text style={styles.comprarText}>Comprar</Text>
                 </TouchableOpacity>
-              </View>
+
             </View>
         </>
 
@@ -67,18 +46,19 @@ const CarritoScreen = ({ user }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#1E6995',
+        backgroundColor: '#C0D5E1',
         alignItems: 'center',
         justifyContent: 'center',
+        fontWeight:'bold',
     },
     image: {
         marginBottom: 40,
-        width: '30%',
-        height: '15%'
+        width: '55%',
+        height: '30%',
     },
 
     comprarbtn: {
-        width: "80%",
+        width: 200,
         borderRadius: 25,
         height: 50,
         alignItems: "center",
@@ -86,12 +66,18 @@ const styles = StyleSheet.create({
         marginTop: 20,
         backgroundColor: "#FFAF4C",
         fontWeight: "bold",
+
     },
     comprarText: {
         fontSize: 20,
         fontWeight: 'bold',
         color: "#FFF",
+        alignItems: "center",
+        justifyContent: "center",
     },
+    txtblanco: {
+      color: "#FFF",
+    }
 });
 
-export default Carrito;
+export default Micarrito;
