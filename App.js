@@ -15,22 +15,22 @@ import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 
 const Stack = createStackNavigator();
 
-function getHeaderTitle(route) {
-    const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home';
+// function getHeaderTitle(route) {
+//     const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home';
 
-    switch (routeName) {
-        case 'Home':
-            return 'Hola';
-        case 'Cuenta':
-            return 'Mi Cuenta';
-        case 'Carrito':
-            return 'Mi Carrito';
-        case 'Pedidos':
-            return 'Mis pedidos';
-        case 'Buscar':
-            return 'Buscar';
-    }
-}
+//     switch (routeName) {
+//         case 'Home':
+//             return 'Hola';
+//         case 'Cuenta':
+//             return 'Mi Cuenta';
+//         case 'Carrito':
+//             return 'Mi Carrito';
+//         case 'Pedidos':
+//             return 'Mis pedidos';
+//         case 'Buscar':
+//             return 'Buscar';
+//     }
+// }
 
 const App = () => {
 
@@ -77,12 +77,7 @@ const App = () => {
                             component={Home}
                             options={({ route }) => (
                                 {
-                                    title: getHeaderTitle(route),
-                                    headerBackTitle: 'Log Out',
-                                    headerTintColor: '#000',
-                                    headerStyle: {
-                                        backgroundColor: '#C0D5E1'
-                                    },
+                                    headerShown: false,
                                     shadowOffset: {
                                         height: 0
                                     }
