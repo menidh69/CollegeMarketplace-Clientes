@@ -6,27 +6,11 @@ import { UserContext } from '../UserContext';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { useNavigation } from "@react-navigation/native";
-import Micuenta from './Micuenta';
-import Carrito from './Carrito';
 
 
 
 
-const Home = ({ route }) => {
-
-    const [items, setItems] = useState([]);
-
-
-    useEffect(() => {
-        fetchitems();
-    }, []);
-
-    const fetchitems = async (id) => {
-        const data = await fetch(`http://college-marketplace.eba-kd3ehnpr.us-east-2.elasticbeanstalk.com/api/v1/usuarioinfo/${route.params.id}`);
-        const it = await data.json();
-        setItems(it[0]);
-        console.log(it[0])
-    }
+const Carrito = ({ route }) => {
 
 
     const Tab = createBottomTabNavigator();
@@ -61,12 +45,18 @@ const Home = ({ route }) => {
     );
 }
 
-const HomeScreen = ({ user }) => {
+const CarritoScreen = ({ user }) => {
 
     return (
         <>
-            <View>
-                <Text>Hola este es el inicio {user.nombre}  </Text>
+            <View style={styles.container}>
+              <Image style={styles.image} source={require("../assets/carrito.png")} />
+              <View>
+                <Text>Tu carrito esta vacio, comienza a agregar productos</Text>
+                <TouchableOpacity style={styles.comprarbtn}>
+                    <Text style={styles.comprarText}>Comprar</Text>
+                </TouchableOpacity>
+              </View>
             </View>
         </>
 
@@ -81,6 +71,27 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    image: {
+        marginBottom: 40,
+        width: '30%',
+        height: '15%'
+    },
+
+    comprarbtn: {
+        width: "80%",
+        borderRadius: 25,
+        height: 50,
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: 20,
+        backgroundColor: "#FFAF4C",
+        fontWeight: "bold",
+    },
+    comprarText: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: "#FFF",
+    },
 });
 
-export default Home;
+export default Carrito;
