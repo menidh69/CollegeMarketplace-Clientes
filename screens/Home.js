@@ -2,7 +2,7 @@ import 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
 import React, { useContext, useState, useEffect } from 'react';
 import { StyleSheet, TabBarIOS, Text, View } from 'react-native';
-import { UserContext } from '../UserContext';
+import {NewUserContext} from '../NewUserContext';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { useNavigation } from "@react-navigation/native";
@@ -14,19 +14,19 @@ import Carrito from './Carrito';
 
 const Home = ({ route }) => {
 
-    const [items, setItems] = useState([]);
+    // const [items, setItems] = useState([]);
 
 
-    useEffect(() => {
-        fetchitems();
-    }, []);
+    // useEffect(() => {
+    //     fetchitems();
+    // }, []);
 
-    const fetchitems = async (id) => {
-        const data = await fetch(`http://college-marketplace.eba-kd3ehnpr.us-east-2.elasticbeanstalk.com/api/v1/usuarioinfo/${route.params.id}`);
-        const it = await data.json();
-        setItems(it[0]);
-        console.log(it[0])
-    }
+    // const fetchitems = async (id) => {
+    //     const data = await fetch(`http://college-marketplace.eba-kd3ehnpr.us-east-2.elasticbeanstalk.com/api/v1/usuarioinfo/${route.params.id}`);
+    //     const it = await data.json();
+    //     setItems(it[0]);
+    //     console.log(it[0])
+    // }
 
 
     const Tab = createBottomTabNavigator();
@@ -36,23 +36,23 @@ const Home = ({ route }) => {
             <Tab.Navigator>
                 <Tab.Screen
                     name='Inicio'
-                    children={() => <HomeScreen user={items} />}
+                    children={() => <HomeScreen/>}
                 />
                 <Tab.Screen
                     name='Buscar'
-                    children={() => <HomeScreen user={items} />}
+                    children={() => <HomeScreen/>}
                 />
                 <Tab.Screen
                     name='Pedidos'
-                    children={() => <HomeScreen user={items} />}
+                    children={() => <HomeScreen/>}
                 />
                 <Tab.Screen
                     name='Carrito'
-                    children={() => <HomeScreen user={items} />}
+                    children={() => <HomeScreen/>}
                 />
                 <Tab.Screen
                     name='Cuenta'
-                    children={() => <Micuenta user={items} />}
+                    children={() => <Micuenta/>}
                 />
 
             </Tab.Navigator>
@@ -61,8 +61,8 @@ const Home = ({ route }) => {
     );
 }
 
-const HomeScreen = ({ user }) => {
-
+const HomeScreen = () => {
+    const {user, setUser} = useContext(NewUserContext);
     return (
         <>
             <View>
