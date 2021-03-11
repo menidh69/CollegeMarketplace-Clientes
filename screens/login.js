@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, Image, TextInput, Button, TouchableOpacity, Ale
 import { useForm } from 'react-hook-form';
 import { useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from '@react-navigation/stack';
-import { UserContext, ContexProvider } from '../UserContext';
+import { UserContext} from '../UserContext';
 import AsyncStorage from '@react-native-community/async-storage'
 
 
@@ -12,9 +12,7 @@ const Stack = createStackNavigator();
 
 const Login = () => {
     return(
-        <ContexProvider>
             <Body/>
-        </ContexProvider>
     );
 
 }

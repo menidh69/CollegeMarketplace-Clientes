@@ -14,8 +14,9 @@ import AgregarTarjeta from './AgregarTarjeta';
 
 const Stack = createStackNavigator();
 
-const Micuenta = ({ user }) => {
+const Micuenta = () => {
 
+    const { user, setUser } = useContext(UserContext);
     
     return (
             <Stack.Navigator>

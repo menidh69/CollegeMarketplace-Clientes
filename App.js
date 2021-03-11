@@ -34,11 +34,11 @@ const Stack = createStackNavigator();
 
 const App = () => {
 
-
+    const [user, setUser] = useState(null);
 
     return (
         <>
-            <UserContext.Provider>
+            <UserContext.Provider value={{ user, setUser }}>
                 <NavigationContainer>
                     <Stack.Navigator>
                         <Stack.Screen
