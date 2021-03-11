@@ -38,7 +38,6 @@ const App = () => {
   const [user,setUser] = useState(null);
 
     return (
-        <>
             <UserContext.Provider value={{user, setUser}}>
                 <NavigationContainer>
                     <Stack.Navigator>
@@ -96,7 +95,7 @@ const App = () => {
 
 
                 </NavigationContainer>
-            </NewUserContext.Provider>
+            </UserContext.Provider>
     );
 
 }

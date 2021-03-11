@@ -4,12 +4,10 @@ import { StyleSheet, Text, View, Image, TextInput, Button, TouchableOpacity, Ale
 import { useForm } from 'react-hook-form';
 import { useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from '@react-navigation/stack';
-import { UserContext, ContexProvider } from '../UserContext';
 import AsyncStorage from '@react-native-community/async-storage';
 import ErrorModal from '../components/ErrorModal';
 import {isEmptyNull} from '../validation/formValidation'
 import { UserContext} from '../UserContext';
-import AsyncStorage from '@react-native-community/async-storage'
 
 
 
@@ -23,7 +21,7 @@ const Login = () => {
 }
 
 const Body = () => {
-    const { user, setUser } = useContext(NewUserContext);
+    const { user, setUser } = useContext(UserContext);
     const navigation = useNavigation();
     const [showmodal, setShowModal] = useState(false)
   const [modalMessage, setModalMessage] = useState("")
