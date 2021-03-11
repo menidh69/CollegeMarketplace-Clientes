@@ -20,7 +20,6 @@ const ProductoInfo = ({ route }) => {
     const [cantidad, setCantidad] = useState(1);
     const navigation = useNavigation()
 
-    const navigation = useNavigation();
 
     const agregarCarrito = async () => {
         try {
