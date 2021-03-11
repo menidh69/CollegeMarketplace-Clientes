@@ -59,12 +59,6 @@ const PedidosScreen = () => {
         const it = await data.json();
         // console.log(it.result);
         setItems(it.result);
-        const data2 = await fetch(
-            `http://college-marketplace.eba-kd3ehnpr.us-east-2.elasticbeanstalk.com/api/v1/tiendas/${it.result[0].id_tienda}`
-        );
-        const it2 = await data2.json();
-        // console.log(it2.tienda);
-        setTienda(it2.tienda);
     };
 
     return (
@@ -82,9 +76,24 @@ const PedidosScreen = () => {
     );
 };
 
-const Producto = ({ item, tienda }) => {
+const Producto = ({ item}) => {
     const navigation = useNavigation();
-    // console.log(tienda[0].nombre)
+    const [tienda, setTienda] = useState({})
+    useEffect(()=>{
+        console.log("Intentando fetch")
+        fetchTienda();
+    },[])
+
+    const fetchTienda = async()=>{
+        const data2 = await fetch(
+            `http://college-marketplace.eba-kd3ehnpr.us-east-2.elasticbeanstalk.com/api/v1/tiendas/${item.id_tienda}`
+        );
+        const it2 = await data2.json();
+        console.log(it2);
+        setTienda(it2);
+    }
+   console.log(tienda)
+   console.log(item)
     return (
         <>
             <View style={styles.productoContainer}>
@@ -95,7 +104,7 @@ const Producto = ({ item, tienda }) => {
                         ${Number.parseFloat(item.precio).toFixed(2)}
                     </Text>
                     <Text>Cantidad: {item.cantidad}</Text>
-                    <Text>Tienda: {tienda[0].nombre}</Text>
+                    <Text>Tienda: {tienda.tienda[0].nombre}</Text>
                 </View>
             </View>
             <View
