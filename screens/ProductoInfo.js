@@ -14,12 +14,46 @@ import { UserContext } from '../UserContext';
 import { useNavigation } from "@react-navigation/native";
 
 const ProductoInfo = ({ route }) => {
+
+    const {user, setUser} = useContext(UserContext);
+    const [cantidad, setCantidad] = useState(1);
+
+    const agregarCarrito = async () => {
+        try {
+            const body = {
+                id_user: user.id,
+                id_producto: route.params.producto.id,
+                cantidad: cantidad
+            }
+            const response = await fetch('http://college-marketplace.eba-kd3ehnpr.us-east-2.elasticbeanstalk.com/api/v1/carrito/agregar',
+                {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(body)
+                })
+                .then(async resp => {
+                    const result = await resp.json()
+                    if (result.error) {
+                        console.log(result.error)
+                    } else {
+                        console.log(result)
+                        navigation.reset({
+                            routes: [{ name: 'Inicio' }]
+                        });
+                    }
+                })
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
     return (
         <View style={styles.container}>
 
             <Image
                 style={styles.imageProducto}
-                source={require('../assets/food.png')}
+                source={{uri: route.params.producto.url_imagen ? route.params.producto.url_imagen : '../assets/food.png'}}
+                defaultSource={require('../assets/food.png')}
             />
             <View style={styles.productoContainer}>
                 <View style={styles.textContainer}>
@@ -36,8 +70,25 @@ const ProductoInfo = ({ route }) => {
                     <Text style={styles.precio}>${Number.parseFloat(route.params.producto.precio).toFixed(2)}</Text>
                     <Text style={styles.descripcionText}>{route.params.producto.descripcion}</Text>
 
+
+                    <View style={styles.quantityContainer}>
+                        <Text style={{width: "100%", textAlign: 'center', fontSize: 15, marginTop: 10}}>Cantidad</Text>
+                        <TouchableOpacity style={styles.quantityBtn} onPress={() => setCantidad(cantidad == 1 ? cantidad : cantidad - 1)}>
+                            <Text style={{ textAlign: 'center', fontSize: 16, fontWeight: 'bold' }} >-</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.quantityText}>
+                            <Text style={{ textAlign: 'center' }} >{cantidad}</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.quantityBtn} onPress={() => setCantidad(cantidad == 10 ? cantidad : cantidad + 1)}>
+                            <Text style={{ textAlign: 'center', fontSize: 16, fontWeight: 'bold' }}>+</Text>
+                        </TouchableOpacity>
+
+                    </View>
+
+
+
                 </View>
-                <TouchableOpacity style={styles.agregarBtn}>
+                <TouchableOpacity style={styles.agregarBtn} onPress={() => agregarCarrito()}>
                     <Text style={styles.agregarText}>Agregar al carrito</Text>
                 </TouchableOpacity>
             </View>
@@ -63,7 +114,7 @@ const styles = StyleSheet.create({
         padding: 10,
         width: "80%",
         alignItems: 'center',
-        height: "40%",
+        height: "50%",
         borderRadius: 20,
         justifyContent: 'space-between'
     },
@@ -95,6 +146,31 @@ const styles = StyleSheet.create({
     agregarText: {
         fontSize: 16,
         fontWeight: 'bold'
+    },
+    quantityBtn: {
+        borderRadius: 50,
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "#E99125",
+        marginLeft: 15,
+        padding: 15,
+        width: 46,
+        height: 46
+    },
+    quantityContainer: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        marginTop: 25
+    },
+    quantityText: {
+        borderRadius: 50,
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "#FFF",
+        marginLeft: 15,
+        padding: 15,
+        width: 46
     }
 });
 

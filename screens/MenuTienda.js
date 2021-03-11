@@ -30,11 +30,14 @@ const MenuTienda = ({ route }) => {
     }
 
     return (
-        <FlatList
-            style={styles.listaContainer}
-            data={items}
-            renderItem={({ item }) => <Producto producto={item} />}
-        />
+        <>
+            <Text style={{fontSize: 24, backgroundColor: "#C0D5E1", textAlign:"center"}}>{items.length > 0 ? "" : "No hay productos"}</Text>
+            <FlatList
+                style={styles.listaContainer}
+                data={items}
+                renderItem={({ item }) => <Producto producto={item} />}
+            />
+        </>
     );
 }
 
@@ -46,7 +49,8 @@ const Producto = ({ producto }) => {
                 <View style={styles.productoContainer} >
                     <Image
                         style={styles.imageProducto}
-                        source={require('../assets/food.png')}
+                        source={{ uri: producto.url_imagen ? producto.url_imagen : '../assets/food.png' }}
+                        defaultSource={require('../assets/food.png')}
                     />
                     <View style={styles.textoProductoContainer}>
                         <Text style={styles.titulo}>{producto.nombre}</Text>

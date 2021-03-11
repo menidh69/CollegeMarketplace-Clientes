@@ -35,7 +35,20 @@ const Tienda = ({ tienda }) => {
 
     const navigation = useNavigation();
 
- 
+    var tipoTienda = "";
+
+    switch (tienda.id_tipo_tienda) {
+        case 1:
+            tipoTienda = "Cooperativa"
+            break;
+    
+        case 2:
+            tipoTienda = "Puesto"
+            break;
+        case 3: 
+            tipoTienda = "Cafetería"
+            break;
+    }
 
     return (
         <>
@@ -43,11 +56,12 @@ const Tienda = ({ tienda }) => {
                 <Image
                     style={styles.imageProducto}
                     source={{uri: tienda.url_imagen ? tienda.url_imagen : '../assets/restaurant.png'}}
+                    defaultSource={require('../assets/restaurant.png')}
                 />
                 <View style={styles.textoProductoContainer}>
                     <Text>{tienda.nombre}</Text>
                     <Text>{tienda.horario}</Text>
-                    <Text>{tienda.id_tipo_tienda}</Text>
+                    <Text>{tipoTienda }</Text>
                 </View>
                 <View
                     style={{
