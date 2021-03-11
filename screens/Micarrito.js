@@ -133,7 +133,7 @@ const MicarritoScreen = () => {
             <TouchableHighlight
               style={{ ...styles.openButton, borderColor: "red", borderWidth:1, backgroundColor: "white", height:40, margin:15 }}
               onPress={() => {
-                setModalShow(!showModal);
+                setShowModal(!showModal);
               }}>
               <Text style={{...styles.textStyle, color: "red"}}>Cancelar</Text>
             </TouchableHighlight>
