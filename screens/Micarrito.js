@@ -94,16 +94,20 @@ const MicarritoScreen = () => {
 
     { if (items.length > 0 ) {
       return (
-        <View style={styles.container}>
+        <View style = {styles.container2} >
             <FlatList
               style={styles.listaContainer}
                 data={items}
                 renderItem={({ item }) => <Producto producto={item}/> }
             />
-          <View>
+
+            <View style={ {marginBottom:20, marginLeft:20} }>
             <Text>Items total: {getTotalCantidad()}</Text>
             <Text>Total: ${getTotaPrecio()} </Text>
+            </View>
+          <View style={styles.totalcontainer}>
             <TouchableOpacity style={styles.btncheckout} onPress={()=>setShowModal(true)}>
+
                   <Text style={styles.txtcheckout}>Checkout</Text>
               </TouchableOpacity>
           </View>
@@ -143,6 +147,7 @@ const MicarritoScreen = () => {
         </View>
       </Modal>
 
+
         </View>
       );
 
@@ -152,8 +157,8 @@ const MicarritoScreen = () => {
 
           <Image style={styles.image} source={require("../assets/carrito.png")} />
             <Text>Tu carrito esta vacio, comienza a agregar productos</Text>
-            <TouchableOpacity style={styles.btn}>
-                <Text style={styles.btnText}>Comprar</Text>
+            <TouchableOpacity style={styles.btncomprar}>
+                <Text style={styles.txtcomprar}>Comprar</Text>
             </TouchableOpacity>
 
 
@@ -177,15 +182,18 @@ const Producto = ({ producto }) => {
             <Text>Cantidad: {producto.cantidad}</Text>
             <Text>{producto['producto'].descripcion}</Text>
         </View>
-        <View style={{justifyContent: 'center'}}>
-            <TouchableOpacity >
-              <MaterialCommunityIcons name="trash-can-outline" size={25} />
+        <View style={styles.basuraicon}  >
+            <TouchableOpacity onPress={()=> alert("Eliminar producto de carrito?")} >
+              <MaterialCommunityIcons name="trash-can-outline" size={28}  />
             </TouchableOpacity>
         </View>
       </View>
   );
 }
 
+const EliminarItem = () => {
+  console.log("entro al eliminar");
+}
 
 const styles = StyleSheet.create({
     container: {
@@ -201,7 +209,7 @@ const styles = StyleSheet.create({
         height: '30%',
     },
 
-    btn: {
+    btncomprar: {
         width: 200,
         borderRadius: 25,
         height: 50,
@@ -212,7 +220,7 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
 
     },
-    btnText: {
+    txtcomprar: {
         fontSize: 20,
         fontWeight: 'bold',
         color: "#FFF",
@@ -233,6 +241,7 @@ const styles = StyleSheet.create({
     txtcheckout: {
         color: "#FFF",
         fontSize: 25,
+
     },
     txtblanco: {
       color: "#FFF",
@@ -242,7 +251,10 @@ const styles = StyleSheet.create({
         flexWrap: 'wrap',
         marginTop: 10,
         padding: 15,
-        alignItems: 'center'
+        alignItems: 'center',
+        borderBottomColor: 'black',
+        borderBottomWidth: 1,
+
     },
     imageProducto: {
         width: 75,
@@ -251,11 +263,16 @@ const styles = StyleSheet.create({
         backgroundColor: 'white'
     },
     listaContainer: {
-        width: "90%",
+        flexGrow: 0,
+        marginBottom: 20,
+        marginLeft:15,
+        marginRight: 15,
+
     },
     txtproducto: {
         marginLeft: 15
     },
+
     button:{
       borderRadius: 20,
       backgroundColor: "#E99125",
@@ -294,6 +311,22 @@ const styles = StyleSheet.create({
     modalText: {
       marginBottom: 15,
       textAlign: 'center',
+      },
+    container2:{
+      flex: 1,
+      backgroundColor: '#C0D5E1',
+      fontWeight:'bold',
+    },
+    totalcontainer: {
+      alignItems: 'center',
+      fontSize: 50,
+    },
+    basuraicon: {
+      flex: 1,
+      marginLeft:25,
+      justifyContent:'center',
+      alignItems: 'center',
+
     },
 });
 

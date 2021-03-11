@@ -17,12 +17,14 @@ import { UserContext } from '../UserContext';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Micuenta from './Micuenta';
-import Micarrito from './Micarrito';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Micarrito from './Micarrito';
+
 import { createStackNavigator } from '@react-navigation/stack';
 import MenuTienda from './MenuTienda';
 import { useNavigation } from "@react-navigation/native";
 import ProductoInfo from './ProductoInfo';
+import Pedidos from './Pedidos'
 
 
 
@@ -37,11 +39,11 @@ const Tienda = ({ tienda }) => {
         case 1:
             tipoTienda = "Cooperativa"
             break;
-    
+
         case 2:
             tipoTienda = "Puesto"
             break;
-        case 3: 
+        case 3:
             tipoTienda = "Cafetería"
             break;
     }
@@ -51,13 +53,13 @@ const Tienda = ({ tienda }) => {
             <View style={styles.productoContainer}>
                 <Image
                     style={styles.imageProducto}
-                    source={{uri: tienda.url_imagen ? tienda.url_imagen : '../assets/restaurant.png'}}
+                    source={{ uri: tienda.url_imagen ? tienda.url_imagen : '../assets/restaurant.png' }}
                     defaultSource={require('../assets/restaurant.png')}
                 />
                 <View style={styles.textoProductoContainer}>
                     <Text>{tienda.nombre}</Text>
                     <Text>{tienda.horario}</Text>
-                    <Text>{tipoTienda }</Text>
+                    <Text>{tipoTienda}</Text>
                 </View>
                 <View
                     style={{
@@ -96,55 +98,57 @@ const Home = ({ route }) => {
             <Tab.Navigator>
                 <Tab.Screen
                     name='Inicio'
-                    children={() => <Explorar/>}
+
+                    children={() => <Explorar  />}
                     options={{
-                      tabBarIcon: ({color, size}) => (
-                        <MaterialCommunityIcons name="home" color={color} size={size} />
-                      ),
+                        tabBarIcon: ({ color, size }) => (
+                            <MaterialCommunityIcons name="home" color={color} size={size} />
+                        ),
                     }}
                 />
                 <Tab.Screen
                     name='Buscar'
-                    children={() => <HomeScreen/>}
+                    children={() => <HomeScreen />}
                     options={{
-                      tabBarIcon: ({color, size}) => (
-                        <MaterialCommunityIcons name="magnify" color={color} size={size} />
-                      ),
+                        tabBarIcon: ({ color, size }) => (
+                            <MaterialCommunityIcons name="magnify" color={color} size={size} />
+                        ),
                     }}
                 />
                 <Tab.Screen
                     name='Pedidos'
-                    children={() => <HomeScreen/>}
+                    children={() => <Pedidos  />}
                     options={{
-                      tabBarIcon: ({color, size}) => (
-                        <MaterialCommunityIcons name="ticket" color={color} size={size} />
-                      ),
+                        tabBarIcon: ({ color, size }) => (
+                            <MaterialCommunityIcons name="ticket" color={color} size={size} />
+                        ),
                     }}
                 />
                 <Tab.Screen
                     name='Carrito'
-                    children={() => <Micarrito/>}
+
+                    children={() => <Micarrito  />}
+
                     options={{
-                      tabBarIcon: ({color, size}) => (
-                        <MaterialCommunityIcons name="cart-outline" color={color} size={size} />
-                      ),
-                      
+                        tabBarIcon: ({ color, size }) => (
+                            <MaterialCommunityIcons name="cart-outline" color={color} size={size} />
+                        ),
+
                     }}
                 />
-
-
                 <Tab.Screen
                     name='Cuenta'
 
-                    children={() => <Micuenta/>}
+
+                    children={() => <Micuenta  />}
                     options={{
-                      tabBarIcon: ({color, size}) => (
-                        <MaterialCommunityIcons name="account" color={color} size={size} />
-                      ),
+                        tabBarIcon: ({ color, size }) => (
+                            <MaterialCommunityIcons name="account" color={color} size={size} />
+                        ),
                     }}
                 />
 
-                
+
 
             </Tab.Navigator>
         </>
