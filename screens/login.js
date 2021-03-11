@@ -51,7 +51,7 @@ const Body = () => {
                 AsyncStorage.setItem("token.tuw", result.user.token)
                 setUser(result.user);
                 
-                navigation.navigate('Home', {id: result.user.id})
+                navigation.reset({ routes: [{name: 'Home'}]})
                     }
                 
         } catch (err) {

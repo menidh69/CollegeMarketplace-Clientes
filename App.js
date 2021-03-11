@@ -96,6 +96,7 @@ const App = () => {
 
                 </NavigationContainer>
             </UserContext.Provider>
+
     );
 
 }

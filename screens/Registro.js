@@ -11,11 +11,11 @@ import {
 } from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 import {emailValidation, textValidation, isEmptyNull, repeatPassword, numberValidation, limit} from '../validation/formValidation'
-import {NewUserContext} from '../NewUserContext';
+import {UserContext} from '../UserContext';
 import ErrorModal from '../components/ErrorModal'
 
 const Registro = ({navigation})=> {
-  const {user, setUser} = useContext(NewUserContext);
+  const {user, setUser} = useContext(UserContext);
   const [showModal, setShowModal] = useState(false);
   const [message, setModalMessage] = useState("");
   const [universidades, setUniversidades] = useState([])

@@ -1,6 +1,6 @@
 
 import { StatusBar } from "expo-status-bar";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
     StyleSheet,
     Text,
@@ -19,6 +19,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Micuenta from './Micuenta';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Micarrito from './Micarrito';
+
 import { createStackNavigator } from '@react-navigation/stack';
 import MenuTienda from './MenuTienda';
 import { useNavigation } from "@react-navigation/native";
@@ -97,6 +98,7 @@ const Home = ({ route }) => {
             <Tab.Navigator>
                 <Tab.Screen
                     name='Inicio'
+
                     children={() => <Explorar  />}
                     options={{
                         tabBarIcon: ({ color, size }) => (
@@ -124,7 +126,9 @@ const Home = ({ route }) => {
                 />
                 <Tab.Screen
                     name='Carrito'
+
                     children={() => <Micarrito  />}
+
                     options={{
                         tabBarIcon: ({ color, size }) => (
                             <MaterialCommunityIcons name="cart-outline" color={color} size={size} />
@@ -135,6 +139,7 @@ const Home = ({ route }) => {
                 <Tab.Screen
                     name='Cuenta'
 
+
                     children={() => <Micuenta  />}
                     options={{
                         tabBarIcon: ({ color, size }) => (
@@ -142,6 +147,7 @@ const Home = ({ route }) => {
                         ),
                     }}
                 />
+
 
 
             </Tab.Navigator>
