@@ -17,115 +17,117 @@ const Stack = createStackNavigator();
 const Micuenta = () => {
 
     const { user, setUser } = useContext(UserContext);
-    
+
     return (
-            <Stack.Navigator>
-                <Stack.Screen
-                    name="Cuenta"
-                    children={() => <MicuentaScreen user={user} />}
-                    initialParams={{ user: user }}
-                    options={{
-                        title: 'Mi cuenta',
-                        headerStyle: {
-                            backgroundColor: '#C0D5E1',
-                            shadowOffset: {
-                                height: 0
-                            }
-                        },
-                        headerLeft: null
-                    }}
-                />
-                <Stack.Screen
-                    name="AgregarTarjeta"
-                    component={AgregarTarjeta}
-                    initialParams={{ user: user }}
-                    options={{
-                        title: 'Agregar Tarjeta',
-                        headerStyle: {
-                            backgroundColor: '#C0D5E1',
-                            shadowOffset: {
-                                height: 0
-                            }
-                        },
-                        headerTintColor: 'black'
-                    }}
-                />
-            </Stack.Navigator>
+        <Stack.Navigator>
+            <Stack.Screen
+                name="Cuenta"
+                children={() => <MicuentaScreen user={user} />}
+                initialParams={{ user: user }}
+                options={{
+                    title: 'Mi cuenta',
+                    headerStyle: {
+                        backgroundColor: '#C0D5E1',
+                        shadowOffset: {
+                            height: 0
+                        }
+                    },
+                    headerLeft: null
+                }}
+            />
+            <Stack.Screen
+                name="AgregarTarjeta"
+                component={AgregarTarjeta}
+                initialParams={{ user: user }}
+                options={{
+                    title: 'Agregar Tarjeta',
+                    headerStyle: {
+                        backgroundColor: '#C0D5E1',
+                        shadowOffset: {
+                            height: 0
+                        }
+                    },
+                    headerTintColor: 'black'
+                }}
+            />
+        </Stack.Navigator>
 
 
 
     );
 }
 
-const MicuentaScreen = ({user}) => {
+const MicuentaScreen = ({ user }) => {
 
     const navigation = useNavigation();
 
 
     return (
         <View style={styles.container}>
-                <List.Section style={styles.datosPersonales}>
-                    <List.Accordion
-                        title="Detalles personales" >
-                        <View style={styles.detallesContainer}>
-                            <View style={styles.imagen}></View>
-                            <View style={styles.datosPersonalesList}>
-                                <Text>{user.nombre} {user.apellidos}</Text>
-                                <Text>{user.email}</Text>
-                                <View
-                                    style={{
-                                        marginTop: 10,
-                                        marginBottom: 10,
-                                        borderBottomColor: 'black',
-                                        borderBottomWidth: 1,
-                                    }}
-                                />
-                                <Text>{user.tel}</Text>
-                                <View
-                                    style={{
-                                        marginTop: 10,
-                                        marginBottom: 10,
-                                        borderBottomColor: 'black',
-                                        borderBottomWidth: 1,
-                                    }}
-                                />
+            <List.Section style={styles.datosPersonales}>
+                <List.Accordion
+                    title="Detalles personales" >
+                    <View style={styles.detallesContainer}>
+                        <View style={styles.imagen}></View>
+                        <View style={styles.datosPersonalesList}>
+                            <Text>{user.nombre} {user.apellidos}</Text>
+                            <Text>{user.email}</Text>
+                            <View
+                                style={{
+                                    marginTop: 10,
+                                    marginBottom: 10,
+                                    borderBottomColor: 'black',
+                                    borderBottomWidth: 1,
+                                }}
+                            />
+                            <Text>{user.tel}</Text>
+                            <View
+                                style={{
+                                    marginTop: 10,
+                                    marginBottom: 10,
+                                    borderBottomColor: 'black',
+                                    borderBottomWidth: 1,
+                                }}
+                            />
 
-                            </View>
                         </View>
-                    </List.Accordion>
-                </List.Section>
-                <List.Section style={styles.datosPersonales}>
-                    <List.Accordion
-                        title="Ordenes" >
-                        <View style={styles.detallesContainer}>
-                            <View style={styles.imagen}></View>
-                            <View style={styles.datosPersonalesList}>
-                                <Text>Tarjetas</Text>
-                                <TouchableOpacity>
-                                    <Text>Agregar Tarjeta</Text>
+                    </View>
+                </List.Accordion>
+            </List.Section>
+            <List.Section style={styles.datosPersonales}>
+                <List.Accordion
+                    title="Ordenes" >
+                    <View style={styles.detallesContainer}>
+                        <View style={styles.imagen}></View>
+                        <View style={styles.datosPersonalesList}>
+                            <Text>Tarjetas</Text>
+                            <TouchableOpacity>
+                                <Text>Agregar Tarjeta</Text>
+                            </TouchableOpacity>
+
+                        </View>
+                    </View>
+                </List.Accordion>
+            </List.Section>
+            <List.Section style={styles.datosPersonales}>
+                <List.Accordion
+                    title="Información bancaria" >
+                    <View style={styles.informacionBancaria}>
+                        <View style={styles.tarjetasContainer}>
+                            <Text>Mis tarjetas</Text>
+                            <View style={styles.agregarTarjetaBtnContainer}>
+                                <TouchableOpacity style={styles.agregarTarjetaBtn} onPress={() => navigation.navigate('AgregarTarjeta')} >
+                                    <Text style={styles.textoAgregarTarjetaBtn}>Agregar Tarjeta</Text>
                                 </TouchableOpacity>
-
                             </View>
-                        </View>
-                    </List.Accordion>
-                </List.Section>
-                <List.Section style={styles.datosPersonales}>
-                    <List.Accordion
-                        title="Información bancaria" >
-                        <View style={styles.informacionBancaria}>
-                            <View style={styles.tarjetasContainer}>
-                                <Text>Mis tarjetas</Text>
-                                <View style={styles.agregarTarjetaBtnContainer}>
-                                    <TouchableOpacity style={styles.agregarTarjetaBtn} onPress={() => navigation.navigate('AgregarTarjeta')} >
-                                        <Text style={styles.textoAgregarTarjetaBtn}>Agregar Tarjeta</Text>
-                                    </TouchableOpacity>
-                                </View>
 
-                            </View>
                         </View>
-                    </List.Accordion>
-                </List.Section>
-
+                    </View>
+                </List.Accordion>
+            </List.Section>
+            <TouchableOpacity style={styles.logoutBtn} onPress={() => navigation.reset({routes: [{ name: 'Landing' }]})} >
+                <Text style={styles.textoAgregarTarjetaBtn}>Cerrar sesión</Text>
+            </TouchableOpacity>
         </View>
 
     );
@@ -187,6 +189,14 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: '#FFF',
         fontWeight: '700'
+    },
+    logoutBtn: {
+        marginTop: 20,
+        width: "80%",
+        padding: 15,
+        borderRadius: 25,
+        height: 50,
+        backgroundColor: "#bf4d4d",
     }
 });
 
