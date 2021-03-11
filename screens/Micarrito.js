@@ -98,7 +98,7 @@ const Producto = ({ producto }) => {
             <Text>{producto['producto'].descripcion}</Text>
         </View>
         <View style={styles.basuraicon}  >
-            <TouchableOpacity onPress={()=> alert("Eliminar producto de carrito?")} >   
+            <TouchableOpacity onPress={()=> alert("Eliminar producto de carrito?")} >
               <MaterialCommunityIcons name="trash-can-outline" size={28}  />
             </TouchableOpacity>
         </View>
