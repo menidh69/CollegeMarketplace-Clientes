@@ -46,7 +46,6 @@ const PedidosScreen = () => {
     const navigation = useNavigation();
 
     const [items, setItems] = useState([]);
-    const [tienda, setTienda] = useState([]);
 
     useEffect(() => {
         fetchitems();
@@ -70,7 +69,7 @@ const PedidosScreen = () => {
             <FlatList
                 style={styles.listaContainer}
                 data={items}
-                renderItem={({ item }) => <Producto item={item} tienda={tienda} />}
+                renderItem={({ item }) => <Producto item={item}/>}
             />
         </View>
     );
@@ -78,21 +77,7 @@ const PedidosScreen = () => {
 
 const Producto = ({ item}) => {
     const navigation = useNavigation();
-    const [tienda, setTienda] = useState({})
-    useEffect(()=>{
-        console.log("Intentando fetch")
-        fetchTienda();
-    },[])
 
-    const fetchTienda = async()=>{
-        const data2 = await fetch(
-            `http://college-marketplace.eba-kd3ehnpr.us-east-2.elasticbeanstalk.com/api/v1/tiendas/${item.id_tienda}`
-        );
-        const it2 = await data2.json();
-        console.log(it2);
-        setTienda(it2);
-    }
-   console.log(tienda)
    console.log(item)
     return (
         <>
@@ -104,7 +89,7 @@ const Producto = ({ item}) => {
                         ${Number.parseFloat(item.precio).toFixed(2)}
                     </Text>
                     <Text>Cantidad: {item.cantidad}</Text>
-                    <Text>Tienda: {tienda.tienda[0].nombre}</Text>
+                    <Text>Tienda: {item.nombre_tienda}</Text>
                 </View>
             </View>
             <View
