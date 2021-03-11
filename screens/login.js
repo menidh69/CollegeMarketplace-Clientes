@@ -12,9 +12,7 @@ const Stack = createStackNavigator();
 
 const Login = () => {
     return(
-        <ContexProvider>
             <Body/>
-        </ContexProvider>
     );
 
 }
