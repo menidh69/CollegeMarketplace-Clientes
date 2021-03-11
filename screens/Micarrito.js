@@ -20,7 +20,14 @@ const Micarrito = ({ user }) => {
             children={()=> <MicarritoScreen user={user} />}
             initialParams={{user:user}}
             options={{
-              headerShown: false
+                title: 'Carrito',
+                headerLeft: null,
+                headerStyle: {
+                    backgroundColor: '#C0D5E1',
+                    shadowOffset: {
+                        height: 0
+                    }
+                }
             }}
           />
         </Stack.Navigator>

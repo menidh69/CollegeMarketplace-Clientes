@@ -18,7 +18,6 @@ const ProductoInfo = ({ route }) => {
 
     const {user, setUser} = useContext(UserContext);
     const [cantidad, setCantidad] = useState(1);
-    const navigation = useNavigation()
 
 
     const agregarCarrito = async () => {
