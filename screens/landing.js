@@ -1,65 +1,23 @@
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image, Button, } from 'react-native';
 import Login from './login'
-import Home from './Home'
 
 const Stack = createStackNavigator();
 
 
 const Landing = () => {
     return (
-        <NavigationContainer>
-            <Stack.Navigator>
-                <Stack.Screen
-                    name="ScreenLanding"
-                    component={LandingScreen}
-                    options={{
-                        title: '',
-                        headerStyle: {
-                            backgroundColor: '#1E6995',
-                            shadowOffset: {
-                                height: 0
-                            }
-                        }
-                    }}
-                />
-                <Stack.Screen
-                    name="Login"
-                    component={Login}
-                    options={
-                        {
-                            title: 'Log In',
-                            headerBackTitle: 'Atrás',
-                            headerTintColor: '#000',
-                            headerStyle: {
-                                backgroundColor: '#C0D5E1'
-                            },
-                            shadowOffset: {
-                                height: 0
-                            }
-                        }
-                    }
-                />
-            </Stack.Navigator>
-            <Stack.Screen
-                name="Home"
-                component={Home}
-                options={
-                    {
-                        title: 'Home'
-                    }
-                }
-            />
-
-        </NavigationContainer>
+       <LandingScreen/>
     );
 }
 
 
-const LandingScreen = ({ navigation }) => {
+const LandingScreen = () => {
+    const navigation = useNavigation();
+    
     return (
         <View style={styles.container}>
             <Image style={styles.logo} source={require("../assets/splash.png")} />

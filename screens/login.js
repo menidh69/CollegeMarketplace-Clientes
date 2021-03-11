@@ -1,74 +1,32 @@
 import { StatusBar } from "expo-status-bar";
-<<<<<<< HEAD
-import React, { useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TextInput,
-  Button,
-  TouchableOpacity,
-} from "react-native";
-
-export default function login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  return (
-    <View style={styles.container}>
-      <Image style={styles.image} source={"assets/icon.png"} />
-
-      <StatusBar style="auto" />
-      <View style={styles.inputView}>
-        <TextInput
-          style={styles.TextInput}
-          placeholder="Email."
-          placeholderTextColor="#003f5c"
-          onChangeText={(email) => setEmail(email)}
-        />
-      </View>
-
-      <View style={styles.inputView}>
-        <TextInput
-          style={styles.TextInput}
-          placeholder="Password."
-          placeholderTextColor="#003f5c"
-          secureTextEntry={true}
-          onChangeText={(password) => setPassword(password)}
-        />
-      </View>
-
-      <TouchableOpacity>
-        <Text style={styles.forgot_button}>Forgot Password?</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.loginBtn}>
-        <Text style={styles.loginText}>LOGIN</Text>
-      </TouchableOpacity>
-    </View>
-  );
-=======
 import React, { useState, useEffect, useContext } from "react";
-import { StyleSheet, Text, View, Image, TextInput, Button, TouchableOpacity, Alert, AsyncStorage } from "react-native";
+import { StyleSheet, Text, View, Image, TextInput, Button, TouchableOpacity, Alert } from "react-native";
 import { useForm } from 'react-hook-form';
-import { NavigationContainer } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from '@react-navigation/stack';
-import { UserContext } from '../UserContext';
+import { UserContext, ContexProvider } from '../UserContext';
+import AsyncStorage from '@react-native-community/async-storage'
+
+
+const Stack = createStackNavigator();
 
 const Login = () => {
+    return(
+        <ContexProvider>
+            <Body/>
+        </ContexProvider>
+    );
 
+}
+
+const Body = () => {
     const { user, setUser } = useContext(UserContext);
-
-    const Stack = createStackNavigator();
+    const navigation = useNavigation();
 
     const onSubmit = async data => {
 
-        
-
         try {
             const body = data;
-            console.log(body);
             const response = await fetch('http://college-marketplace.eba-kd3ehnpr.us-east-2.elasticbeanstalk.com/api/v1/usuario/login',
                 {
                     method: "POST",
@@ -80,10 +38,9 @@ const Login = () => {
                     if (result.error) {
                         console.log(result.error)
                     } else {
-                        console.log(result.user)
                         AsyncStorage.setItem("token.tuw", result.user.token)
                         setUser(result.user);
-
+                        navigation.navigate('Home', {id: result.user.id})
                     }
                 })
         } catch (err) {
@@ -152,7 +109,7 @@ const Login = () => {
             </View>
         </View>
     );
->>>>>>> 50d2829b1d3b08b97912070599670fd949b9ccc4
+
 }
 
 const styles = StyleSheet.create({
@@ -165,7 +122,7 @@ const styles = StyleSheet.create({
 
     image: {
         marginBottom: 40,
-        width: '30%',
+        width: '40%',
         height: '15%'
     },
 
