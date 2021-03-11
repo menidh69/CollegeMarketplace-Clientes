@@ -37,23 +37,28 @@ const MicarritoScreen = () => {
         {/*const data = await fetch(`http://college-marketplace.eba-kd3ehnpr.us-east-2.elasticbeanstalk.com/api/v1/carrito/{user.id}/items`); */}
         const data = await fetch('http://college-marketplace.eba-kd3ehnpr.us-east-2.elasticbeanstalk.com/api/v1/carrito/8/items')
         const it = await data.json();
-        console.log(it)
-        setItems(it)
-        console.log(items)
+        console.log(it["carrito_items"])
+        setItems(it["carrito_items"])
     }
 
-    { if (items.lenght > 0 ) {
+
+    { if (items.length > 0 ) {
       return (
         <View style={styles.container}>
-          <Text>Hay productos</Text>
             <FlatList
               style={styles.listaContainer}
                 data={items}
                 renderItem={({ item }) => <Producto producto={item} /> }
             />
-          <TouchableOpacity style={styles.btn}>
-                <Text style={styles.btnText}>Checkout</Text>
-            </TouchableOpacity>
+          <View>
+            <Text>Items total</Text>
+            <Text>Taxes</Text>
+            <Text>Total</Text>
+            <TouchableOpacity style={styles.btncheckout}>
+                  <Text style={styles.txtcheckout}>Checkout</Text>
+              </TouchableOpacity>
+          </View>
+
         </View>
       );
 
@@ -66,21 +71,15 @@ const MicarritoScreen = () => {
             <TouchableOpacity style={styles.btn}>
                 <Text style={styles.btnText}>Comprar</Text>
             </TouchableOpacity>
-            {/*esto es para prueba lo voy a quitar
-            <FlatList
-              style={styles.listaContainer}
-                data={items}
-                renderItem={({ item }) => <Producto producto={item} /> }
-            />
-          <TouchableOpacity style={styles.btn}>
-                <Text style={styles.btnText}>Checkout</Text>
-            </TouchableOpacity>
+
+
         </View>
-        */}
+
       );
 
       }
     }
+
 }
 
 const Producto = ({ producto }) => {
@@ -89,13 +88,13 @@ const Producto = ({ producto }) => {
       <View style={styles.productoContainer} >
         <View style={styles.imageProducto}></View>
         <View style={styles.txtproducto}>
-          <Text>{producto.nombre}</Text>
-            <Text>${Number.parseFloat(producto.precio).toFixed(2)}</Text>
-            <Text>{producto.descripcion}</Text>
+          <Text>{producto['producto'].nombre}</Text>
+            <Text>${Number.parseFloat(producto['producto'].precio).toFixed(2)}</Text>
+            <Text>{producto['producto'].descripcion}</Text>
         </View>
-        <View style={{ width: "100%", alignItems: 'center', flexDirection: 'row', justifyContent: 'center' }}>
+        <View style={{justifyContent: 'center'}}>
             <TouchableOpacity >
-              <MaterialCommunityIcons name="trash-can-outline"  />
+              <MaterialCommunityIcons name="trash-can-outline" size={25} />
             </TouchableOpacity>
         </View>
       </View>
@@ -135,6 +134,21 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
     },
+    btncheckout: {
+        width: 250,
+        borderRadius: 25,
+        height: 50,
+        alignItems: "center",
+        justifyContent: "center",
+        marginBottom: 20,
+        backgroundColor: "#FFAF4C",
+        fontWeight: "bold",
+
+    },
+    txtcheckout: {
+        color: "#FFF",
+        fontSize: 25,
+    },
     txtblanco: {
       color: "#FFF",
     },
@@ -153,8 +167,6 @@ const styles = StyleSheet.create({
     },
     listaContainer: {
         width: "90%",
-        backgroundColor: "white",
-        color: 'white',
     },
     txtproducto: {
         marginLeft: 15
