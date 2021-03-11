@@ -8,7 +8,8 @@ import {
     TextInput,
     Button,
     TouchableOpacity,
-    FlatList
+    FlatList,
+    Alert
 } from "react-native";
 import { UserContext } from '../UserContext';
 import { useNavigation } from "@react-navigation/native";
@@ -17,6 +18,7 @@ const ProductoInfo = ({ route }) => {
 
     const {user, setUser} = useContext(UserContext);
     const [cantidad, setCantidad] = useState(1);
+    const navigation = useNavigation()
 
     const agregarCarrito = async () => {
         try {
@@ -25,6 +27,7 @@ const ProductoInfo = ({ route }) => {
                 id_producto: route.params.producto.id,
                 cantidad: cantidad
             }
+            console.log(body)
             const response = await fetch('http://college-marketplace.eba-kd3ehnpr.us-east-2.elasticbeanstalk.com/api/v1/carrito/agregar',
                 {
                     method: "POST",
@@ -40,6 +43,7 @@ const ProductoInfo = ({ route }) => {
                         navigation.reset({
                             routes: [{ name: 'Inicio' }]
                         });
+                        Alert("Agregado exitosamente")
                     }
                 })
         } catch (err) {
