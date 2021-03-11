@@ -12,7 +12,6 @@ import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 
 
 
-
 const Stack = createStackNavigator();
 
 // function getHeaderTitle(route) {
@@ -34,11 +33,14 @@ const Stack = createStackNavigator();
 
 const App = () => {
 
-    const [user, setUser] = useState(null);
+
+  const [user,setUser] = useState(null);
 
     return (
         <>
-            <UserContext.Provider value={{ user, setUser }}>
+            <UserContext.Provider value={{user, setUser}}>
+
+
                 <NavigationContainer>
                     <Stack.Navigator>
                         <Stack.Screen
@@ -61,7 +63,7 @@ const App = () => {
                                 {
                                     title: 'Log In',
                                     headerBackTitle: 'Atrás',
-                                    
+
                                     headerTintColor: '#000',
                                     headerStyle: {
                                         backgroundColor: '#C0D5E1'

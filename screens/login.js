@@ -120,8 +120,8 @@ const styles = StyleSheet.create({
 
     image: {
         marginBottom: 40,
-        width: '40%',
-        height: '15%'
+        width: 200,
+        height: 150,
     },
 
     icono: {
