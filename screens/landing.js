@@ -29,8 +29,9 @@ const LandingScreen = () => {
             >
                 <Text style={styles.loginText}>Login</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.signupBtn}>
-                <Text style={styles.signupText}>Sign Up</Text>
+            <TouchableOpacity onPress={() =>
+                    navigation.navigate('Registro')} style={styles.signupBtn}>
+                <Text style={styles.signupText} >Sign Up</Text>
             </TouchableOpacity>
         </View>
     );

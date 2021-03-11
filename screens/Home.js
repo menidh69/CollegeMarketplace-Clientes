@@ -15,8 +15,10 @@ import {
 import 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
 import React, { useContext, useState, useEffect } from 'react';
+
 import { StyleSheet, TabBarIOS, Text, View, Image } from 'react-native';
 import { UserContext } from '../UserContext';
+
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Micuenta from './Micuenta';
@@ -30,8 +32,8 @@ import ProductoInfo from './ProductoInfo';
 
 
 
-
 const Tienda = ({ tienda }) => {
+
 
     const navigation = useNavigation();
 
@@ -139,6 +141,7 @@ const Home = ({ route }) => {
 
                 <Tab.Screen
                     name='Cuenta'
+
                     children={() => <Micuenta user={items} />}
                     options={{
                       tabBarIcon: ({color, size}) => (
@@ -162,6 +165,7 @@ const Home = ({ route }) => {
                     name='Cuenta'
                     children={() => <Micuenta />}
 
+
                 />
 
             </Tab.Navigator>
@@ -169,6 +173,7 @@ const Home = ({ route }) => {
 
     );
 }
+
 
 const Stack = createStackNavigator();
 

@@ -9,8 +9,8 @@ import Home from './screens/Home'
 import Landing from './screens/landing'
 import Login from './screens/login'
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
-
-
+import Registro from './screens/Registro'
+import {NewUserContext} from './NewUserContext'
 
 const Stack = createStackNavigator();
 
@@ -34,13 +34,12 @@ const Stack = createStackNavigator();
 const App = () => {
 
 
+
   const [user,setUser] = useState(null);
 
     return (
         <>
             <UserContext.Provider value={{user, setUser}}>
-
-
                 <NavigationContainer>
                     <Stack.Navigator>
                         <Stack.Screen
@@ -56,6 +55,12 @@ const App = () => {
                                 }
                             }}
                         />
+
+                        <Stack.Screen
+                            name="Registro"
+                            component={Registro}
+                        />
+
                         <Stack.Screen
                             name="Login"
                             component={Login}
@@ -86,13 +91,12 @@ const App = () => {
                                 })
                             }
                         />
+                    
                     </Stack.Navigator>
 
 
                 </NavigationContainer>
-            </UserContext.Provider>
-        </>
-
+            </NewUserContext.Provider>
     );
 
 }
