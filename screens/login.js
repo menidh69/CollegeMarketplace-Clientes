@@ -6,18 +6,18 @@ import { useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from '@react-navigation/stack';
 import { UserContext, ContexProvider } from '../UserContext';
 import AsyncStorage from '@react-native-community/async-storage';
-import {NewUserContext} from '../NewUserContext';
 import ErrorModal from '../components/ErrorModal';
 import {isEmptyNull} from '../validation/formValidation'
+import { UserContext} from '../UserContext';
+import AsyncStorage from '@react-native-community/async-storage'
+
 
 
 const Stack = createStackNavigator();
 
 const Login = () => {
     return(
-        <ContexProvider>
             <Body/>
-        </ContexProvider>
     );
 
 }
@@ -137,8 +137,8 @@ const styles = StyleSheet.create({
 
     image: {
         marginBottom: 40,
-        width: '40%',
-        height: '15%'
+        width: 200,
+        height: 150,
     },
 
     icono: {
