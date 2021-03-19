@@ -153,8 +153,10 @@ const Registro = ({navigation})=> {
     const resp = await response.json();
     console.log(resp);
     if(response.status==200){
-      setUser(datos)
-      navigation.navigate("Home")
+      console.log(datos)
+      navigation.reset({
+        routes: [{ name: 'Login' }]
+    });
     }else{
       console.log(resp)
       console.log(response)
