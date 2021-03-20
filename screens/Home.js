@@ -24,7 +24,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import MenuTienda from './MenuTienda';
 import { useNavigation } from "@react-navigation/native";
 import ProductoInfo from './ProductoInfo';
-import Pedidos from './Pedidos'
+import Pedidos from './Pedidos';
+import PerfilTienda from './PerfilTienda';
 
 
 
@@ -69,8 +70,8 @@ const Tienda = ({ tienda }) => {
                         justifyContent: "center",
                     }}
                 >
-                    <TouchableOpacity style={styles.guardarBtn} onPress={() => navigation.navigate("MenuTienda", { tienda: tienda })}>
-                        <Text style={styles.guardarText}>Ver menu</Text>
+                    <TouchableOpacity style={styles.guardarBtn} onPress={() => navigation.navigate("PerfilTienda", { tienda: tienda })}>
+                        <Text style={styles.guardarText}>Ver Tienda</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -78,6 +79,8 @@ const Tienda = ({ tienda }) => {
                 style={{
                     marginTop: 10,
                     marginBottom: 10,
+                    marginLeft: 30,
+                    marginRight: 30,
                     borderBottomColor: "black",
                     borderBottomWidth: 1,
                 }}
@@ -99,7 +102,7 @@ const Home = ({ route }) => {
                 <Tab.Screen
                     name='Inicio'
 
-                    children={() => <Explorar  />}
+                    children={() => <Explorar />}
                     options={{
                         tabBarIcon: ({ color, size }) => (
                             <MaterialCommunityIcons name="home" color={color} size={size} />
@@ -117,7 +120,7 @@ const Home = ({ route }) => {
                 />
                 <Tab.Screen
                     name='Pedidos'
-                    children={() => <Pedidos  />}
+                    children={() => <Pedidos />}
                     options={{
                         tabBarIcon: ({ color, size }) => (
                             <MaterialCommunityIcons name="ticket" color={color} size={size} />
@@ -127,7 +130,7 @@ const Home = ({ route }) => {
                 <Tab.Screen
                     name='Carrito'
 
-                    children={() => <Micarrito  />}
+                    children={() => <Micarrito />}
 
                     options={{
                         tabBarIcon: ({ color, size }) => (
@@ -140,7 +143,7 @@ const Home = ({ route }) => {
                     name='Cuenta'
 
 
-                    children={() => <Micuenta  />}
+                    children={() => <Micuenta />}
                     options={{
                         tabBarIcon: ({ color, size }) => (
                             <MaterialCommunityIcons name="account" color={color} size={size} />
@@ -179,10 +182,10 @@ const Explorar = ({ user }) => {
                 }}
             />
             <Stack.Screen
-                name="MenuTienda"
-                component={MenuTienda}
+                name="PerfilTienda"
+                component={PerfilTienda}
                 options={{
-                    title: 'Menu',
+                    title: 'Perfil Tienda',
                     headerStyle: {
                         backgroundColor: '#C0D5E1',
                         shadowOffset: {
