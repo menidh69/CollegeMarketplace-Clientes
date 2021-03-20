@@ -55,7 +55,7 @@ const MicarritoScreen = () => {
   );
 
     const fetchitems = async (id) => {
-        const data = await fetch(`http://college-marketplace.eba-kd3ehnpr.us-east-2.elasticbeanstalk.com/api/v1/carrito/${user.id}/items`)
+        const data = await fetch(`http://college-mp-env.eba-kwusjvvc.us-east-2.elasticbeanstalk.com/api/v1/carrito/${user.id}/items`)
         const it = await data.json();
         console.log(it["carrito_items"])
         return (it["carrito_items"])
@@ -79,7 +79,7 @@ const MicarritoScreen = () => {
       console.log("creando")
       setModalText("Creando pedido")
       setLoading(true)
-      const crear = await fetch('http://college-marketplace.eba-kd3ehnpr.us-east-2.elasticbeanstalk.com/api/v2/order',
+      const crear = await fetch('http://college-mp-env.eba-kwusjvvc.us-east-2.elasticbeanstalk.com/api/v2/order',
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
