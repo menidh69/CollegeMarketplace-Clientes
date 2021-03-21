@@ -28,8 +28,9 @@ const PerfilTienda = ({ route }) => {
     const Openmodal = () => {
         { validada ? setModalVisible(true) : alert('Ya esta validada tenkius!') }
     }
-    const validartienda = async () => {
+    const validartienda = async (id_usuario, id_tienda) => {
         alert('validar!')
+        console.log({ id_usuario, id_tienda })
         setModalVisible(!modalVisible)
     }
     const reportartienda = async () => {
@@ -83,7 +84,7 @@ const PerfilTienda = ({ route }) => {
                         <MaterialCommunityIcons name="check-decagram" size={150} />
                         <Text style={styles.modalText}>Esta tienda es nueva, ayudanos a verificarla</Text>
                         <View style={{ flexDirection: 'row' }}>
-                            <TouchableOpacity style={styles.btnmodal} onPress={() => validartienda()} >
+                            <TouchableOpacity style={styles.btnmodal} onPress={() => validartienda(user.id, route.params.tienda.id)} >
                                 <Text style={styles.textStyle}>Si existe</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={[styles.button, styles.btnmodal]} onPress={() => reportartienda()} >
