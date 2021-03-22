@@ -28,14 +28,42 @@ const PerfilTienda = ({ route }) => {
     const Openmodal = () => {
         { validada ? setModalVisible(true) : alert('Ya esta validada tenkius!') }
     }
-    const validartienda = async (id_usuario, id_tienda) => {
-        alert('validar!')
-        console.log({ id_usuario, id_tienda })
-        setModalVisible(!modalVisible)
-    }
-    const reportartienda = async () => {
-        alert('tienda mala!')
-        setModalVisible(!modalVisible)
+    const validartienda = async (estado) => {
+        estado ? true : false;
+        console.log("estado ", estado)
+        try {
+            const body = {
+                id_usuario: user.id,
+                id_tienda: route.params.tienda.id,
+                verificada: estado
+            }
+
+            console.log("body", body)
+            const response = await fetch('http://college-mp-env.eba-kwusjvvc.us-east-2.elasticbeanstalk.com/api/v1/validar_tienda',
+                {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(body)
+                })
+                .then(async resp => {
+                    const result = await resp.json()
+                    if (result.error) {
+                        console.log(result.error)
+                        setModalVisible(false);
+                    } else {
+                        console.log("llega aqui y en unos dice status repetito keseso?")
+                        console.log(result)
+
+                        setModalVisible(false);
+                    }
+                })
+
+        } catch (err) {
+
+            console.log(err)
+            setModalVisible(false)
+        }
+
     }
 
     useEffect(() => {
@@ -84,10 +112,10 @@ const PerfilTienda = ({ route }) => {
                         <MaterialCommunityIcons name="check-decagram" size={150} />
                         <Text style={styles.modalText}>Esta tienda es nueva, ayudanos a verificarla</Text>
                         <View style={{ flexDirection: 'row' }}>
-                            <TouchableOpacity style={styles.btnmodal} onPress={() => validartienda(user.id, route.params.tienda.id)} >
+                            <TouchableOpacity style={styles.btnmodal} onPress={() => validartienda("true")} >
                                 <Text style={styles.textStyle}>Si existe</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity style={[styles.button, styles.btnmodal]} onPress={() => reportartienda()} >
+                            <TouchableOpacity style={[styles.button, styles.btnmodal]} onPress={() => validartienda("false")} >
                                 <Text style={styles.textStyle}>No existe</Text>
                             </TouchableOpacity>
                         </View>
