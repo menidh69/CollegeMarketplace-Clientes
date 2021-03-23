@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, Component } from 'react';
 import { StyleSheet, TabBarIOS, Text, TextInput, TouchableOpacity, View, ScrollView } from 'react-native';
 import { UserContext } from '../UserContext';
 import { NavigationContainer } from '@react-navigation/native';
@@ -9,78 +9,47 @@ import { useNavigation } from "@react-navigation/native";
 import { List } from 'react-native-paper';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useForm } from 'react-hook-form';
+import { WebView } from 'react-native-webview';
 
 
 
 const Stack = createStackNavigator();
 
-const AgregarTarjeta = ({ user }) => {
+const AgregarTarjeta = () => {
+    
+    const { user, setUser } = useContext(UserContext);
 
-    const navigation = useNavigation();
-
-    const onSubmit = async () => {
-       
-    };
-
-    // const [email, setEmail] = useState("");
-    // const [password, setPassword] = useState("");
-
-    const { register, handleSubmit, setValue } = useForm();
-
-    useEffect(() => {
-        register('card');
-        register('date');
-        register('cvv')
-    }, [register]);
-
-
-    return (
-        <ScrollView style={styles.container} contentContainerStyle={{
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'center'
-        }}>
-            <Text style={styles.datos}>Numero de tarjeta:</Text>
-            <View style={styles.inputView}>
-                <TextInput
-                    style={styles.TextInput}
-                    placeholder="0000 0000 0000 0000"
-                    placeholderTextColor="#003f5c"
-                    keyboardType='number-pad'
-                    maxLength={16}
-                    onChangeText={text => { setValue('card', text) }}
-                    data-openpay-card="card_number"
-                />
-            </View>
-            <Text style={styles.datos}>Fecha de vencimiento:</Text>
-            <View style={styles.inputView}>
-                <TextInput
-                    style={styles.TextInput}
-                    placeholder="MM/AA"
-                    placeholderTextColor="#003f5c"
-                    maxLength={5}
-                    onChangeText={text => { setValue('date', text) }}
-                    data-openpay-card="cvv2"
-                />
-            </View>
-            <Text style={styles.datos}>CVV:</Text>
-            <View style={styles.inputView}>
-                <TextInput
-                    style={styles.TextInput}
-                    placeholder="CVV"
-                    placeholderTextColor="#003f5c"
-                    keyboardType='number-pad'
-                    maxLength={3}
-                    onChangeText={text => { setValue('cvv', text) }}
-                />
-            </View>
-            <TouchableOpacity style={styles.guardarBtn} onPress={handleSubmit(onSubmit)}>
-                <Text style={styles.guardarText}>Guardar</Text>
-            </TouchableOpacity>
-        </ScrollView>
+    return(
+        <TarjetaView user={user} />
     );
+
 }
 
+class TarjetaView extends Component  {
+    render() {
+
+        const myHtmlFile = require(`../WebViews/AgregarTarjeta.html`);
+
+        const jsCode = `
+            document.getElementById("name").value = "${this.props.user.nombre}";
+            document.getElementById("email").value = "${this.props.user.email}";
+            true;
+        `;
+
+        setTimeout(() => {
+            this.webref.injectJavaScript(jsCode);
+        }, 500);
+
+        return (
+
+            <WebView
+                originWhitelist={['*']}
+                source={myHtmlFile}
+                ref={r => (this.webref = r)}
+            />
+        );
+    }
+}
 
 const styles = StyleSheet.create({
     container: {
