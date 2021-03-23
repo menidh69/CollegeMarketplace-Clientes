@@ -181,7 +181,7 @@
 
         var error_callbak = function (response) {
             var desc = response.data.description != undefined ? response.data.description : response.message;
-            alert("ERROR [" + response.status + "] " + desc);
+            alert("Todos los campos son obligatorios");
             $("#save-button").prop("disabled", false);
         };
 

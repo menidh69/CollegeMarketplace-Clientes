@@ -51,40 +51,41 @@ const Tienda = ({ tienda }) => {
 
     return (
         <>
-            <View style={styles.productoContainer}>
-                <Image
-                    style={styles.imageProducto}
-                    source={{ uri: tienda.url_imagen ? tienda.url_imagen : '../assets/restaurant.png' }}
-                    defaultSource={require('../assets/restaurant.png')}
-                />
-                <View style={styles.textoProductoContainer}>
-                    <Text>{tienda.nombre}</Text>
-                    <Text>{tienda.horario}</Text>
-                    <Text>{tipoTienda}</Text>
+            <TouchableOpacity onPress={() => navigation.navigate("PerfilTienda", { tienda: tienda })}>
+                <View style={{ justifyContent: 'center', width: '100%', alignItems: 'center' }}>
+                    <View style={styles.productoContainer}>
+                        <Image
+                            style={styles.imageProducto}
+                            source={{ uri: tienda.url_imagen ? tienda.url_imagen : '../assets/restaurant.png' }}
+                            defaultSource={require('../assets/restaurant.png')}
+                        />
+                        <View style={styles.textoProductoContainer}>
+                            <Text style={{ fontSize: 24, fontWeight: 'bold', marginTop: 20 }}>{tienda.nombre}</Text>
+                        </View>
+                        <View
+                            style={{
+                                width: "100%",
+                                alignItems: "center",
+                                flexDirection: "row",
+                                justifyContent: "center",
+                            }}
+                        >
+                        </View>
+                    </View>
+                    <View
+                        style={{
+                            marginTop: 10,
+                            marginBottom: 10,
+                            marginLeft: 30,
+                            marginRight: 30,
+                            borderBottomColor: "black",
+                            borderBottomWidth: 1,
+                        }}
+                    />
+
                 </View>
-                <View
-                    style={{
-                        width: "100%",
-                        alignItems: "center",
-                        flexDirection: "row",
-                        justifyContent: "center",
-                    }}
-                >
-                    <TouchableOpacity style={styles.guardarBtn} onPress={() => navigation.navigate("PerfilTienda", { tienda: tienda })}>
-                        <Text style={styles.guardarText}>Ver Tienda</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
-            <View
-                style={{
-                    marginTop: 10,
-                    marginBottom: 10,
-                    marginLeft: 30,
-                    marginRight: 30,
-                    borderBottomColor: "black",
-                    borderBottomWidth: 1,
-                }}
-            />
+
+            </TouchableOpacity>
         </>
     );
 };
@@ -98,7 +99,22 @@ const Home = ({ route }) => {
 
     return (
         <>
-            <Tab.Navigator>
+            <Tab.Navigator tabBarOptions={{
+                activeTintColor: '#1E6995',
+                activeBackgroundColor: '#C0D5E1',
+                inactiveBackgroundColor: '#C0D5E1',
+                inactiveTintColor: '#000',
+                style: {
+                    backgroundColor: "#C0D5E1",
+                    shadowColor: "#000",
+                    shadowOffset: {
+                        width: 0,
+                        height: 3,
+                    },
+                    shadowOpacity: 0.27,
+                    shadowRadius: 4.65,
+                }
+            }}>
                 <Tab.Screen
                     name='Inicio'
 
@@ -191,7 +207,22 @@ const Explorar = ({ user }) => {
                         shadowOffset: {
                             height: 0
                         }
-                    }
+                    },
+                    headerTintColor: 'black'
+                }}
+            />
+            <Stack.Screen
+                name="MenuTienda"
+                component={MenuTienda}
+                options={{
+                    title: 'Menú Tienda',
+                    headerStyle: {
+                        backgroundColor: '#C0D5E1',
+                        shadowOffset: {
+                            height: 0
+                        }
+                    },
+                    headerTintColor: 'black'
                 }}
             />
             <Stack.Screen
@@ -316,8 +347,8 @@ const styles = StyleSheet.create({
     },
 
     imageProducto: {
-        width: 75,
-        height: 75,
+        width: '100%',
+        height: 125,
         borderRadius: 10
     },
 
@@ -412,9 +443,19 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         flexWrap: "wrap",
         marginTop: 10,
-        padding: 15,
         alignItems: "center",
-        left: 20,
+        justifyContent: 'center',
+        backgroundColor: '#FFF',
+        width: '95%',
+        borderRadius: 10,
+        paddingBottom: 20,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 6,
+        },
+        shadowOpacity: 0.39,
+        shadowRadius: 8.30,
     },
     textoProductoContainer: {
         marginLeft: 15,

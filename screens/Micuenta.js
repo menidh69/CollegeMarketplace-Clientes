@@ -61,12 +61,17 @@ const MicuentaScreen = ({ user }) => {
 
     const navigation = useNavigation();
 
+    var num_sf = user.telefono
+    var num_cf = '';
+    num_cf = "(" + num_sf.substring(0, 3) + ") ";
+    num_cf += num_sf.substring(3, 6) + " ";
+    num_cf += num_sf.substring(6, 10);
 
     return (
         <View style={styles.container}>
             <List.Section style={styles.datosPersonales}>
                 <List.Accordion
-                    title="Detalles personales" >
+                    title="Detalles personales" style={{ borderRadius: 25 }}>
                     <View style={styles.detallesContainer}>
                         <View style={styles.imagen}></View>
                         <View style={styles.datosPersonalesList}>
@@ -80,7 +85,7 @@ const MicuentaScreen = ({ user }) => {
                                     borderBottomWidth: 1,
                                 }}
                             />
-                            <Text>{user.tel}</Text>
+                            <Text>{num_cf}</Text>
                             <View
                                 style={{
                                     marginTop: 10,
@@ -96,7 +101,7 @@ const MicuentaScreen = ({ user }) => {
             </List.Section>
             <List.Section style={styles.datosPersonales}>
                 <List.Accordion
-                    title="Ordenes" >
+                    title="Ordenes" style={{ borderRadius: 25 }}>
                     <View style={styles.detallesContainer}>
                         <View style={styles.imagen}></View>
                         <View style={styles.datosPersonalesList}>
@@ -111,7 +116,7 @@ const MicuentaScreen = ({ user }) => {
             </List.Section>
             <List.Section style={styles.datosPersonales}>
                 <List.Accordion
-                    title="Información bancaria" >
+                    title="Información bancaria" style={{ borderRadius: 25 }}>
                     <View style={styles.informacionBancaria}>
                         <View style={styles.tarjetasContainer}>
                             <Text>Mis tarjetas</Text>
@@ -125,7 +130,7 @@ const MicuentaScreen = ({ user }) => {
                     </View>
                 </List.Accordion>
             </List.Section>
-            <TouchableOpacity style={styles.logoutBtn} onPress={() => navigation.reset({routes: [{ name: 'Landing' }]})} >
+            <TouchableOpacity style={styles.logoutBtn} onPress={() => navigation.reset({ routes: [{ name: 'Landing' }] })} >
                 <Text style={styles.textoAgregarTarjetaBtn}>Cerrar sesión</Text>
             </TouchableOpacity>
         </View>
