@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Tarjeta</title>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://js.openpay.mx/openpay.v1.min.js"></script>
+    <script type='text/javascript' src="https://js.openpay.mx/openpay-data.v1.min.js"></script>
+</head>
+<style>
+    * {
+        font-family: Arial, Helvetica, sans-serif;
+        -webkit-appearance: none;
+    }
+
+    body {
+        background-color: #C0D5E1;
+    }
+
+    .inputCampo {
+        width: 100%;
+        background-color: transparent;
+        color: #000000;
+        border-width: 0;
+        padding: 5px !important;
+        text-align: center;
+        font-size: 16px;
+        font-weight: 600;
+        font-family: monospace;
+    }
+
+    .inputContainer {
+        width: 80%;
+        margin: 20px auto;
+        border-bottom: 2px solid #949494;
+    }
+
+    .card {
+        background-color: #EDEDED;
+        padding: 20px;
+        border-radius: 20px;
+    }
+
+    .inputCampo:focus {
+        outline: none !important;
+    }
+
+    ::placeholder {
+        /* Chrome, Firefox, Opera, Safari 10.1+ */
+        color: #b6b3b3;
+        opacity: 1;
+        /* Firefox */
+    }
+
+    .inputCampoCliente {
+        width: 100%;
+        background-color: transparent;
+        color: #000;
+        border-width: 0;
+        padding: 5px !important;
+        text-align: center;
+        font-size: 16px;
+        font-weight: 600;
+        font-family: monospace;
+    }
+
+    .inputCampoCliente:disabled{
+        color: black;
+        opacity: 1;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    .inputCampoDate {
+        width: 40%;
+        background-color: transparent;
+        color: black;
+        border-width: 0;
+        padding: 5px !important;
+        text-align: center;
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+    .inputCampoDate:focus {
+        outline: none !important;
+    }
+
+    .btnGuardar {
+        background-color: #E99125;
+        padding: 15px;
+        margin-top: 20px;
+        border-style: none;
+        border-radius: 25px;
+        width: 30%;
+        font-weight: bold;
+        font-size: 16px;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+</style>
+
+<body>
+    <form action="/save_customer_card" method="POST" id="customer-form">
+        <input type="hidden" name="token_id" id="token_id" />
+        <h2>Datos del cliente</h2>
+        <div class="card">
+            <div class="inputContainer">
+                <label>Nombre</label>
+                <input class="inputCampoCliente" type="text" size="20" autocomplete="on" name="client_name"
+                    placeholder="Nombre y Apellido" id="name" value="" disabled />
+            </div>
+            <div class="inputContainer">
+                <label>Correo Electr&oacute;nico</label>
+                <input class="inputCampoCliente" type="text" size="20" autocomplete="on" name="cliente_email"
+                    placeholder="correo@correo.com" id="email" value="" disabled />
+            </div>
+        </div>
+        <h2>Tarjeta</h2>
+        <div class="card">
+            <div class="inputContainer">
+                <label>Nombre</label>
+                <input class="inputCampo" type="text" size="20" autocomplete="off" data-openpay-card="holder_name"
+                    placeholder="Nombre completo" />
+            </div>
+            <div class="inputContainer">
+                <label>N&uacute;mero</label>
+                <input class="inputCampo" type="tel" size="20" data-openpay-card="card_number" pattern="[0-9\s]{13,19}"
+                    autocomplete="cc-number" maxlength="16" placeholder="XXXX XXXX XXXX XXXX" />
+            </div>
+            <div class="inputContainer">
+                <label>CVV2</label>
+                <input class="inputCampo" type="tel" size="4" autocomplete="off" data-openpay-card="cvv2"
+                    placeholder="CVV" />
+            </div>
+            <div class="inputContainer">
+                <label>Fecha de expiraci&oacute;n (MM/YY)</label>
+                <div style="text-align: center;">
+                    <input class="inputCampoDate" type="tel" size="2" data-openpay-card="expiration_month"
+                        placeholder="MM" /> /
+                    <input class="inputCampoDate" type="tel" size="2" data-openpay-card="expiration_year"
+                        placeholder="YY" />
+                </div>
+            </div>
+        </div>
+        <div style="text-align: center;">
+            <input class="btnGuardar" type="submit" id="save-button" value="Guardar" />
+        </div>
+    </form>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            OpenPay.setId('mzow0ra2mxgbaxeyu2uh');
+            OpenPay.setApiKey('pk_4e68e20145694123b490d05d002abdf1');
+            OpenPay.setSandboxMode(true);
+            var deviceSessionId = OpenPay.deviceData.setup("customer-form", "deviceIdHiddenFieldName");
+            
+            // let usuario = usuario();
+            // console.log(usuario)
+
+            // document.getElementById("email").value = "javier";
+        });
+
+        $('#save-button').on('click', function (event) {
+            event.preventDefault();
+            $("#save-button").prop("disabled", true);
+            OpenPay.token.extractFormAndCreate('customer-form', success_callbak, error_callbak);
+        });
+
+        var success_callbak = function (response) {
+            var token_id = response.data.id;
+            $('#token_id').val(token_id);
+            $('#customer-form').submit(function (e) {
+                return false;
+            });
+        };
+
+        var error_callbak = function (response) {
+            var desc = response.data.description != undefined ? response.data.description : response.message;
+            alert("ERROR [" + response.status + "] " + desc);
+            $("#save-button").prop("disabled", false);
+        };
+
+        // var idUsuario = urlParams.get('id');
+
+        // function usuario() {
+        //     const data = await fetch(
+        //         `http://college-marketplace.eba-kd3ehnpr.us-east-2.elasticbeanstalk.com/api/v1/usuarioinfo/${idUsuario}`
+        //     );
+        //     const it = await data.json();
+        //     return it;
+        // }
+    </script>
+</body>
+
+</html>
