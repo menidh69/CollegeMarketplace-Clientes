@@ -126,7 +126,7 @@ const PerfilTienda = ({ route }) => {
             <View style={styles.imgcontainer}>
                 <Image
                     style={styles.imageProducto}
-                    source={{ uri: route.params.url_imagen ? route.params.tienda.url_imagen : '../assets/restaurant.png' }}
+                    source={{ uri: route.params.tienda.url_imagen ? route.params.tienda.url_imagen : '../assets/restaurant.png' }}
                     defaultSource={require('../assets/restaurant.png')}
                 />
                 <Text style={styles.titulo}>{route.params.tienda.nombre} </Text>
@@ -184,8 +184,8 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     imageProducto: {
-        width: 75,
-        height: 75,
+        width: 200,
+        height: 200,
         borderRadius: 10
     },
     imgcontainer: {
@@ -196,6 +196,7 @@ const styles = StyleSheet.create({
     titulo: {
         fontSize: 30,
         fontWeight: "bold",
+        marginTop: 10
     },
     tiendacontainer: {
         paddingTop: 25,
@@ -218,6 +219,7 @@ const styles = StyleSheet.create({
         marginTop: 20,
         borderTopWidth: 1,
         borderBottomWidth: 1,
+        justifyContent: 'center'
     },
     txttiendainfo: {
         fontSize: 20,

@@ -31,7 +31,7 @@ class TarjetaView extends Component  {
         const myHtmlFile = require(`../WebViews/AgregarTarjeta.html`);
 
         const jsCode = `
-            document.getElementById("name").value = "${this.props.user.nombre}";
+            document.getElementById("name").value = "${this.props.user.nombre} ${this.props.user.apellidos}";
             document.getElementById("email").value = "${this.props.user.email}";
             true;
         `;
