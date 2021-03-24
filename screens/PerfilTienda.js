@@ -15,7 +15,7 @@ import {
 import { UserContext } from '../UserContext';
 import { useNavigation } from "@react-navigation/native";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import MenuTienda from "./MenuTienda";
+
 
 
 const PerfilTienda = ({ route }) => {
