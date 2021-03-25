@@ -5,8 +5,6 @@ import {
     Text,
     View,
     Image,
-    TextInput,
-    Button,
     TouchableOpacity,
     FlatList,
 } from "react-native";
@@ -19,17 +17,17 @@ const FiltroProducto = ({ route }) => {
     const { user, setUser } = useContext(UserContext);
     const [items, setItems] = useState([]);
     const [selectedValue, setSelectedValue] = useState("abc");
-
+    console.log("IMPRIME ", route.params.categoria)
     useEffect(() => {
         fetchitems();
     }, []);
 
     const fetchitems = async (id) => {
         const data = await fetch(
-            `http://college-marketplace.eba-kd3ehnpr.us-east-2.elasticbeanstalk.com/api/v1/productosTienda/${route.params.tienda.id}`
+            `http://college-marketplace.eba-kd3ehnpr.us-east-2.elasticbeanstalk.com/api/v1/productosTienda/${route.params.tienda.id}/categoria/${route.params.categoria}`
         );
         const it = await data.json();
-        console.log("sepAAA", it);
+        console.log("respuessta ")
         setItems(it);
     };
 

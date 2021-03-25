@@ -28,7 +28,7 @@ const FiltroTienda = (categoria) => {
 const TiendasScreen = ({ categoria }) => {
     const { user, setUser } = useContext(UserContext);
 
-    var cat = categoria;
+    const cat = categoria;
     console.log("CATEGORIA ", cat)
     const navigation = useNavigation();
 
@@ -57,7 +57,7 @@ const TiendasScreen = ({ categoria }) => {
                 <FlatList
                     style={styles.listaContainer}
                     data={items}
-                    renderItem={({ item }) => <Tienda tienda={item} />}
+                    renderItem={({ item }) => <Tienda tienda={item} categoria={cat} />}
                 />
             </View>
 
@@ -66,18 +66,9 @@ const TiendasScreen = ({ categoria }) => {
     );
 };
 
-const Tiendas = ({ tienda, cat }) => {
-    return (
-        console.log("KESESTO ", tienda),
-        <>
-            <Text>kk</Text>
-        </>
-    );
-};
 
-const Tienda = ({ tienda }) => {
+const Tienda = ({ tienda, categoria }) => {
     const navigation = useNavigation();
-    console.log("KESESTOOOOOOO ", tienda);
     var tipoTienda = "";
 
     switch (tienda.id_tipo_tienda) {
@@ -95,7 +86,7 @@ const Tienda = ({ tienda }) => {
 
     return (
         <>
-            <TouchableOpacity onPress={() => navigation.navigate("FiltroProducto", { tienda: tienda })}>
+            <TouchableOpacity onPress={() => navigation.navigate("FiltroProducto", { tienda: tienda, categoria: categoria })}>
                 <View style={{ justifyContent: 'center', width: '100%', alignItems: 'center' }}>
                     <View style={styles.productoContainer}>
                         <Image
