@@ -4,24 +4,76 @@ import {
   StyleSheet,
   Text,
   View,
-  Image,
   TextInput,
-  Button,
   TouchableOpacity,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { emailValidation, isEmptyNull } from '../validation/formValidation'
+import ErrorModal from '../components/ErrorModal';
 
-export default function enviar() {
+
+const forgotpass1 = () => {
+  return (
+    <Body />
+  );
+}
+
+const Body = () => {
   const [email, setEmail] = useState("");
+  const navigation = useNavigation();
+  const [showmodal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+
+  const validar = () => {
+    if (isEmptyNull(email)) {
+      setShowModal(true);
+      setModalMessage("Ingresa un correo un valido")
+      return
+    }
+    if (!emailValidation(email)) {
+      setModalMessage("El formato de tu correo es incorrecto")
+      setShowModal(true);
+      return
+    }
+    return enviar();
+  }
+
+  const enviar = async () => {
+    try {
+      const body = {
+        email: email
+      }
+      console.log("body", body)
+      const response = await fetch('http://college-mp-env.eba-kwusjvvc.us-east-2.elasticbeanstalk.com/api/v1/olvidarcontra',
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body)
+        })
+        .then(async resp => {
+          const result = await resp.json()
+          if (result.error) {
+            console.log(result.error)
+          } else {
+            console.log(result)
+            navigation.navigate('Forgotpass2', email)
+          }
+        })
+
+    } catch (err) {
+      console.log(err)
+      setShowModal(true);
+      setModalMessage("caramba hubo un error intenta + tarde")
+    }
+  }
+
 
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
-
-      <Text style={styles.titulo}> Olvidar contraseña </Text>
-      <Text style={styles.titulo2}> Olvidar contraseña </Text>
+      <Text style={styles.titulo}> Olvidaste tu contraseña? </Text>
       <Text style={styles.descripcion}>
-        Introduce tu correo y te enviaremos un{"   "}código para reestablecer tu
-        contraseña.
+        Introduce tu correo y te enviaremos un código para reestablecer tu contraseña.
       </Text>
 
       <View style={styles.inputView}>
@@ -33,9 +85,10 @@ export default function enviar() {
         />
       </View>
 
-      <TouchableOpacity style={styles.enviarBtn}>
+      <TouchableOpacity style={styles.enviarBtn} onPress={() => validar()}>
         <Text style={styles.enviarText}>Enviar Correo</Text>
       </TouchableOpacity>
+      <ErrorModal setShow={setShowModal} show={showmodal} message={modalMessage}></ErrorModal>
     </View>
   );
 }
@@ -49,26 +102,14 @@ const styles = StyleSheet.create({
   },
 
   titulo: {
-    fontSize: 20,
-    fontWeight: "bold",
-    position: "absolute",
-    top: 60,
-  },
-
-  titulo2: {
-    fontSize: 24,
-    fontWeight: "bold",
-    position: "absolute",
-    top: 150,
-    left: 28,
+    fontSize: 25,
+    fontWeight: 'bold',
+    marginTop: -100,
   },
 
   descripcion: {
     fontSize: 17,
-    position: "absolute",
-    top: 200,
-    paddingLeft: 34,
-    paddingRight: 50,
+    padding: 50,
   },
 
   inputView: {
@@ -80,15 +121,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderColor: "#9C9C9C",
     borderWidth: 1,
-    bottom: 60,
   },
 
   TextInput: {
     height: 50,
-    flex: 1,
-    padding: 10,
-    marginRight: 40,
-    fontWeight: "600",
     fontSize: 15,
   },
 
@@ -100,13 +136,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginTop: 40,
     backgroundColor: "#E99125",
-    bottom: 76,
   },
 
   enviarText: {
     color: "#FFFFFF",
     fontWeight: "bold",
     fontSize: 18,
-    fontFamily: "Montserrat",
   },
 });
+
+export default forgotpass1;

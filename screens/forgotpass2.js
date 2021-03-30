@@ -4,41 +4,92 @@ import {
   StyleSheet,
   Text,
   View,
-  Image,
   TextInput,
-  Button,
   TouchableOpacity,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { isEmptyNull } from '../validation/formValidation'
+import ErrorModal from '../components/ErrorModal';
 
-export default function enviar() {
+const forgotpass2 = (email) => {
+  return (
+    <Body email={email.route.params} />
+  );
+}
+
+
+const Body = ({ email }) => {
+  const navigation = useNavigation();
+  const [showmodal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+  const [codigo, setCodigo] = useState("");
+
+  //console.log("CORRREO ", email);
+
+  const enviar = async () => {
+    try {
+      const body = {
+        email: email
+      }
+      console.log("body", body)
+      const response = await fetch('http://college-mp-env.eba-kwusjvvc.us-east-2.elasticbeanstalk.com/api/v1/olvidarcontra',
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body)
+        })
+        .then(async resp => {
+          const result = await resp.json()
+          if (result.error) {
+            console.log(result.error)
+          } else {
+            console.log(result)
+          }
+        })
+
+    } catch (err) {
+      console.log(err)
+      setShowModal(true);
+      setModalMessage("caramba hubo un error intenta + tarde")
+    }
+  }
+
+  const reestablecer = () => {
+    if (isEmptyNull(codigo)) {
+      setShowModal(true);
+      setModalMessage("Ingresa el codigo zokete")
+      return
+    }
+    navigation.navigate('Forgotpass3', codigo)
+  }
+
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
-
-      <Text style={styles.titulo}> Restablecer contraseña </Text>
-      <Text style={styles.titulo2}> Código </Text>
-      <Text style={styles.descripcion}>
-        Te hemos enviado un código por tu correo electrónico
-      </Text>
-
+      <Text style={styles.titulo}> Código </Text>
+      <Text style={styles.descripcion}> Ingresa el código que te enviamos por correo electrónico</Text>
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
           placeholder="Código"
           placeholderTextColor="#909090"
+          onChangeText={(codigo) => setCodigo(codigo)}
         />
       </View>
 
-      <TouchableOpacity>
-        <Text style={styles.forgot_button}>Reenviar código </Text>
+      <TouchableOpacity onPress={() => enviar()}>
+        <Text style={styles.forgot_button}>Reenviar código</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.enviarBtn}>
+
+      <TouchableOpacity style={styles.enviarBtn} onPress={() => reestablecer()}>
         <Text style={styles.enviarText}>Siguiente</Text>
       </TouchableOpacity>
+      <ErrorModal setShow={setShowModal} show={showmodal} message={modalMessage}></ErrorModal>
     </View>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {
@@ -49,26 +100,14 @@ const styles = StyleSheet.create({
   },
 
   titulo: {
-    fontSize: 20,
+    fontSize: 25,
     fontWeight: "bold",
-    position: "absolute",
-    top: 60,
-  },
-
-  titulo2: {
-    fontSize: 24,
-    fontWeight: "bold",
-    position: "absolute",
-    top: 150,
-    left: 28,
+    marginTop: -100,
   },
 
   descripcion: {
     fontSize: 17,
-    position: "absolute",
-    top: 200,
-    paddingLeft: 34,
-    paddingRight: 88,
+    padding: 50,
   },
 
   inputView: {
@@ -80,24 +119,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderColor: "#9C9C9C",
     borderWidth: 1,
-    bottom: 60,
   },
 
   TextInput: {
     height: 50,
-    flex: 1,
-    padding: 10,
-    marginRight: 40,
-    fontWeight: "600",
     fontSize: 15,
-    right: 40,
   },
 
   forgot_button: {
-    bottom: 70,
-    textDecorationLine: 1,
-    color: "#0C0056",
-    right: 90,
+    height: 30,
+    marginBottom: 30,
+    textDecorationLine: "underline",
   },
 
   enviarBtn: {
@@ -106,15 +138,14 @@ const styles = StyleSheet.create({
     height: 45,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 40,
     backgroundColor: "#E99125",
-    bottom: 76,
   },
 
   enviarText: {
     color: "#FFFFFF",
     fontWeight: "bold",
     fontSize: 18,
-    fontFamily: "Montserrat",
   },
 });
+
+export default forgotpass2;
