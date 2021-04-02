@@ -51,7 +51,7 @@ const PerfilTienda = ({ route }) => {
                         console.log(result.error)
                         setModalVisible(false);
                     } else {
-                        console.log("llega aqui y en unos dice status repetito keseso?")
+
                         console.log(result)
 
                         setModalVisible(false);

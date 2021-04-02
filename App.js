@@ -10,7 +10,10 @@ import Landing from './screens/landing'
 import Login from './screens/login'
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import Registro from './screens/Registro'
-import {NewUserContext} from './NewUserContext'
+import { NewUserContext } from './NewUserContext'
+import Forgotpass1 from './screens/forgotpass1'
+import Forgotpass2 from './screens/forgotpass2'
+import Forgotpass3 from './screens/forgotpass3'
 
 const Stack = createStackNavigator();
 
@@ -35,67 +38,121 @@ const App = () => {
 
 
 
-  const [user,setUser] = useState(null);
+    const [user, setUser] = useState(null);
 
     return (
-            <UserContext.Provider value={{user, setUser}}>
-                <NavigationContainer>
-                    <Stack.Navigator>
-                        <Stack.Screen
-                            name="Landing"
-                            component={Landing}
-                            options={{
-                                title: '',
+        <UserContext.Provider value={{ user, setUser }}>
+            <NavigationContainer>
+                <Stack.Navigator>
+                    <Stack.Screen
+                        name="Landing"
+                        component={Landing}
+                        options={{
+                            title: '',
+                            headerStyle: {
+                                backgroundColor: '#1E6995',
+                                shadowOffset: {
+                                    height: 0
+                                }
+                            }
+                        }}
+                    />
+
+                    <Stack.Screen
+                        name="Registro"
+                        component={Registro}
+                    />
+
+                    <Stack.Screen
+                        name="Login"
+                        component={Login}
+                        options={
+                            {
+                                title: 'Log In',
+                                headerBackTitle: 'Atrás',
+
+                                headerTintColor: '#000',
                                 headerStyle: {
-                                    backgroundColor: '#1E6995',
-                                    shadowOffset: {
-                                        height: 0
-                                    }
-                                }
-                            }}
-                        />
-
-                        <Stack.Screen
-                            name="Registro"
-                            component={Registro}
-                        />
-
-                        <Stack.Screen
-                            name="Login"
-                            component={Login}
-                            options={
-                                {
-                                    title: 'Log In',
-                                    headerBackTitle: 'Atrás',
-
-                                    headerTintColor: '#000',
-                                    headerStyle: {
-                                        backgroundColor: '#C0D5E1'
-                                    },
-                                    shadowOffset: {
-                                        height: 0
-                                    }
+                                    backgroundColor: '#C0D5E1'
+                                },
+                                shadowOffset: {
+                                    height: 0
                                 }
                             }
-                        />
-                        <Stack.Screen
-                            name="Home"
-                            component={Home}
-                            options={({ route }) => (
-                                {
-                                    headerShown: false,
-                                    shadowOffset: {
-                                        height: 0
-                                    }
-                                })
+                        }
+                    />
+                    <Stack.Screen
+                        name="Home"
+                        component={Home}
+                        options={({ route }) => (
+                            {
+                                headerShown: false,
+                                shadowOffset: {
+                                    height: 0
+                                }
+                            })
+                        }
+                    />
+                    <Stack.Screen
+                        name="Forgotpass1"
+                        component={Forgotpass1}
+                        options={
+                            {
+                                title: 'Reestablecer contra',
+                                headerBackTitle: 'Atrás',
+
+                                headerTintColor: '#000',
+                                headerStyle: {
+                                    backgroundColor: '#C0D5E1'
+                                },
+                                shadowOffset: {
+                                    height: 0
+                                }
                             }
-                        />
-                    
-                    </Stack.Navigator>
+                        }
+                    />
+                    <Stack.Screen
+                        name="Forgotpass2"
+                        component={Forgotpass2}
+                        options={
+                            {
+                                title: 'Reestablecer contra',
+                                headerBackTitle: 'Atrás',
+
+                                headerTintColor: '#000',
+                                headerStyle: {
+                                    backgroundColor: '#C0D5E1'
+                                },
+                                shadowOffset: {
+                                    height: 0
+                                }
+                            }
+                        }
+                    />
+                    <Stack.Screen
+                        name="Forgotpass3"
+                        component={Forgotpass3}
+                        options={
+                            {
+                                title: 'Reestablecer contra',
+                                headerBackTitle: 'Atrás',
+
+                                headerTintColor: '#000',
+                                headerStyle: {
+                                    backgroundColor: '#C0D5E1'
+                                },
+                                shadowOffset: {
+                                    height: 0
+                                }
+                            }
+                        }
+                    />
+
+                </Stack.Navigator>
 
 
-                </NavigationContainer>
-            </UserContext.Provider>
+            </NavigationContainer>
+        </UserContext.Provider>
 
     );
 

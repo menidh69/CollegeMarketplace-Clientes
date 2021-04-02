@@ -6,16 +6,16 @@ import { useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from '@react-navigation/stack';
 import AsyncStorage from '@react-native-community/async-storage';
 import ErrorModal from '../components/ErrorModal';
-import {isEmptyNull} from '../validation/formValidation'
-import { UserContext} from '../UserContext';
+import { isEmptyNull } from '../validation/formValidation'
+import { UserContext } from '../UserContext';
 
 
 
 const Stack = createStackNavigator();
 
 const Login = () => {
-    return(
-            <Body/>
+    return (
+        <Body />
     );
 
 }
@@ -24,13 +24,13 @@ const Body = () => {
     const { user, setUser } = useContext(UserContext);
     const navigation = useNavigation();
     const [showmodal, setShowModal] = useState(false)
-  const [modalMessage, setModalMessage] = useState("")
+    const [modalMessage, setModalMessage] = useState("")
 
     const onSubmit = async data => {
-        if(isEmptyNull(data.email) || isEmptyNull(data.contra)){
+        if (isEmptyNull(data.email) || isEmptyNull(data.contra)) {
             setShowModal(true);
             setModalMessage("El correo o la contraseña son incorrectos")
-            return 
+            return
         }
         try {
             const body = data;
@@ -40,9 +40,9 @@ const Body = () => {
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(body)
                 })
-                
+
             const result = await response.json()
-            if (response.status!=200) {
+            if (response.status != 200) {
                 setShowModal(true);
                 setModalMessage(result.message || result.error)
                 console.log(result.error)
@@ -50,10 +50,10 @@ const Body = () => {
             } else {
                 AsyncStorage.setItem("token.tuw", result.user.token)
                 setUser(result.user);
-                
-                navigation.reset({ routes: [{name: 'Home'}]})
-                    }
-                
+
+                navigation.reset({ routes: [{ name: 'Home' }] })
+            }
+
         } catch (err) {
             console.log(err)
         }
@@ -101,7 +101,7 @@ const Body = () => {
                 />
             </View>
 
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('Forgotpass1')}>
                 <Text style={styles.forgot_button}>Olvidaste tu contraseña?</Text>
             </TouchableOpacity>
 
@@ -165,6 +165,7 @@ const styles = StyleSheet.create({
     forgot_button: {
         height: 30,
         marginBottom: 30,
+        textDecorationLine: "underline",
     },
 
     loginBtn: {
