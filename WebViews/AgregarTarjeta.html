@@ -55,23 +55,6 @@
         /* Firefox */
     }
 
-    .inputCampoCliente {
-        width: 100%;
-        background-color: transparent;
-        color: #000;
-        border-width: 0;
-        padding: 5px !important;
-        text-align: center;
-        font-size: 16px;
-        font-weight: 600;
-        font-family: monospace;
-    }
-
-    .inputCampoCliente:disabled{
-        color: black;
-        opacity: 1;
-    }
-
     label {
         font-weight: bold;
     }
@@ -111,13 +94,11 @@
         <div class="card">
             <div class="inputContainer">
                 <label>Nombre</label>
-                <input class="inputCampoCliente" type="text" size="20" autocomplete="on" name="client_name"
-                    placeholder="Nombre y Apellido" id="name" value="" disabled />
+                <input class="inputCampo" type="text" size="20" autocomplete="on" name="client_name" placeholder="Nombre y Apellido" />
             </div>
             <div class="inputContainer">
                 <label>Correo Electr&oacute;nico</label>
-                <input class="inputCampoCliente" type="text" size="20" autocomplete="on" name="cliente_email"
-                    placeholder="correo@correo.com" id="email" value="" disabled />
+                <input class="inputCampo" type="text" size="20" autocomplete="on" name="cliente_email" placeholder="correo@correo.com" />
             </div>
         </div>
         <h2>Tarjeta</h2>
@@ -158,11 +139,6 @@
             OpenPay.setApiKey('pk_4e68e20145694123b490d05d002abdf1');
             OpenPay.setSandboxMode(true);
             var deviceSessionId = OpenPay.deviceData.setup("customer-form", "deviceIdHiddenFieldName");
-            
-            // let usuario = usuario();
-            // console.log(usuario)
-
-            // document.getElementById("email").value = "javier";
         });
 
         $('#save-button').on('click', function (event) {
@@ -175,25 +151,17 @@
             var token_id = response.data.id;
             $('#token_id').val(token_id);
             $('#customer-form').submit(function (e) {
-                return false;
+                return true;
             });
         };
 
         var error_callbak = function (response) {
             var desc = response.data.description != undefined ? response.data.description : response.message;
-            alert("Todos los campos son obligatorios");
+            alert("ERROR [" + response.status + "] " + desc);
             $("#save-button").prop("disabled", false);
         };
 
-        // var idUsuario = urlParams.get('id');
 
-        // function usuario() {
-        //     const data = await fetch(
-        //         `http://college-marketplace.eba-kd3ehnpr.us-east-2.elasticbeanstalk.com/api/v1/usuarioinfo/${idUsuario}`
-        //     );
-        //     const it = await data.json();
-        //     return it;
-        // }
     </script>
 </body>
 
