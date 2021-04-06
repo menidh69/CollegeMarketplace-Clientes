@@ -5,8 +5,6 @@ import {
   Text,
   View,
   Image,
-  TextInput,
-  Button,
   TouchableOpacity,
   FlatList,
 } from "react-native";
@@ -14,21 +12,21 @@ import { UserContext } from "../UserContext";
 import { useNavigation } from "@react-navigation/native";
 import { Picker } from "@react-native-picker/picker";
 
-const MenuTienda = ({ route }) => {
+const FiltroProducto = ({ route }) => {
   const { user, setUser } = useContext(UserContext);
   const [items, setItems] = useState([]);
   const [selectedValue, setSelectedValue] = useState("abc");
-
+  console.log("IMPRIME ", route.params.categoria);
   useEffect(() => {
     fetchitems();
   }, []);
-  console.log(route.params.tienda);
+
   const fetchitems = async (id) => {
     const data = await fetch(
-      `http://college-mp-env.eba-kwusjvvc.us-east-2.elasticbeanstalk.com/api/v1/productosTienda/${route.params.tienda.id}`
+      `http://college-mp-env.eba-kwusjvvc.us-east-2.elasticbeanstalk.com/api/v1/productosTienda/${route.params.tienda.id}/categoria/${route.params.categoria}`
     );
     const it = await data.json();
-    console.log(it);
+    console.log("respuessta ");
     setItems(it);
   };
 
@@ -226,4 +224,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MenuTienda;
+export default FiltroProducto;

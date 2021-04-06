@@ -2,13 +2,13 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Agregar Tarjeta</title>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script type="text/javascript" src="https://js.openpay.mx/openpay.v1.min.js"></script>
-    <script type='text/javascript' src="https://js.openpay.mx/openpay-data.v1.min.js"></script>
+    <script type="text/javascript" src="https://js.openpay.mx/openpay-data.v1.min.js"></script>
 </head>
 <style>
     * {
@@ -17,7 +17,7 @@
     }
 
     body {
-        background-color: #C0D5E1;
+        background-color: #c0d5e1;
     }
 
     .inputCampo {
@@ -39,7 +39,7 @@
     }
 
     .card {
-        background-color: #EDEDED;
+        background-color: #ededed;
         padding: 20px;
         border-radius: 20px;
     }
@@ -53,6 +53,23 @@
         color: #b6b3b3;
         opacity: 1;
         /* Firefox */
+    }
+
+    .inputCampoCliente {
+        width: 100%;
+        background-color: transparent;
+        color: #000;
+        border-width: 0;
+        padding: 5px !important;
+        text-align: center;
+        font-size: 16px;
+        font-weight: 600;
+        font-family: monospace;
+    }
+
+    .inputCampoCliente:disabled {
+        color: black;
+        opacity: 1;
     }
 
     label {
@@ -75,7 +92,7 @@
     }
 
     .btnGuardar {
-        background-color: #E99125;
+        background-color: #e99125;
         padding: 15px;
         margin-top: 20px;
         border-style: none;
@@ -90,16 +107,17 @@
 <body>
     <form action="/save_customer_card" method="POST" id="customer-form">
         <input type="hidden" name="token_id" id="token_id" />
-        <input type="hidden" size="3" autocomplete="off" name="cliente_email" placeholder="ID" id="id" />
         <h2>Datos del cliente</h2>
         <div class="card">
             <div class="inputContainer">
                 <label>Nombre</label>
-                <input class="inputCampo" type="text" size="20" autocomplete="on" name="client_name" placeholder="Nombre y Apellido" id="name"  />
+                <input class="inputCampoCliente" type="text" size="20" autocomplete="on" name="client_name"
+                    placeholder="Nombre y Apellido" id="name" value="" disabled />
             </div>
             <div class="inputContainer">
                 <label>Correo Electr&oacute;nico</label>
-                <input class="inputCampo" type="text" size="20" autocomplete="on" name="cliente_email" placeholder="correo@correo.com" id="email" />
+                <input class="inputCampoCliente" type="text" size="20" autocomplete="on" name="cliente_email"
+                    placeholder="correo@correo.com" id="email" value="" disabled />
             </div>
         </div>
         <h2>Tarjeta</h2>
@@ -121,32 +139,53 @@
             </div>
             <div class="inputContainer">
                 <label>Fecha de expiraci&oacute;n (MM/YY)</label>
-                <div style="text-align: center;">
+                <div style="text-align: center">
                     <input class="inputCampoDate" type="tel" size="2" data-openpay-card="expiration_month"
-                        placeholder="MM" /> /
+                        placeholder="MM" />
+                    /
                     <input class="inputCampoDate" type="tel" size="2" data-openpay-card="expiration_year"
                         placeholder="YY" />
                 </div>
             </div>
         </div>
-        <div style="text-align: center;">
+        <div style="text-align: center">
             <input class="btnGuardar" type="submit" id="save-button" value="Guardar" />
         </div>
     </form>
 
     <script type="text/javascript">
         $(document).ready(function () {
-            OpenPay.setId('mzow0ra2mxgbaxeyu2uh');
-            OpenPay.setApiKey('pk_4e68e20145694123b490d05d002abdf1');
+            OpenPay.setId("mzow0ra2mxgbaxeyu2uh");
+            OpenPay.setApiKey("pk_4e68e20145694123b490d05d002abdf1");
             OpenPay.setSandboxMode(true);
-            var deviceSessionId = OpenPay.deviceData.setup("customer-form", "deviceIdHiddenFieldName");
+            var deviceSessionId = OpenPay.deviceData.setup(
+                "customer-form",
+                "deviceIdHiddenFieldName"
+            );
+
+            // let usuario = usuario();
+            // console.log(usuario)
+
+            // document.getElementById("email").value = "javier";
         });
 
-        $('#save-button').on('click', function (event) {
+        $("#save-button").on("click", function (event) {
             event.preventDefault();
             $("#save-button").prop("disabled", true);
-            OpenPay.token.extractFormAndCreate('customer-form', success_callbak, error_callbak);
+            OpenPay.token.extractFormAndCreate(
+                "customer-form",
+                success_callbak,
+                error_callbak
+            );
         });
+
+        var success_callbak = function (response) {
+            var token_id = response.data.id;
+            $("#token_id").val(token_id);
+            $("#customer-form").submit(function (e) {
+                return false;
+            });
+        };
 
         var success_callbak = function (response) {
             var token_id = response.data.id;
@@ -163,7 +202,7 @@
             $("#save-button").prop("disabled", false);
         };
 
-        async function submitCard (token_id) {
+        async function submitCard(token_id) {
             const body = {
                 user_id: document.getElementById("id").value,
                 nombre: document.getElementById("name").value,
@@ -178,7 +217,7 @@
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(body)
                 })
-                
+
             const result = await response.json()
 
             console.log(result)
@@ -186,6 +225,10 @@
         }
 
     </script>
+</body>
+
+
+</script>
 </body>
 
 </html>

@@ -1,22 +1,99 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   StyleSheet,
   Text,
   View,
-  Image,
   TextInput,
-  Button,
   TouchableOpacity,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { isEmptyNull, repeatPassword, limit } from '../validation/formValidation'
+import ErrorModal from '../components/ErrorModal'
 
-export default function enviar() {
+
+const forgotpass3 = (codigo) => {
+  return (
+    <Body codigo={codigo.route.params} />
+  );
+}
+
+const Body = ({ codigo }) => {
+
+  console.log("ESTO CODIGOo ? ", codigo)
+  const navigation = useNavigation();
+  const [showModal, setShowModal] = useState(false);
+  const [message, setModalMessage] = useState("");
+  const [datos, setDatos] = useState({
+    "contraseña": "",
+    "repetirContraseña": "",
+  });
+
+  const validar = () => {
+    if (isEmptyNull(datos.contraseña) || isEmptyNull(datos.repetirContraseña)) {
+      setShowModal(true);
+      setModalMessage("Debes llenar todos los campos")
+      return
+    }
+    if (!repeatPassword(datos.contraseña, datos.repetirContraseña)) {
+      setShowModal(true);
+      setModalMessage("Tus contraseñas no coinciden")
+      return
+    }
+    return reestablecer();
+  }
+
+  const reestablecer = async () => {
+    try {
+      const body = {
+        password: datos.contraseña,
+        token: codigo
+      }
+      console.log("body", body)
+      const response = await fetch('http://college-mp-env.eba-kwusjvvc.us-east-2.elasticbeanstalk.com/api/v1/new-password',
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body)
+        })
+        .then(async resp => {
+          const result = await resp.json()
+          if (result.error) {
+            console.log(result.error)
+          } else {
+            console.log(result)
+            navigation.navigate('Login')
+          }
+        })
+
+    } catch (err) {
+      console.log(err)
+      setShowModal(true);
+      setModalMessage("codigo incorrecto?")
+    }
+  }
+
+
+  const handleInput = (text, type) => {
+    switch (type) {
+      case "contraseña":
+        if (!limit(text, 25)) {
+          setDatos({ ...datos, "contraseña": text })
+        }
+        return
+      case "repetirContraseña":
+        if (!limit(text, 25)) {
+          setDatos({ ...datos, "repetirContraseña": text })
+        }
+        return
+    }
+  }
+
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
 
-      <Text style={styles.titulo}> Restablecer contraseña </Text>
-      <Text style={styles.titulo2}> Nueva contraseña </Text>
+      <Text style={styles.titulo}> Nueva contraseña </Text>
       <Text style={styles.descripcion}>
         Introduce tu nueva contraseña para tu cuenta
       </Text>
@@ -26,6 +103,9 @@ export default function enviar() {
           style={styles.TextInput}
           placeholder="Nueva contraseña"
           placeholderTextColor="#909090"
+          secureTextEntry={true}
+          onChangeText={text => handleInput(text, "contraseña")}
+          value={datos.contraseña}
         />
       </View>
 
@@ -34,12 +114,16 @@ export default function enviar() {
           style={styles.TextInput}
           placeholder="Repetir contraseña"
           placeholderTextColor="#909090"
+          secureTextEntry={true}
+          onChangeText={text => handleInput(text, "repetirContraseña")}
+          value={datos.repetirContraseña}
         />
       </View>
 
-      <TouchableOpacity style={styles.enviarBtn}>
+      <TouchableOpacity style={styles.enviarBtn} onPress={() => validar()}>
         <Text style={styles.enviarText}>Confirmar</Text>
       </TouchableOpacity>
+      <ErrorModal message={message} show={showModal} setShow={setShowModal} />
     </View>
   );
 }
@@ -51,28 +135,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-
   titulo: {
-    fontSize: 20,
+    fontSize: 25,
     fontWeight: "bold",
-    position: "absolute",
-    top: 60,
+    marginTop: -100,
   },
-
-  titulo2: {
-    fontSize: 24,
-    fontWeight: "bold",
-    position: "absolute",
-    top: 150,
-    left: 30,
-  },
-
   descripcion: {
     fontSize: 17,
-    position: "absolute",
-    top: 200,
-    paddingLeft: 30,
-    paddingRight: 56,
+    paddingBottom: 20,
   },
 
   inputView: {
@@ -84,17 +154,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderColor: "#9C9C9C",
     borderWidth: 1,
-    bottom: 60,
   },
 
   TextInput: {
     height: 50,
-    flex: 1,
-    padding: 10,
-    marginRight: 40,
-    fontWeight: "600",
     fontSize: 15,
-    right: 20,
   },
 
   enviarBtn: {
@@ -103,15 +167,14 @@ const styles = StyleSheet.create({
     height: 45,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 40,
     backgroundColor: "#E99125",
-    bottom: 76,
   },
 
   enviarText: {
     color: "#FFFFFF",
     fontWeight: "bold",
     fontSize: 18,
-    fontFamily: "Montserrat",
   },
 });
+
+export default forgotpass3;
