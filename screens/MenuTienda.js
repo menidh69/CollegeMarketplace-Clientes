@@ -26,7 +26,7 @@ const MenuTienda = ({ route }) => {
 
     const fetchitems = async (id) => {
         const data = await fetch(
-            `http://college-marketplace.eba-kd3ehnpr.us-east-2.elasticbeanstalk.com/api/v1/productosTienda/${route.params.tienda.id}`
+            `http://college-mp-env.eba-kwusjvvc.us-east-2.elasticbeanstalk.com/api/v1/productosTienda/${route.params.tienda.id}`
         );
         const it = await data.json();
         console.log(it);

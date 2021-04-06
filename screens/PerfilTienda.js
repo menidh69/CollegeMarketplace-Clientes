@@ -71,7 +71,7 @@ const PerfilTienda = ({ route }) => {
     }, []);
 
     const fetchitems = async (id) => {
-        const data = await fetch(`http://college-marketplace.eba-kd3ehnpr.us-east-2.elasticbeanstalk.com/api/v1/tiendas/${route.params.tienda.id}`);
+        const data = await fetch(`http://college-mp-env.eba-kwusjvvc.us-east-2.elasticbeanstalk.com/api/v1/tiendas/${route.params.tienda.id}`);
         const it = await data.json();
         console.log("INFO TIENDA")
         console.log(it)
@@ -143,7 +143,7 @@ const PerfilTienda = ({ route }) => {
                 </View>
                 <View style={styles.botones}>
                     <TouchableOpacity style={styles.menuBtn} >
-                        <MaterialCommunityIcons name="silverware" size={30} onPress={() => navigation.navigate("MenuTienda", { route: route })} />
+                        <MaterialCommunityIcons name="silverware" size={30} onPress={() => navigation.navigate("MenuTienda", { tienda: route.params.tienda })} />
                         <Text style={styles.btnmenuText}>Ver menu</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.menuBtn} >
