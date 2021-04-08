@@ -52,14 +52,24 @@ const BusquedaScreen = () => {
   const [filteredDataSource, setFilteredDataSource] = useState([]);
   const [masterDataSource, setMasterDataSource] = useState([]);
 
-  const Buscar = async (Nombre) => {
+  useEffect(() => {
+    let isMounted = true;
+    if (isMounted) {
+      buscar().then((json) => {
+        setItems(json);
+      });
+    }
+    return () => (isMounted = false);
+  }, []);
+
+  const buscar = async (Nombre) => {
     console.log(Nombre);
     const data = await fetch(
       `http://college-mp-env.eba-kwusjvvc.us-east-2.elasticbeanstalk.com/api/v2/producto/search?producto=${Nombre}`
     );
     const datos = await data.json();
     console.log(datos["productos"]);
-    setItems(datos["productos"]);
+    return datos["productos"];
   };
 
   return (
@@ -74,7 +84,7 @@ const BusquedaScreen = () => {
       </View>
 
       <TouchableOpacity style={styles.botonsito} onPress={() => Buscar(nombre)}>
-        <Text style={{fontWeight:"bold"}}>Buscar</Text>
+        <Text style={{ fontWeight: "bold" }}>Buscar</Text>
       </TouchableOpacity>
 
       <FlatList
