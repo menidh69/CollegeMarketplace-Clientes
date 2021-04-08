@@ -28,9 +28,7 @@ import PerfilTienda from "./PerfilTienda";
 import FiltroTienda from "./FiltroTienda";
 import FiltroProducto from "./FiltroProducto";
 import Busqueda from "./Busqueda";
-import PedidosAnteriores from './PedidosAnteriores';
-
-
+import PedidosAnteriores from "./PedidosAnteriores";
 
 const Tienda = ({ tienda }) => {
   const navigation = useNavigation();
@@ -190,112 +188,110 @@ const Home = ({ route }) => {
 const Stack = createStackNavigator();
 
 const Explorar = ({ user }) => {
-    return (
-        <Stack.Navigator>
-            <Stack.Screen
-                name="Inicio"
-                component={HomeScreen}
-                options={{
-                    title: 'Inicio',
-                    headerLeft: null,
-                    headerStyle: {
-                        backgroundColor: '#C0D5E1',
-                        shadowOffset: {
-                            height: 0
-                        }
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Inicio"
+        component={HomeScreen}
+        options={{
+          title: "Inicio",
+          headerLeft: null,
+          headerStyle: {
+            backgroundColor: "#C0D5E1",
+            shadowOffset: {
+              height: 0,
+            },
+          },
+        }}
+      />
+      <Stack.Screen
+        name="PerfilTienda"
+        component={PerfilTienda}
+        options={{
+          title: "Perfil Tienda",
+          headerStyle: {
+            backgroundColor: "#C0D5E1",
+            shadowOffset: {
+              height: 0,
+            },
+          },
+          headerTintColor: "black",
+        }}
+      />
+      <Stack.Screen
+        name="MenuTienda"
+        component={MenuTienda}
+        options={{
+          title: "Menú Tienda",
+          headerStyle: {
+            backgroundColor: "#C0D5E1",
+            shadowOffset: {
+              height: 0,
+            },
+          },
+          headerTintColor: "black",
+        }}
+      />
+      <Stack.Screen
+        name="ProductoInfo"
+        component={ProductoInfo}
+        options={{
+          title: "Menu",
+          headerStyle: {
+            backgroundColor: "#C0D5E1",
+            shadowOffset: {
+              height: 0,
+            },
+          },
+        }}
+      />
+      <Stack.Screen
+        name="FiltroTienda"
+        component={FiltroTienda}
+        options={{
+          title: "Selecciona una tienda",
+          headerStyle: {
+            backgroundColor: "#C0D5E1",
+            shadowOffset: {
+              height: 0,
+            },
+          },
+          headerTintColor: "black",
+        }}
+      />
+      <Stack.Screen
+        name="FiltroProducto"
+        component={FiltroProducto}
+        options={{
+          title: "Productos por categoria",
+          headerStyle: {
+            backgroundColor: "#C0D5E1",
+            shadowOffset: {
+              height: 0,
+            },
+          },
+          headerTintColor: "black",
+        }}
+      />
+      <Stack.Screen
+        name="PedidosAnteriores"
+        component={PedidosAnteriores}
+        options={{
+          title: "Pedidos Anteriores",
+          headerStyle: {
+            backgroundColor: "#C0D5E1",
+            shadowOffset: {
+              height: 0,
+            },
+          },
+          headerTintColor: "black",
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
 
-                    }
-
-                }}
-            />
-            <Stack.Screen
-                name="PerfilTienda"
-                component={PerfilTienda}
-                options={{
-                    title: 'Perfil Tienda',
-                    headerStyle: {
-                        backgroundColor: '#C0D5E1',
-                        shadowOffset: {
-                            height: 0
-                        }
-                    },
-                    headerTintColor: 'black'
-                }}
-            />
-            <Stack.Screen
-                name="MenuTienda"
-                component={MenuTienda}
-                options={{
-                    title: 'Menú Tienda',
-                    headerStyle: {
-                        backgroundColor: '#C0D5E1',
-                        shadowOffset: {
-                            height: 0
-                        }
-                    },
-                    headerTintColor: 'black'
-                }}
-            />
-            <Stack.Screen
-                name="ProductoInfo"
-                component={ProductoInfo}
-                options={{
-                    title: 'Menu',
-                    headerStyle: {
-                        backgroundColor: '#C0D5E1',
-                        shadowOffset: {
-                            height: 0
-                        }
-                    }
-                }}
-            />
-            <Stack.Screen
-                name="FiltroTienda"
-                component={FiltroTienda}
-                options={{
-                    title: 'Selecciona una tienda',
-                    headerStyle: {
-                        backgroundColor: '#C0D5E1',
-                        shadowOffset: {
-                            height: 0
-                        }
-                    },
-                    headerTintColor: 'black'
-                }}
-            />
-            <Stack.Screen
-                name="FiltroProducto"
-                component={FiltroProducto}
-                options={{
-                    title: 'Productos por categoria',
-                    headerStyle: {
-                        backgroundColor: '#C0D5E1',
-                        shadowOffset: {
-                            height: 0
-                        }
-                    },
-                    headerTintColor: 'black'
-                }}
-            />
-            <Stack.Screen
-                name="PedidosAnteriores"
-                component={PedidosAnteriores}
-                options={{
-                    title: 'Pedidos Anteriores',
-                    headerStyle: {
-                        backgroundColor: '#C0D5E1',
-                        shadowOffset: {
-                            height: 0
-                        }
-                    },
-                    headerTintColor: 'black'
-                }}
-            />
-        </Stack.Navigator>
-    );
-}
-
-  const HomeScreen = () => {
+const HomeScreen = () => {
   const [items, setItems] = useState([]);
   const navigation = useNavigation();
   useEffect(() => {
@@ -304,7 +300,8 @@ const Explorar = ({ user }) => {
 
   const fetchitems = async (id) => {
     const data = await fetch(
-      `http://college-mp-env.eba-kwusjvvc.us-east-2.elasticbeanstalk.com/api/v1/tiendas`)
+      `http://college-mp-env.eba-kwusjvvc.us-east-2.elasticbeanstalk.com/api/v1/tiendas`
+    );
     const it = await data.json();
     console.log(it);
     setItems(it);
@@ -322,6 +319,8 @@ const Explorar = ({ user }) => {
             style={styles.TextInput}
             placeholder="¿Qué estás buscando?"
             placeholderTextColor="#909090"
+            onFocus={() => navigation.navigate("Busqueda")}
+            showSoftInputOnFocus={false}
             // aqui
           />
         </View>
@@ -374,7 +373,7 @@ const Explorar = ({ user }) => {
 
         <TouchableOpacity
           style={styles.postres}
-          onPress={() => navigation.navigate("FiltroTienda", "postres")}
+          onPress={() => navigation.navigate("FiltroTienda", "postre")}
         >
           <Image
             style={styles.image}
@@ -385,7 +384,7 @@ const Explorar = ({ user }) => {
 
         <TouchableOpacity
           style={styles.snacks}
-          onPress={() => navigation.navigate("FiltroTienda", "snacks")}
+          onPress={() => navigation.navigate("FiltroTienda", "snack")}
         >
           <Image
             style={styles.image}

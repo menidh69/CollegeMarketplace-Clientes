@@ -18,16 +18,24 @@ const FiltroProducto = ({ route }) => {
   const [selectedValue, setSelectedValue] = useState("abc");
   console.log("IMPRIME ", route.params.categoria);
   useEffect(() => {
-    fetchitems();
+    let isMounted = true;
+    if (isMounted) {
+      fetchitems().then((json) => {
+        setItems(json);
+      });
+    }
+    return () => (isMounted = false);
   }, []);
 
   const fetchitems = async (id) => {
+    console.log(route.params.tienda.id);
     const data = await fetch(
-      `http://college-mp-env.eba-kwusjvvc.us-east-2.elasticbeanstalk.com/api/v1/productosTienda/${route.params.tienda.id}/categoria/${route.params.categoria}`
+      `http://college-mp-env.eba-kwusjvvc.us-east-2.elasticbeanstalk.com/api/v2/tiendas/${route.params.tienda.id}/categoria/${route.params.categoria}`
     );
     const it = await data.json();
     console.log("respuessta ");
-    setItems(it);
+    console.log(it);
+    return it.productos;
   };
 
   return (
