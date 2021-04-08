@@ -176,7 +176,10 @@ const Producto = ({ item }) => {
             </View>
 
             <View style={{ flexDirection: "row" }}>
-              <TouchableOpacity style={styles.btnmodal} onPress={handleReview}>
+              <TouchableOpacity
+                style={styles.btnmodal}
+                onPress={() => handleReview()}
+              >
                 <Text style={styles.textStyle}>Enviar</Text>
               </TouchableOpacity>
             </View>
