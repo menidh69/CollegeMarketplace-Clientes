@@ -9,6 +9,7 @@ import {
     ScrollView,
     TouchableOpacity,
     FlatList,
+    Image
 } from "react-native";
 import { UserContext } from "../UserContext";
 import { NavigationContainer, StackActions } from "@react-navigation/native";
@@ -69,20 +70,27 @@ const PedidosScreen = () => {
             <FlatList
                 style={styles.listaContainer}
                 data={items}
-                renderItem={({ item }) => <Producto item={item}/>}
+                renderItem={({ item }) => <Producto item={item} />}
             />
         </View>
     );
 };
 
-const Producto = ({ item}) => {
+const Producto = ({ item }) => {
     const navigation = useNavigation();
 
-   console.log(item)
+    console.log(item)
     return (
         <>
             <View style={styles.productoContainer}>
-                <View style={styles.imageProducto}></View>
+                <Image
+                    style={styles.imageProducto}
+                    source={{
+                        uri: item.url_imagen
+                            ? item.url_imagen
+                            : "../assets/food.png",
+                    }}
+                />
                 <View style={styles.textoProductoContainer}>
                     <Text style={styles.titulo}>{item.nombre}</Text>
                     <Text style={styles.titulo}>
@@ -132,7 +140,6 @@ const styles = StyleSheet.create({
         width: 75,
         height: 75,
         borderRadius: 25,
-        backgroundColor: "white",
     },
     productoContainer: {
         flexDirection: "row",

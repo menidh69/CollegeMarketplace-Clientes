@@ -77,21 +77,7 @@ const PerfilTienda = ({ route }) => {
 
     var tipoTienda = "";
     var validada = ""
-    route.params.tienda.validada ? validada = "si" : validada = "No validada"
-
-    const fetchitems = async (id) => {
-        const data = await fetch(
-            `http://college-mp-env.eba-kwusjvvc.us-east-2.elasticbeanstalk.com/api/v1/tiendas/${route.params.tienda.id}`
-        );
-        const it = await data.json();
-        console.log("INFO TIENDA");
-        console.log(it);
-        setItems(it);
-    };
-
-    var tipoTienda = "";
-    var validada = "";
-    route.params.tienda.validada ? (validada = "si") : (validada = "No validada");
+    route.params.tienda.validada ? validada = "si" : validada = "No validada";
 
     switch (route.params.tienda.id_tipo_tienda) {
         case 1:
