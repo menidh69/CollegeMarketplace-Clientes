@@ -14,11 +14,8 @@ import {
 import { UserContext } from "../UserContext";
 import { useNavigation } from "@react-navigation/native";
 
-
 const PedidosAnteriores = () => {
-  return (
-    <PedidosAnterioresScreen />
-  );
+  return <PedidosAnterioresScreen />;
 };
 
 const PedidosAnterioresScreen = () => {
@@ -41,13 +38,13 @@ const PedidosAnterioresScreen = () => {
     setItems(it.result);
   };
 
-
   return (
     <View style={styles.container}>
       <Text style={styles.titulo}>
-        <TouchableOpacity style={styles.btn} onPress={() =>
-          navigation.navigate("Pedidos")
-        }>
+        <TouchableOpacity
+          style={styles.btn}
+          onPress={() => navigation.navigate("Pedidos")}
+        >
           <Text style={styles.txtbtn}>Pedidos pendientes</Text>
         </TouchableOpacity>
         {items.length > 0 ? "" : "No hay pedidos pendientes"}
@@ -65,8 +62,10 @@ const PedidosAnterioresScreen = () => {
 const Producto = ({ item }) => {
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
-
+  const { user } = useContext(UserContext);
+  const [comentario, setComentario] = useState("");
   const [defaultRating, setDefaultRating] = useState(1);
+  const [calificado, setCalificado] = useState(false);
   // To set the max number of Stars
   const [maxRating, setMaxRating] = useState([1, 2, 3, 4, 5]);
 
@@ -102,9 +101,33 @@ const Producto = ({ item }) => {
     );
   };
 
+  const handleReview = async () => {
+    const data = await fetch(
+      `http://college-mp-env.eba-kwusjvvc.us-east-2.elasticbeanstalk.com/api/v1/usuarios/calificar`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id_producto: item.id,
+          id_usuario: user.id,
+          calificacion: defaultRating,
+          comentario: comentario,
+        }),
+      }
+    );
+    const resp = await data.json();
+    console.log(resp);
+    if (resp.error) {
+      return;
+    }
+    setModalVisible(false);
+    setCalificado(true);
+    return;
+  };
 
-
-  console.log(item)
+  console.log(item);
   return (
     <>
       <Modal
@@ -121,9 +144,7 @@ const Producto = ({ item }) => {
             <Image
               style={styles.imageProducto}
               source={{
-                uri: item.url_imagen
-                  ? item.url_imagen
-                  : "../assets/food.png",
+                uri: item.url_imagen ? item.url_imagen : "../assets/food.png",
               }}
               defaultSource={require("../assets/food.png")}
             />
@@ -145,6 +166,7 @@ const Producto = ({ item }) => {
                 <TextInput
                   style={styles.TextInputDescripcion}
                   placeholder="Comentario"
+                  onChangeText={(value) => setComentario(value)}
                   placeholderTextColor="#003f5c"
                   maxLength={100}
                   multiline={true}
@@ -153,28 +175,21 @@ const Producto = ({ item }) => {
               </View>
             </View>
 
-
-
-
             <View style={{ flexDirection: "row" }}>
-              <TouchableOpacity style={styles.btnmodal} onPress={() => setModalVisible(false)}>
+              <TouchableOpacity style={styles.btnmodal} onPress={handleReview}>
                 <Text style={styles.textStyle}>Enviar</Text>
               </TouchableOpacity>
-
             </View>
           </View>
         </View>
       </Modal>
-
 
       <View style={styles.productoContainer}>
         <View style={styles.imageProducto}>
           <Image
             style={styles.imageProducto}
             source={{
-              uri: item.url_imagen
-                ? item.url_imagen
-                : "../assets/food.png",
+              uri: item.url_imagen ? item.url_imagen : "../assets/food.png",
             }}
             defaultSource={require("../assets/food.png")}
           />
@@ -188,9 +203,18 @@ const Producto = ({ item }) => {
           <Text>Cantidad: {item.cantidad}</Text>
           <Text>Tienda: {item.nombre_tienda}</Text>
         </View>
-        <TouchableOpacity style={styles.btnmodal} onPress={() => setModalVisible(true)}>
-          <Text style={styles.txtbtn}>Calificame</Text>
-        </TouchableOpacity>
+        {calificado ? (
+          <TouchableOpacity style={styles.btnmodal}>
+            <Text style={styles.txtbtn}>Calificado</Text>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity
+            style={styles.btnmodal}
+            onPress={() => setModalVisible(true)}
+          >
+            <Text style={styles.txtbtn}>Calificame</Text>
+          </TouchableOpacity>
+        )}
       </View>
       <View
         style={{
@@ -285,7 +309,7 @@ const styles = StyleSheet.create({
   },
   txtbtn: {
     fontSize: 15,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: "#FFF",
     alignItems: "center",
     justifyContent: "center",
