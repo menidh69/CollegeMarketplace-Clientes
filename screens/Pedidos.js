@@ -10,6 +10,7 @@ import {
     TouchableOpacity,
     FlatList,
     Image,
+
 } from "react-native";
 import { UserContext } from "../UserContext";
 import { NavigationContainer, StackActions } from "@react-navigation/native";
@@ -88,6 +89,7 @@ const Producto = ({ item }) => {
     return (
         <>
             <View style={styles.productoContainer}>
+
                 <View style={styles.imageProducto}>
                     <Image
                         style={styles.imageProducto}
@@ -99,6 +101,7 @@ const Producto = ({ item }) => {
                         defaultSource={require("../assets/food.png")}
                     />
                 </View>
+
 
                 <View style={styles.textoProductoContainer}>
                     <Text style={styles.titulo}>{item.nombre}</Text>
@@ -149,7 +152,6 @@ const styles = StyleSheet.create({
         width: 75,
         height: 75,
         borderRadius: 25,
-        backgroundColor: "white",
     },
     productoContainer: {
         flexDirection: "row",

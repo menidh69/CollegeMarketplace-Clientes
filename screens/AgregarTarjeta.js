@@ -33,6 +33,7 @@ class TarjetaView extends Component  {
         const jsCode = `
             document.getElementById("name").value = "${this.props.user.nombre} ${this.props.user.apellidos}";
             document.getElementById("email").value = "${this.props.user.email}";
+            document.getElementById("id").value = "${this.props.user.id}";
             true;
         `;
 
