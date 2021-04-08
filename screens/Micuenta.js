@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
 import React, { useContext, useState, useEffect } from 'react';
-import { StyleSheet, TabBarIOS, Text, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, TabBarIOS, Text, TouchableOpacity, View } from 'react-native';
 import { UserContext } from '../UserContext';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
@@ -17,12 +17,26 @@ const Stack = createStackNavigator();
 const Micuenta = () => {
 
     const { user, setUser } = useContext(UserContext);
+    const [cards, setCards] = useState([]);
+
+    useEffect(() => {
+        fetchitems();
+    }, []);
+
+    const fetchitems = async (id) => {
+        const data = await fetch(
+            `http://college-mp-env.eba-kwusjvvc.us-east-2.elasticbeanstalk.com/api/v2/openpay/cards/${user.id}`
+        );
+        const it = await data.json();
+        console.log(it.tarjeta);
+        setCards(it.tarjeta);
+    };
 
     return (
         <Stack.Navigator>
             <Stack.Screen
                 name="Cuenta"
-                children={() => <MicuentaScreen user={user} />}
+                children={() => <MicuentaScreen user={user} cards={cards} />}
                 initialParams={{ user: user }}
                 options={{
                     title: 'Mi cuenta',
@@ -57,7 +71,7 @@ const Micuenta = () => {
     );
 }
 
-const MicuentaScreen = ({ user }) => {
+const MicuentaScreen = ({ user, cards }) => {
 
     const navigation = useNavigation();
 
@@ -119,7 +133,17 @@ const MicuentaScreen = ({ user }) => {
                     title="Información bancaria" style={{ borderRadius: 25 }}>
                     <View style={styles.informacionBancaria}>
                         <View style={styles.tarjetasContainer}>
-                            <Text>Mis tarjetas</Text>
+                            <Text>Mis tarjetas guardadas</Text>
+                            <Text
+                                style={{
+                                    marginTop: 10,
+                                    fontSize: 18,
+                                    textAlign: "center",
+                                }}
+                            >
+                                {cards !== undefined ? "" : "No hay Tarjetas"}
+                            </Text>
+                            {cards !== undefined ? <Tarjeta card={cards} /> : <></>}
                             <View style={styles.agregarTarjetaBtnContainer}>
                                 <TouchableOpacity style={styles.agregarTarjetaBtn} onPress={() => navigation.navigate('AgregarTarjeta')} >
                                     <Text style={styles.textoAgregarTarjetaBtn}>Agregar Tarjeta</Text>
@@ -135,6 +159,32 @@ const MicuentaScreen = ({ user }) => {
             </TouchableOpacity>
         </View>
 
+    );
+}
+
+const Tarjeta = ({ card }) => {
+
+
+    var num_sf = card.card_number;
+    var num_cf = '';
+    num_cf = "" + num_sf.substring(12, 16);
+
+    var url_icon = `../assets/${card.brand}.png`;
+    console.log(url_icon)
+
+    return (
+        <View style={styles.cardContainer}>
+            <Text
+                style={{
+                    fontSize: 18,
+                }}
+            >**** **** **** </Text>
+            <Text>{num_cf}</Text>
+            <Image
+                style={styles.imageCard}
+                source={require(`../assets/visa.png`)}
+            />
+        </View>
     );
 }
 
@@ -202,6 +252,20 @@ const styles = StyleSheet.create({
         borderRadius: 25,
         height: 50,
         backgroundColor: "#bf4d4d",
+    },
+    imageCard: {
+        width: 33,
+        height: 33,
+        borderRadius: 10
+    },
+    cardContainer: {
+        flexWrap: 'wrap',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#FFF',
+        borderRadius: 25,
+        padding: 5,
     }
 });
 
