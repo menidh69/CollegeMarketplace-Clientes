@@ -28,7 +28,7 @@ import Pedidos from './Pedidos';
 import PerfilTienda from './PerfilTienda';
 import FiltroTienda from './FiltroTienda';
 import FiltroProducto from './FiltroProducto';
-
+import PedidosAnteriores from './PedidosAnteriores';
 
 
 const Tienda = ({ tienda }) => {
@@ -268,6 +268,20 @@ const Explorar = ({ user }) => {
                     headerTintColor: 'black'
                 }}
             />
+            <Stack.Screen
+                name="PedidosAnteriores"
+                component={PedidosAnteriores}
+                options={{
+                    title: 'Pedidos Anteriores',
+                    headerStyle: {
+                        backgroundColor: '#C0D5E1',
+                        shadowOffset: {
+                            height: 0
+                        }
+                    },
+                    headerTintColor: 'black'
+                }}
+            />
         </Stack.Navigator>
     );
 }
@@ -306,7 +320,7 @@ const HomeScreen = () => {
 
                 <Text style={styles.titulo2}> Búsqueda rápida </Text>
 
-                <TouchableOpacity style={styles.desayuno} onPress={() => navigation.navigate("FiltroTienda", "desayuno")}>
+                <TouchableOpacity style={styles.desayuno} onPress={() => navigation.navigate("FiltroTienda", "Desayuno")}>
                     <Image
                         style={styles.image}
                         source={require("../assets/desayuno.png")}
@@ -314,7 +328,7 @@ const HomeScreen = () => {
                     <Text style={styles.textobr}>Desayuno </Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.comidas} onPress={() => navigation.navigate("FiltroTienda", "comida")}>
+                <TouchableOpacity style={styles.comidas} onPress={() => navigation.navigate("FiltroTienda", "Comida")}>
                     <Image
                         style={styles.image}
                         source={require("../assets/comidas.png")}
@@ -322,7 +336,7 @@ const HomeScreen = () => {
                     <Text style={styles.textobr}> Comidas</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.saludable} onPress={() => navigation.navigate("FiltroTienda", "saludable")}>
+                <TouchableOpacity style={styles.saludable} onPress={() => navigation.navigate("FiltroTienda", "Saludable")}>
                     <Image
                         style={styles.image}
                         source={require("../assets/saludable.png")}
@@ -330,7 +344,7 @@ const HomeScreen = () => {
                     <Text style={styles.textobr}>Saludable</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.bebidas} onPress={() => navigation.navigate("FiltroTienda", "bebidas")}>
+                <TouchableOpacity style={styles.bebidas} onPress={() => navigation.navigate("FiltroTienda", "Bebidas")}>
                     <Image
                         style={styles.image}
                         source={require("../assets/bebidas.png")}
@@ -338,7 +352,7 @@ const HomeScreen = () => {
                     <Text style={styles.textobr}>Bebidas</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.postres} onPress={() => navigation.navigate("FiltroTienda", "postres")}>
+                <TouchableOpacity style={styles.postres} onPress={() => navigation.navigate("FiltroTienda", "Postres")}>
                     <Image
                         style={styles.image}
                         source={require("../assets/postres.png")}
@@ -346,7 +360,7 @@ const HomeScreen = () => {
                     <Text style={styles.textobr}>Postres</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.snacks} onPress={() => navigation.navigate("FiltroTienda", "snacks")}>
+                <TouchableOpacity style={styles.snacks} onPress={() => navigation.navigate("FiltroTienda", "Snacks")}>
                     <Image style={styles.image} source={require("../assets/snacks.png")} />
                     <Text style={styles.textobr}> Snacks</Text>
                 </TouchableOpacity>

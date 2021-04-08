@@ -15,6 +15,7 @@ import { WebView } from 'react-native-webview';
 const Stack = createStackNavigator();
 
 const Micarrito = ({ user }) => {
+
     return (
         <Stack.Navigator>
             <Stack.Screen
@@ -93,12 +94,12 @@ const MicarritoScreen = () => {
     );
 
 
-    const fetchitems = async (id) => {
-        const data = await fetch(`http://college-mp-env.eba-kwusjvvc.us-east-2.elasticbeanstalk.com/api/v1/carrito/${user.id}/items`)
-        const it = await data.json();
-        console.log(it["carrito_items"])
-        return (it["carrito_items"])
-    }
+  const fetchitems = async (id) => {
+    const data = await fetch(`http://college-mp-env.eba-kwusjvvc.us-east-2.elasticbeanstalk.com/api/v1/carrito/${user.id}/items`)
+    const it = await data.json();
+    console.log(it["carrito_items"])
+    return (it["carrito_items"])
+  }
 
     const getTotalCantidad = () => {
         let total = 0
@@ -230,6 +231,7 @@ const MicarritoScreen = () => {
 
 
 
+
                                     </View>
                                     :
                                     <ActivityIndicator size="large" color="blue"></ActivityIndicator>
@@ -265,12 +267,15 @@ const MicarritoScreen = () => {
             );
 
         }
+
     }
+  }
 
 }
 
 const Producto = ({ producto }) => {
 
+  
     const [refreshPage, setRefreshPage] = useState("");
 
     const navigation = useNavigation();
@@ -338,6 +343,7 @@ const EliminarItem = () => {
 }
 
 const styles = StyleSheet.create({
+
     container: {
         flex: 1,
         backgroundColor: '#C0D5E1',
@@ -351,38 +357,40 @@ const styles = StyleSheet.create({
         height: '30%',
     },
 
-    btncomprar: {
-        width: 200,
-        borderRadius: 25,
-        height: 50,
-        alignItems: "center",
-        justifyContent: "center",
-        marginTop: 20,
-        backgroundColor: "#FFAF4C",
-        fontWeight: "bold",
 
-    },
-    txtcomprar: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        color: "#FFF",
-        alignItems: "center",
-        justifyContent: "center",
-    },
-    btncheckout: {
-        width: 250,
-        borderRadius: 25,
-        height: 50,
-        alignItems: "center",
-        justifyContent: "center",
-        marginBottom: 20,
-        backgroundColor: "#FFAF4C",
-        fontWeight: "bold",
+  btncomprar: {
+    width: 200,
+    borderRadius: 25,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 20,
+    backgroundColor: "#FFAF4C",
+    fontWeight: "bold",
 
-    },
-    txtcheckout: {
-        color: "#FFF",
-        fontSize: 25,
+  },
+  txtcomprar: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: "#FFF",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  btncheckout: {
+    width: 250,
+    borderRadius: 25,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 20,
+    backgroundColor: "#FFAF4C",
+    fontWeight: "bold",
+
+  },
+  txtcheckout: {
+    color: "#FFF",
+    fontSize: 25,
+
 
     },
     txtblanco: {
@@ -409,10 +417,12 @@ const styles = StyleSheet.create({
         marginLeft: 15,
         marginRight: 15,
 
-    },
-    txtproducto: {
-        marginLeft: 15
-    },
+
+  },
+  txtproducto: {
+    marginLeft: 15
+  },
+
 
     button: {
         borderRadius: 20,
@@ -468,7 +478,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
 
-    },
+
+  },
 });
 
 export default Micarrito;

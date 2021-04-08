@@ -9,7 +9,8 @@ import {
     ScrollView,
     TouchableOpacity,
     FlatList,
-    Image
+    Image,
+
 } from "react-native";
 import { UserContext } from "../UserContext";
 import { NavigationContainer, StackActions } from "@react-navigation/native";
@@ -27,7 +28,7 @@ const Pedidos = () => {
                 name="Pedidos"
                 component={PedidosScreen}
                 options={{
-                    title: "Pedidos",
+                    title: "Pedidos Pendientes",
                     headerStyle: {
                         backgroundColor: "#C0D5E1",
                         shadowOffset: {
@@ -64,7 +65,12 @@ const PedidosScreen = () => {
     return (
         <View style={styles.container}>
             <Text style={styles.titulo}>
-                {items.length > 0 ? "Pendientes" : "No hay pedidos pendientes"}
+                <TouchableOpacity style={styles.btn} onPress={() =>
+                    navigation.navigate("PedidosAnteriores")
+                }>
+                    <Text style={styles.txtbtn}>Pedidos anteriores</Text>
+                </TouchableOpacity>
+                {items.length > 0 ? "" : "No hay pedidos pendientes"}
             </Text>
 
             <FlatList
@@ -83,14 +89,20 @@ const Producto = ({ item }) => {
     return (
         <>
             <View style={styles.productoContainer}>
-                <Image
-                    style={styles.imageProducto}
-                    source={{
-                        uri: item.url_imagen
-                            ? item.url_imagen
-                            : "../assets/food.png",
-                    }}
-                />
+
+                <View style={styles.imageProducto}>
+                    <Image
+                        style={styles.imageProducto}
+                        source={{
+                            uri: item.url_imagen
+                                ? item.url_imagen
+                                : "../assets/food.png",
+                        }}
+                        defaultSource={require("../assets/food.png")}
+                    />
+                </View>
+
+
                 <View style={styles.textoProductoContainer}>
                     <Text style={styles.titulo}>{item.nombre}</Text>
                     <Text style={styles.titulo}>
@@ -146,10 +158,12 @@ const styles = StyleSheet.create({
         flexWrap: "wrap",
         marginTop: 10,
         padding: 15,
+        marginLeft: 15,
+        marginRight: 15,
         alignItems: "center",
     },
     listaContainer: {
-        width: "100%",
+        width: 350,
     },
     textoProductoContainer: {
         marginLeft: 15,
@@ -180,6 +194,20 @@ const styles = StyleSheet.create({
     eliminarText: {
         fontWeight: "bold",
         color: "#fff",
+    },
+    btn: {
+        borderRadius: 80,
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "#FFAF4C",
+        fontWeight: "bold",
+    },
+    txtbtn: {
+        fontSize: 15,
+        fontWeight: 'bold',
+        color: "#FFF",
+        alignItems: "center",
+        justifyContent: "center",
     },
 });
 
