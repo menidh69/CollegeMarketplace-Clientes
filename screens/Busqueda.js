@@ -54,11 +54,7 @@ const BusquedaScreen = () => {
 
   useEffect(() => {
     let isMounted = true;
-    if (isMounted) {
-      buscar().then((json) => {
-        setItems(json);
-      });
-    }
+
     return () => (isMounted = false);
   }, []);
 
@@ -69,7 +65,7 @@ const BusquedaScreen = () => {
     );
     const datos = await data.json();
     console.log(datos["productos"]);
-    return datos["productos"];
+    setItems(datos["productos"]);
   };
 
   return (
@@ -83,7 +79,7 @@ const BusquedaScreen = () => {
         />
       </View>
 
-      <TouchableOpacity style={styles.botonsito} onPress={() => Buscar(nombre)}>
+      <TouchableOpacity style={styles.botonsito} onPress={() => buscar(nombre)}>
         <Text style={{ fontWeight: "bold" }}>Buscar</Text>
       </TouchableOpacity>
 
