@@ -31,8 +31,8 @@ const Micuenta = () => {
       fetchitems().then((json) => {
         setCards(json);
       });
-      return () => (isMounted = false);
     }
+    return () => (isMounted = false);
   }, []);
 
   const fetchitems = async (id) => {

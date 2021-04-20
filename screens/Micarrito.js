@@ -234,7 +234,7 @@ const MicarritoScreen = () => {
                   containerStyle={{
                     height: 40,
                     width: "40%",
-                    marginBottom: 10,
+                    marginBottom: 100,
                     marginTop: 10,
                   }}
                   style={{ backgroundColor: "#fafafa" }}
