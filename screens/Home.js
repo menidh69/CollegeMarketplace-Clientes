@@ -29,9 +29,11 @@ import FiltroTienda from "./FiltroTienda";
 import FiltroProducto from "./FiltroProducto";
 import Busqueda from "./Busqueda";
 import PedidosAnteriores from "./PedidosAnteriores";
+import { ExpoTokenContext } from "../ExpoTokenContext";
 
 const Tienda = ({ tienda }) => {
   const navigation = useNavigation();
+
 
   var tipoTienda = "";
 
@@ -102,6 +104,45 @@ const Tienda = ({ tienda }) => {
 
 const Home = ({ route }) => {
   const Tab = createBottomTabNavigator();
+  const { expotoken, setExpoToken } = useContext(ExpoTokenContext);
+  const { user, setUser } = useContext(UserContext);
+  console.log("HOLA ", expotoken);
+  console.log("user infoo ", user["userDevice"].expoToken)
+  console.log("user puto id", user.id)
+
+  useEffect(() => {
+    if (user["userDevice"].expoToken != expotoken) {
+      console.log("diferentes ")
+      updateExpoToken();
+    } else {
+      console.log("iguales")
+    }
+  }, []);
+
+
+  const updateExpoToken = async (id) => {
+    try {
+      const body = expotoken;
+      const response = await fetch(`http://college-mp-env.eba-kwusjvvc.us-east-2.elasticbeanstalk.com/api/v2/usuario/${user.id}/expo-token`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body)
+        })
+        .then(async resp => {
+          const result = await resp.json()
+          if (result.error) {
+            console.log("PORQUE ", result.error)
+          } else {
+            console.log("QUE", result)
+          }
+        })
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+
 
   return (
     <>
@@ -321,7 +362,7 @@ const HomeScreen = () => {
             placeholderTextColor="#909090"
             onFocus={() => navigation.navigate("Busqueda")}
             showSoftInputOnFocus={false}
-            // aqui
+          // aqui
           />
         </View>
 
