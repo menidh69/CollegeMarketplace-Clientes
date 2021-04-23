@@ -1,4 +1,5 @@
 import { StatusBar } from "expo-status-bar";
+import DropDownPicker from "react-native-dropdown-picker";
 import React, { useState, useContext, useEffect } from "react";
 import {
   StyleSheet,
@@ -12,12 +13,11 @@ import {
 } from "react-native";
 import { UserContext } from "../UserContext";
 import { useNavigation } from "@react-navigation/native";
-import { Picker } from "@react-native-picker/picker";
 
 const MenuTienda = ({ route }) => {
   const { user, setUser } = useContext(UserContext);
   const [items, setItems] = useState([]);
-  const [selectedValue, setSelectedValue] = useState("abc");
+  const [filtro, setFiltro] = useState("abc");
 
   useEffect(() => {
     fetchitems();
@@ -32,6 +32,29 @@ const MenuTienda = ({ route }) => {
     setItems(it);
   };
 
+  switch (filtro) {
+    case "abc":
+      items.sort((a, b) =>
+        a.nombre > b.nombre ? 1 : b.nombre > a.nombre ? -1 : 0
+      );
+      break;
+    case "xyz":
+      items.sort((a, b) =>
+        a.nombre < b.nombre ? 1 : b.nombre < a.nombre ? -1 : 0
+      );
+      break;
+    case "preciob":
+      items.sort((a, b) =>
+        a.precio > b.precio ? 1 : b.precio > a.precio ? -1 : 0
+      );
+      break;
+    case "precioa":
+      items.sort((a, b) =>
+        a.precio < b.precio ? 1 : b.precio < a.precio ? -1 : 0
+      );
+      break;
+  }
+
   return (
     <>
       <Text
@@ -43,39 +66,23 @@ const MenuTienda = ({ route }) => {
       >
         {items.length > 0 ? "" : "No hay productos"}
       </Text>
-
-      <View>
-        <Picker
-          selectedValue={selectedValue}
-          style={{ height: 50, width: 250 }}
-          onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
-          onChangeText={(value) => {
-            this.setState({
-              value,
-            });
-            if (this.state.value === "menor") {
-              <FlatList
-                style={styles.listaContainer}
-                data={items.sort((a, b) => a.precio.localeCompare(b.precio))}
-                renderItem={({ item }) => <Producto producto={item} />}
-              />;
-            }
-
-            if (this.state.value === "abc") {
-              <FlatList
-                style={styles.listaContainer}
-                data={items.sort((a, b) => a.nombre.localeCompare(b.nombre))}
-                renderItem={({ item }) => <Producto producto={item} />}
-              />;
-            }
+      
+        <DropDownPicker
+          items={[
+            { label: "A-z", value: "abc" },
+            { label: "Z-a", value: "xyz" },
+            { label: "Precio mas bajo", value: "preciob" },
+            { label: "Precio mas alto", value: "precioa" },
+          ]}
+          onChangeItem={(item) => setFiltro(item.value)}
+          containerStyle={{ height: 40, width: 200 }}
+          style={{ backgroundColor: "#fafafa" }}
+          itemStyle={{
+            justifyContent: "flex-start",
           }}
-        >
-          <Picker.Item label="Precio: Menor a mayor" value="menor" />
-          <Picker.Item label="Precio: Mayor a menor" value="mayor" />
-          <Picker.Item label="A-z" value="abc" />
-          <Picker.Item label="Z-a" value="xyz" />
-        </Picker>
-      </View>
+          dropDownStyle={{ backgroundColor: "#fafafa" }}
+        />
+      
 
       <FlatList
         style={styles.listaContainer}
