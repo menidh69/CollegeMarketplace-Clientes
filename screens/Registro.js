@@ -21,6 +21,7 @@ import {
 import { UserContext } from "../UserContext";
 import ErrorModal from "../components/ErrorModal";
 import { ScrollView } from "react-native-gesture-handler";
+import { ExpoTokenContext } from "../ExpoTokenContext";
 
 const Registro = ({ navigation }) => {
   const { user, setUser } = useContext(UserContext);
@@ -36,7 +37,7 @@ const Registro = ({ navigation }) => {
     repetirContraseña: "",
     telefono: "",
     universidad: "",
-    expoToken: expoToken,
+    expoToken: expotoken,
   });
   useEffect(() => {
     let isMounted = true;

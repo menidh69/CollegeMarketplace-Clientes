@@ -50,7 +50,7 @@ const Body = () => {
             } else {
                 AsyncStorage.setItem("token.tuw", result.user.token)
                 setUser(result.user);
-
+                console.log("todo  ", result.user)
                 navigation.reset({ routes: [{ name: 'Home' }] })
             }
 
