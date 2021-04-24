@@ -106,12 +106,9 @@ const Home = ({ route }) => {
   const Tab = createBottomTabNavigator();
   const { expotoken, setExpoToken } = useContext(ExpoTokenContext);
   const { user, setUser } = useContext(UserContext);
-  console.log("HOLA ", expotoken);
-  console.log("user infoo ", user["userDevice"].expoToken)
-  console.log("user puto id", user.id)
 
   useEffect(() => {
-    if (user["userDevice"].expoToken != expotoken) {
+    if (user["expoToken"] != expotoken) {
       console.log("diferentes ")
       updateExpoToken();
     } else {
@@ -120,26 +117,26 @@ const Home = ({ route }) => {
   }, []);
 
 
-  const updateExpoToken = async (id) => {
-    try {
-      const body = expotoken;
-      const response = await fetch(`http://college-mp-env.eba-kwusjvvc.us-east-2.elasticbeanstalk.com/api/v2/usuario/${user.id}/expo-token`,
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(body)
-        })
-        .then(async resp => {
-          const result = await resp.json()
-          if (result.error) {
-            console.log("PORQUE ", result.error)
-          } else {
-            console.log("QUE", result)
-          }
-        })
-    } catch (err) {
-      console.log(err)
+  const updateExpoToken = async () => {
+    const body = {
+      expoToken: expotoken
+    };
+    const response = await fetch(`http://college-mp-env.eba-kwusjvvc.us-east-2.elasticbeanstalk.com/api/v2/usuario/${user.id}/expo-token`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      })
+
+    const result = await response.json()
+    console.log("!!! ", result)
+    if (result.error) {
+      console.log("PORQUE ", result.error)
+    } else {
+      console.log("QUE", result)
     }
+
+
   }
 
 
