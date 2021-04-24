@@ -30,6 +30,7 @@ import FiltroProducto from "./FiltroProducto";
 import Busqueda from "./Busqueda";
 import PedidosAnteriores from "./PedidosAnteriores";
 import { ExpoTokenContext } from "../ExpoTokenContext";
+import Map from "./Map";
 
 const Tienda = ({ tienda }) => {
   const navigation = useNavigation();
@@ -261,6 +262,20 @@ const Explorar = ({ user }) => {
         component={MenuTienda}
         options={{
           title: "Menú Tienda",
+          headerStyle: {
+            backgroundColor: "#C0D5E1",
+            shadowOffset: {
+              height: 0,
+            },
+          },
+          headerTintColor: "black",
+        }}
+      />
+      <Stack.Screen
+        name="mapa"
+        component={Map}
+        options={{
+          title: "Ubicación de la tienda",
           headerStyle: {
             backgroundColor: "#C0D5E1",
             shadowOffset: {
