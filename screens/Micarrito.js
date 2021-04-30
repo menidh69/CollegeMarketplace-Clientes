@@ -23,6 +23,7 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import { color } from "react-native-reanimated";
 import DropDownPicker from "react-native-dropdown-picker";
 import { WebView } from "react-native-webview";
+import { ExpoPushNot } from "./ExpoPushNot";
 
 const Stack = createStackNavigator();
 
@@ -148,6 +149,7 @@ const MicarritoScreen = () => {
         navigation.reset({
           routes: [{ name: "Pedidos" }],
         });
+        await sendPushNotification(user.expoToken);
       } else {
         console.log("Ocurrió un error");
         setLoading(false);
@@ -389,7 +391,24 @@ const Producto = ({ producto }) => {
 };
 
 const EliminarItem = () => {
-  console.log("entro al eliminar");
+  //falta api
+  try {
+    const response = await fetch(`http://college-mp-env.eba-kwusjvvc.us-east-2.elasticbeanstalk.com/api/`,
+      {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+      })
+      .then(async resp => {
+        const result = await resp.json()
+        if (result.error) {
+          console.log(result.error)
+        } else {
+          console.log(result)
+        }
+      })
+  } catch (err) {
+    console.log(err)
+  }
 };
 
 const styles = StyleSheet.create({
