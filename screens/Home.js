@@ -28,7 +28,6 @@ import PerfilTienda from "./PerfilTienda";
 import FiltroTienda from "./FiltroTienda";
 import FiltroProducto from "./FiltroProducto";
 import Busqueda from "./Busqueda";
-import PedidosAnteriores from "./PedidosAnteriores";
 import { ExpoTokenContext } from "../ExpoTokenContext";
 import Map from "./Map";
 
@@ -289,7 +288,7 @@ const Explorar = ({ user }) => {
         name="ProductoInfo"
         component={ProductoInfo}
         options={{
-          title: "Menu",
+          title: "Producto",
           headerStyle: {
             backgroundColor: "#C0D5E1",
             shadowOffset: {
@@ -317,20 +316,6 @@ const Explorar = ({ user }) => {
         component={FiltroProducto}
         options={{
           title: "Productos por categoria",
-          headerStyle: {
-            backgroundColor: "#C0D5E1",
-            shadowOffset: {
-              height: 0,
-            },
-          },
-          headerTintColor: "black",
-        }}
-      />
-      <Stack.Screen
-        name="PedidosAnteriores"
-        component={PedidosAnteriores}
-        options={{
-          title: "Pedidos Anteriores",
           headerStyle: {
             backgroundColor: "#C0D5E1",
             shadowOffset: {
@@ -379,72 +364,77 @@ const HomeScreen = () => {
         </View>
 
         <Text style={styles.titulo2}> Búsqueda rápida </Text>
+        <View style={styles.containerCategoria}>
+          <View style={styles.categoria}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("FiltroTienda", "desayuno")}
+            >
+              <Image
+                style={styles.image}
+                source={require("../assets/desayuno.png")}
+              />
+              <Text style={styles.textobr}>Desayuno </Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.categoria}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("FiltroTienda", "comida")}
+            >
+              <Image
+                style={styles.image}
+                source={require("../assets/comidas.png")}
+              />
+              <Text style={styles.textobr}> Comidas</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.categoria}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("FiltroTienda", "saludable")}
+            >
+              <Image
+                style={styles.image}
+                source={require("../assets/saludable.png")}
+              />
+              <Text style={styles.textobr}>Saludable</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
 
-        <TouchableOpacity
-          style={styles.desayuno}
-          onPress={() => navigation.navigate("FiltroTienda", "desayuno")}
-        >
-          <Image
-            style={styles.image}
-            source={require("../assets/desayuno.png")}
-          />
-          <Text style={styles.textobr}>Desayuno </Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.comidas}
-          onPress={() => navigation.navigate("FiltroTienda", "comida")}
-        >
-          <Image
-            style={styles.image}
-            source={require("../assets/comidas.png")}
-          />
-          <Text style={styles.textobr}> Comidas</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.saludable}
-          onPress={() => navigation.navigate("FiltroTienda", "saludable")}
-        >
-          <Image
-            style={styles.image}
-            source={require("../assets/saludable.png")}
-          />
-          <Text style={styles.textobr}>Saludable</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.bebidas}
-          onPress={() => navigation.navigate("FiltroTienda", "bebidas")}
-        >
-          <Image
-            style={styles.image}
-            source={require("../assets/bebidas.png")}
-          />
-          <Text style={styles.textobr}>Bebidas</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.postres}
-          onPress={() => navigation.navigate("FiltroTienda", "postre")}
-        >
-          <Image
-            style={styles.image}
-            source={require("../assets/postres.png")}
-          />
-          <Text style={styles.textobr}>Postres</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.snacks}
-          onPress={() => navigation.navigate("FiltroTienda", "snack")}
-        >
-          <Image
-            style={styles.image}
-            source={require("../assets/snacks.png")}
-          />
-          <Text style={styles.textobr}> Snacks</Text>
-        </TouchableOpacity>
+        <View style={styles.containerCategoria}>
+          <View style={styles.categoria}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("FiltroTienda", "bebidas")}
+            >
+              <Image
+                style={styles.image}
+                source={require("../assets/bebidas.png")}
+              />
+              <Text style={styles.textobr}>Bebidas</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.categoria}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("FiltroTienda", "postre")}
+            >
+              <Image
+                style={styles.image}
+                source={require("../assets/postres.png")}
+              />
+              <Text style={styles.textobr}>Postres</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.categoria}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("FiltroTienda", "snack")}
+            >
+              <Image
+                style={styles.image}
+                source={require("../assets/snacks.png")}
+              />
+              <Text style={styles.textobr}> Snacks</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
 
         <Text style={styles.titulo3}> Tiendas Populares </Text>
       </View>
@@ -459,13 +449,22 @@ const HomeScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: "#C0D5E1",
     alignItems: "center",
     justifyContent: "center",
   },
   containerS: {
+    flex: 1,
     backgroundColor: "#c0d5e1",
+  },
+  containerCategoria: {
+    marginTop: 15,
+    flexDirection: "row",
+  },
+  categoria: {
+    marginTop: 15,
+    marginLeft: 30,
+    marginRight: 30
   },
 
   imageProducto: {
@@ -483,7 +482,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderColor: "#9C9C9C",
     borderWidth: 1,
-    top: 140,
+    top: 20,
   },
   TextInput: {
     height: 50,
@@ -498,25 +497,22 @@ const styles = StyleSheet.create({
   titulo: {
     fontSize: 30,
     fontWeight: "bold",
-    position: "absolute",
-    top: 90,
-    left: 30,
+    top: 10,
+    right: 100
   },
 
   titulo2: {
     fontSize: 24,
     fontWeight: "bold",
-    position: "absolute",
-    top: 240,
-    left: 30,
+    top: 25,
+    right: 65
   },
 
   titulo3: {
     fontSize: 24,
     fontWeight: "bold",
-    position: "absolute",
-    top: 480,
-    left: 30,
+    right: 60,
+    marginTop: 15
   },
 
   textobr: {
@@ -528,38 +524,8 @@ const styles = StyleSheet.create({
     height: 60,
   },
 
-  desayuno: {
-    right: 120,
-    top: 220,
-  },
-
-  comidas: {
-    top: 140,
-  },
-  saludable: {
-    top: 60,
-    left: 120,
-  },
-
-  bebidas: {
-    top: 80,
-    right: 120,
-  },
-
-  postres: {
-    top: 6,
-    left: 6,
-  },
-
-  snacks: {
-    bottom: 70,
-    left: 120,
-  },
-
   listaContainer: {
     width: "100%",
-
-    backgroundColor: "#C0D5E1",
   },
   productoContainer: {
     flexDirection: "row",
@@ -595,12 +561,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#fff",
   },
-  // container: {
-  //     flex: 1,
-  //     backgroundColor: '#1E6995',
-  //     alignItems: 'center',
-  //     justifyContent: 'center',
-  // },
 });
 
 export default Home;
