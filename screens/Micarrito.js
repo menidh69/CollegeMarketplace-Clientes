@@ -314,7 +314,10 @@ const MicarritoScreen = () => {
             source={require("../assets/carrito.png")}
           />
           <Text>Tu carrito esta vacio, comienza a agregar productos</Text>
-          <TouchableOpacity style={styles.btncomprar} onPress={() => navigation.navigate("Inicio")}>
+          <TouchableOpacity
+            style={styles.btncomprar}
+            onPress={() => navigation.navigate("Inicio")}
+          >
             <Text style={styles.txtcomprar}>Comprar</Text>
           </TouchableOpacity>
         </View>
@@ -390,29 +393,6 @@ const Producto = ({ producto }) => {
     </View>
   );
 };
-
-
-const EliminarItem = () => {
-  //falta api
-  try {
-    const response = await fetch(`http://college-mp-env.eba-kwusjvvc.us-east-2.elasticbeanstalk.com/api/`,
-      {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-      })
-      .then(async resp => {
-        const result = await resp.json()
-        if (result.error) {
-          console.log(result.error)
-        } else {
-          console.log(result)
-        }
-      })
-  } catch (err) {
-    console.log(err)
-  }
-};
-
 
 const styles = StyleSheet.create({
   container: {
