@@ -84,6 +84,19 @@ const App = () => {
                         <Stack.Screen
                             name="Registro"
                             component={Registro}
+                            options={
+                                {
+                                    headerBackTitle: 'Atrás',
+
+                                    headerTintColor: '#000',
+                                    headerStyle: {
+                                        backgroundColor: '#C0D5E1'
+                                    },
+                                    shadowOffset: {
+                                        height: 0
+                                    }
+                                }
+                            }
                         />
 
                         <Stack.Screen

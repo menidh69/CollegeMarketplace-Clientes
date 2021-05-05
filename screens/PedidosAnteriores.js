@@ -13,6 +13,7 @@ import {
 } from "react-native";
 import { UserContext } from "../UserContext";
 import { useNavigation } from "@react-navigation/native";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 const PedidosAnteriores = () => {
   return <PedidosAnterioresScreen />;
@@ -40,12 +41,12 @@ const PedidosAnterioresScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.titulo}>
+      <Text style={styles.titulobtn}>
         <TouchableOpacity
           style={styles.btn}
           onPress={() => navigation.navigate("Pedidos")}
         >
-          <Text style={styles.txtbtn}>Pedidos pendientes</Text>
+          <Text style={styles.txtbtn1}>Pedidos pendientes</Text>
         </TouchableOpacity>
         {items.length > 0 ? "" : "No hay pedidos pendientes"}
       </Text>
@@ -140,9 +141,18 @@ const Producto = ({ item }) => {
         }}
       >
         <View style={styles.modalcontainer}>
+
           <View style={styles.modalView}>
+            <View style={styles.dismissicon}>
+              <TouchableOpacity
+                onPress={() => setModalVisible(false)}
+
+              >
+                <MaterialCommunityIcons name="close" size={28} />
+              </TouchableOpacity>
+            </View>
             <Image
-              style={styles.imageProducto}
+              style={styles.modalimagen}
               source={{
                 uri: item.url_imagen ? item.url_imagen : "../assets/food.png",
               }}
@@ -177,7 +187,7 @@ const Producto = ({ item }) => {
 
             <View style={{ flexDirection: "row" }}>
               <TouchableOpacity
-                style={styles.btnmodal}
+                style={styles.btnmodalEnviar}
                 onPress={() => handleReview()}
               >
                 <Text style={styles.textStyle}>Enviar</Text>
@@ -256,8 +266,8 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   imageProducto: {
-    width: 75,
-    height: 75,
+    width: 85,
+    height: 85,
     borderRadius: 25,
     backgroundColor: "black",
   },
@@ -303,12 +313,24 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#fff",
   },
+  titulobtn: {
+    color: "#000",
+    fontSize: 18,
+    fontWeight: "bold",
+    marginTop: 10
+  },
   btn: {
     borderRadius: 80,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#E99125",
-    fontWeight: "bold",
+    backgroundColor: "#FFAF4C",
+    marginTop: 20
+  },
+  txtbtn1: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    color: "#FFF",
+    padding: 15
   },
   txtbtn: {
     fontSize: 15,
@@ -325,10 +347,10 @@ const styles = StyleSheet.create({
   },
   modalView: {
     margin: 15,
-    height: 450,
+    height: 520,
     backgroundColor: "white",
     borderRadius: 20,
-    padding: 35,
+    padding: 30,
     alignItems: "center",
     justifyContent: "center",
     shadowColor: "#000",
@@ -358,14 +380,28 @@ const styles = StyleSheet.create({
     margin: 10,
     padding: 10,
     elevation: 2,
+    alignItems: "center",
+    justifyContent: "center",
   },
-  modalimg: {
-    borderRadius: 15,
-    backgroundColor: "black",
+  btnmodalEnviar: {
+    backgroundColor: "#E99125",
+    borderRadius: 25,
     margin: 10,
+    padding: 5,
+    elevation: 2,
+    width: "80%",
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+
+  },
+  modalimagen: {
+    marginTop: 10,
+    width: 150,
+    height: 150,
+    borderRadius: 25,
   },
   customRatingBarStyle: {
-    margin: 10,
     justifyContent: "center",
     flexDirection: "row",
   },
@@ -377,7 +413,7 @@ const styles = StyleSheet.create({
   inputViewDescripcion: {
     backgroundColor: "#E2DFDF",
     borderRadius: 30,
-    width: "80%",
+    width: "90%",
     height: 100,
     flexDirection: "row",
     alignItems: "center",
@@ -387,13 +423,17 @@ const styles = StyleSheet.create({
     height: "80%",
     flex: 1,
     padding: 10,
-    marginLeft: 20,
+    marginLeft: 10,
   },
   nombre: {
     fontSize: 20,
     fontWeight: "bold",
     margin: 10,
   },
+  dismissicon: {
+    marginTop: 10,
+    marginLeft: 270
+  }
 });
 
 export default PedidosAnteriores;

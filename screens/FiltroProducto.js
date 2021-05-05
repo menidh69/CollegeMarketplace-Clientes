@@ -50,10 +50,10 @@ const FiltroProducto = ({ route }) => {
         {items.length > 0 ? "" : "No hay productos"}
       </Text>
 
-      <View>
+      <View style={{ backgroundColor: "#C0D5E1", alignItems: "center" }}>
         <Picker
           selectedValue={selectedValue}
-          style={{ height: 50, width: 250 }}
+          style={{ height: 50, width: 250, backgroundColor: "#fafafa" }}
           onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
           onChangeText={(value) => {
             this.setState({
@@ -134,6 +134,8 @@ const Producto = ({ producto }) => {
           marginBottom: 10,
           borderBottomColor: "black",
           borderBottomWidth: 1,
+          marginLeft: 15,
+          marginRight: 15,
         }}
       />
     </>
@@ -150,6 +152,7 @@ const styles = StyleSheet.create({
 
   titulo: {
     fontSize: 18,
+    fontWeight: "bold",
   },
 
   precio: {
@@ -219,8 +222,8 @@ const styles = StyleSheet.create({
   },
 
   imageProducto: {
-    width: 75,
-    height: 75,
+    width: 85,
+    height: 85,
     borderRadius: 25,
   },
   productoContainer: {
@@ -229,7 +232,14 @@ const styles = StyleSheet.create({
     marginTop: 10,
     padding: 15,
     alignItems: "center",
+    marginLeft: 15,
+    marginRight: 15,
   },
+  contenedor2: {
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#fafafa",
+  }
 });
 
 export default FiltroProducto;

@@ -165,7 +165,7 @@ const AndroidTarjeta = () => {
         style={styles.btnPrimary}
         onPress={() => handleSubmit()}
       >
-        <Text>Guardar</Text>
+        <Text style={{ color: "white", fontWeight: "bold", fontSize: 20 }}>Guardar</Text>
       </TouchableOpacity>
       <LoadingModal
         loading={loading}
@@ -198,10 +198,12 @@ const styles = StyleSheet.create({
   btnPrimary: {
     marginTop: 20,
     width: "80%",
-    padding: 15,
+    padding: 10,
     borderRadius: 25,
-    height: 50,
+    //height: 50,
     backgroundColor: "#E99125",
+    alignItems: "center",
+    color: "#FFF",
   },
   title: {
     fontSize: 24,
@@ -211,6 +213,8 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 18,
     margin: 10,
+    marginLeft: 30,
+    marginRight: 30,
   },
   input: {
     backgroundColor: "#FFFFFF",

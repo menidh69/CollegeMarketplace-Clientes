@@ -201,7 +201,7 @@ const MicarritoScreen = () => {
 
           <View style={{ marginBottom: 20, marginLeft: 20 }}>
             <Text>Items total: {getTotalCantidad()}</Text>
-            <Text>
+            <Text style={{ fontWeight: "bold", fontSize: 20 }}>
               Total: ${Number.parseFloat(getTotaPrecio()).toFixed(2)}{" "}
             </Text>
           </View>
@@ -313,7 +313,7 @@ const MicarritoScreen = () => {
             source={require("../assets/carrito.png")}
           />
           <Text>Tu carrito esta vacio, comienza a agregar productos</Text>
-          <TouchableOpacity style={styles.btncomprar}>
+          <TouchableOpacity style={styles.btncomprar} onPress={() => navigation.navigate("Inicio")}>
             <Text style={styles.txtcomprar}>Comprar</Text>
           </TouchableOpacity>
         </View>
@@ -390,6 +390,7 @@ const Producto = ({ producto }) => {
   );
 };
 
+
 const EliminarItem = () => {
   //falta api
   try {
@@ -410,6 +411,7 @@ const EliminarItem = () => {
     console.log(err)
   }
 };
+
 
 const styles = StyleSheet.create({
   container: {

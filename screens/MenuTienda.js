@@ -57,16 +57,17 @@ const MenuTienda = ({ route }) => {
 
   return (
     <>
-      <Text
-        style={{
-          fontSize: 24,
-          backgroundColor: "#C0D5E1",
-          textAlign: "center",
-        }}
-      >
-        {items.length > 0 ? "" : "No hay productos"}
-      </Text>
-      
+      <View style={styles.container}>
+        <Text
+          style={{
+            fontSize: 24,
+            backgroundColor: "#C0D5E1",
+            textAlign: "center",
+          }}
+        >
+          {items.length > 0 ? "" : "No hay productos"}
+        </Text>
+
         <DropDownPicker
           items={[
             { label: "A-z", value: "abc" },
@@ -75,21 +76,22 @@ const MenuTienda = ({ route }) => {
             { label: "Precio mas alto", value: "precioa" },
           ]}
           onChangeItem={(item) => setFiltro(item.value)}
-          containerStyle={{ height: 40, width: 200 }}
-          style={{ backgroundColor: "#fafafa" }}
+          containerStyle={{ height: 40, width: 250 }}
+          style={{ backgroundColor: "#fafafa", alignItems: "center", }}
           itemStyle={{
-            justifyContent: "flex-start",
+            justifyContent: "center",
           }}
-          dropDownStyle={{ backgroundColor: "#fafafa" }}
+          dropDownStyle={{ backgroundColor: "#fafafa", width: 250 }}
         />
-      
 
-      <FlatList
-        style={styles.listaContainer}
-        data={items}
-        renderItem={({ item }) => <Producto producto={item} />}
-      />
+        <FlatList
+          style={styles.listaContainer}
+          data={items}
+          renderItem={({ item }) => <Producto producto={item} />}
+        />
+      </View>
     </>
+
   );
 };
 
@@ -135,6 +137,8 @@ const Producto = ({ producto }) => {
           marginBottom: 10,
           borderBottomColor: "black",
           borderBottomWidth: 1,
+          marginLeft: 15,
+          marginRight: 15,
         }}
       />
     </>
@@ -151,6 +155,7 @@ const styles = StyleSheet.create({
 
   titulo: {
     fontSize: 18,
+    fontWeight: "bold",
   },
 
   precio: {
@@ -230,6 +235,8 @@ const styles = StyleSheet.create({
     marginTop: 10,
     padding: 15,
     alignItems: "center",
+    marginLeft: 15,
+    marginRight: 15,
   },
 });
 
