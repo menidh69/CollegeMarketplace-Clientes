@@ -298,6 +298,7 @@ const MicarritoScreen = () => {
             source={{ html: htmlView }}
             onMessage={(event) => {
               const { data } = event.nativeEvent;
+              console.log(data);
               setDeviceSession(data);
             }}
           ></WebView>

@@ -34,7 +34,6 @@ import { ExpoTokenContext } from "../ExpoTokenContext";
 const Tienda = ({ tienda }) => {
   const navigation = useNavigation();
 
-
   var tipoTienda = "";
 
   switch (tienda.id_tipo_tienda) {
@@ -109,37 +108,34 @@ const Home = ({ route }) => {
 
   useEffect(() => {
     if (user["expoToken"] != expotoken) {
-      console.log("diferentes ")
+      console.log("diferentes ");
       updateExpoToken();
     } else {
-      console.log("iguales")
+      console.log("iguales");
     }
   }, []);
 
-
   const updateExpoToken = async () => {
     const body = {
-      expoToken: expotoken
+      expoToken: expotoken,
     };
-    const response = await fetch(`http://college-mp-env.eba-kwusjvvc.us-east-2.elasticbeanstalk.com/api/v2/usuario/${user.id}/expo-token`,
+    const response = await fetch(
+      `http://college-mp-env.eba-kwusjvvc.us-east-2.elasticbeanstalk.com/api/v2/usuario/${user.id}/expo-token`,
       {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body)
-      })
+        body: JSON.stringify(body),
+      }
+    );
 
-    const result = await response.json()
-    console.log("!!! ", result)
+    const result = await response.json();
+    console.log("!!! ", result);
     if (result.error) {
-      console.log("PORQUE ", result.error)
+      console.log("PORQUE ", result.error);
     } else {
-      console.log("QUE", result)
+      console.log("QUE", result);
     }
-
-
-  }
-
-
+  };
 
   return (
     <>
@@ -333,7 +329,13 @@ const HomeScreen = () => {
   const [items, setItems] = useState([]);
   const navigation = useNavigation();
   useEffect(() => {
-    fetchitems();
+    let isMounted = true;
+    if (isMounted) {
+      fetchitems().then((json) => {
+        setItems(json);
+      });
+    }
+    return () => (isMounted = false);
   }, []);
 
   const fetchitems = async (id) => {
@@ -341,8 +343,7 @@ const HomeScreen = () => {
       `http://college-mp-env.eba-kwusjvvc.us-east-2.elasticbeanstalk.com/api/v1/tiendas`
     );
     const it = await data.json();
-    console.log(it);
-    setItems(it);
+    return it;
   };
 
   return (
@@ -359,7 +360,7 @@ const HomeScreen = () => {
             placeholderTextColor="#909090"
             onFocus={() => navigation.navigate("Busqueda")}
             showSoftInputOnFocus={false}
-          // aqui
+            // aqui
           />
         </View>
 
