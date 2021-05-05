@@ -18,6 +18,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useNavigation } from "@react-navigation/native";
 import { NewUserContext } from "../NewUserContext";
 import { createStackNavigator } from "@react-navigation/stack";
+import PedidosAnteriores from "./PedidosAnteriores";
 
 const Stack = createStackNavigator();
 
@@ -36,6 +37,21 @@ const Pedidos = () => {
                         },
                     },
                     headerLeft: null,
+                }}
+            />
+            <Stack.Screen
+                name="PedidosAnteriores"
+                component={PedidosAnteriores}
+                options={{
+                    title: "Pedidos Anteriores",
+                    headerLeft: null,
+                    headerStyle: {
+                        backgroundColor: "#C0D5E1",
+                        shadowOffset: {
+                            height: 0,
+                        },
+                    },
+                    headerTintColor: "black",
                 }}
             />
         </Stack.Navigator>
@@ -68,7 +84,7 @@ const PedidosScreen = () => {
                 <TouchableOpacity style={styles.btn} onPress={() =>
                     navigation.navigate("PedidosAnteriores")
                 }>
-                    <Text style={styles.txtbtn}>Pedidos anteriores</Text>
+                    <Text style={styles.txtbtn}>Pedidos Anteriores</Text>
                 </TouchableOpacity>
                 {items.length > 0 ? "" : "No hay pedidos pendientes"}
             </Text>
@@ -146,11 +162,11 @@ const styles = StyleSheet.create({
         color: "#000",
         fontSize: 18,
         fontWeight: "bold",
-        marginBottom: 5,
+        marginTop: 10
     },
     imageProducto: {
-        width: 75,
-        height: 75,
+        width: 85,
+        height: 85,
         borderRadius: 25,
     },
     productoContainer: {
@@ -200,14 +216,14 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         backgroundColor: "#FFAF4C",
-        fontWeight: "bold",
+        marginTop: 20
+        //fontWeight: "bold",
     },
     txtbtn: {
         fontSize: 15,
         fontWeight: 'bold',
         color: "#FFF",
-        alignItems: "center",
-        justifyContent: "center",
+        padding: 15
     },
 });
 

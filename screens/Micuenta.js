@@ -141,7 +141,7 @@ const MicuentaScreen = ({ user, cards }) => {
       <List.Section style={styles.datosPersonales}>
         <List.Accordion
           title="Información bancaria"
-          style={{ borderRadius: 25 }}
+          style={{ color: "white" }}
         >
           <View style={styles.informacionBancaria}>
             <View style={styles.tarjetasContainer}>
@@ -212,23 +212,29 @@ const styles = StyleSheet.create({
   },
   datos: {
     fontSize: 24,
+    color: "white"
   },
   datosPersonales: {
-    backgroundColor: "#88CBF1",
+    backgroundColor: "#5c9ec4",
     borderRadius: 25,
-    width: "80%",
+    width: "85%",
+    color: "white"
   },
   datosPersonalesList: {
     padding: 10,
+    marginTop: -10,
   },
   imagen: {
     width: 50,
     height: 75,
+    marginTop: -10,
     backgroundColor: "black",
   },
   detallesContainer: {
     flexDirection: "row",
-    justifyContent: "center",
+    //justifyContent: "center",
+    marginLeft: 10,
+    marginBottom: 10,
     padding: 10,
   },
   informacionBancaria: {
@@ -237,7 +243,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   tarjetasContainer: {
-    padding: 10,
+    //padding: 10,
     width: "80%",
   },
   agregarTarjetaBtnContainer: {
@@ -250,13 +256,12 @@ const styles = StyleSheet.create({
     width: "80%",
     padding: 15,
     borderRadius: 25,
-    height: 50,
     backgroundColor: "#16b585",
   },
   textoAgregarTarjetaBtn: {
     textAlign: "center",
     color: "#FFF",
-    fontWeight: "700",
+    fontWeight: "bold",
   },
   logoutBtn: {
     marginTop: 20,
@@ -264,7 +269,7 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 25,
     height: 50,
-    backgroundColor: "#bf4d4d",
+    backgroundColor: "#de3535",
   },
   imageCard: {
     width: 33,

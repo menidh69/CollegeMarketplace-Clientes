@@ -205,6 +205,14 @@ const PerfilTienda = ({ route }) => {
                     >
                         <Text style={styles.btnText}>Validar Tienda</Text>
                     </TouchableOpacity>
+                    <TouchableOpacity
+                        style={styles.validarBtn}
+                        onPress={() => navigation.navigate("mapa", {
+                            tienda: route.params.tienda
+                        })}
+                    >
+                        <Text style={styles.btnText}>Ver Ubicación</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
         </View >

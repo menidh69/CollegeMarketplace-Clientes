@@ -16,7 +16,7 @@ import { useNavigation } from "@react-navigation/native";
 
 const ProductoInfo = ({ route }) => {
 
-    const {user, setUser} = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext);
     const [cantidad, setCantidad] = useState(1);
     const navigation = useNavigation();
 
@@ -56,7 +56,7 @@ const ProductoInfo = ({ route }) => {
 
             <Image
                 style={styles.imageProducto}
-                source={{uri: route.params.producto.url_imagen ? route.params.producto.url_imagen : '../assets/food.png'}}
+                source={{ uri: route.params.producto.url_imagen ? route.params.producto.url_imagen : '../assets/food.png' }}
                 defaultSource={require('../assets/food.png')}
             />
             <View style={styles.productoContainer}>
@@ -76,7 +76,7 @@ const ProductoInfo = ({ route }) => {
 
 
                     <View style={styles.quantityContainer}>
-                        <Text style={{width: "100%", textAlign: 'center', fontSize: 15, marginTop: 10}}>Cantidad</Text>
+                        <Text style={{ width: "100%", textAlign: 'center', fontSize: 15, marginTop: 10 }}>Cantidad</Text>
                         <TouchableOpacity style={styles.quantityBtn} onPress={() => setCantidad(cantidad == 1 ? cantidad : cantidad - 1)}>
                             <Text style={{ textAlign: 'center', fontSize: 16, fontWeight: 'bold' }} >-</Text>
                         </TouchableOpacity>
@@ -149,7 +149,8 @@ const styles = StyleSheet.create({
     },
     agregarText: {
         fontSize: 16,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        color: "white"
     },
     quantityBtn: {
         borderRadius: 50,
