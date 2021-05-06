@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
         color: "#000",
         fontSize: 18,
         fontWeight: "bold",
-        marginTop: 10
+        marginTop: 15
     },
     imageProducto: {
         width: 85,

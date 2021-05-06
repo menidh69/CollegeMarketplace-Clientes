@@ -9,6 +9,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Alert
 } from "react-native";
 import { UserContext } from "../UserContext";
 import { NavigationContainer } from "@react-navigation/native";
@@ -18,6 +19,7 @@ import { List } from "react-native-paper";
 import { createStackNavigator } from "@react-navigation/stack";
 import AgregarTarjeta from "./AgregarTarjeta";
 import AndroidTarjeta from "./AndroidTarjeta";
+import LoadingModal from "../components/LoadingModal";
 
 const Stack = createStackNavigator();
 
@@ -89,6 +91,7 @@ const MicuentaScreen = ({ user, cards }) => {
   num_cf = "(" + num_sf.substring(0, 3) + ") ";
   num_cf += num_sf.substring(3, 6) + " ";
   num_cf += num_sf.substring(6, 10);
+  const [refreshPage, setRefreshPage] = useState("");
 
   return (
     <View style={styles.container}>
@@ -125,19 +128,16 @@ const MicuentaScreen = ({ user, cards }) => {
           </View>
         </List.Accordion>
       </List.Section>
-      <List.Section style={styles.datosPersonales}>
+      {/* <List.Section style={styles.datosPersonales}>
         <List.Accordion title="Ordenes" style={{ borderRadius: 25 }}>
           <View style={styles.detallesContainer}>
             <View style={styles.imagen}></View>
             <View style={styles.datosPersonalesList}>
               <Text>Tarjetas</Text>
-              <TouchableOpacity>
-                <Text>Agregar Tarjeta</Text>
-              </TouchableOpacity>
             </View>
           </View>
         </List.Accordion>
-      </List.Section>
+      </List.Section> */}
       <List.Section style={styles.datosPersonales}>
         <List.Accordion
           title="Información bancaria"
@@ -145,15 +145,14 @@ const MicuentaScreen = ({ user, cards }) => {
         >
           <View style={styles.informacionBancaria}>
             <View style={styles.tarjetasContainer}>
-              <Text>Mis tarjetas guardadas</Text>
               <Text
                 style={{
-                  marginTop: 10,
+                  marginTop: -10,
                   fontSize: 18,
                   textAlign: "center",
                 }}
               >
-                {cards !== undefined ? "" : "No hay Tarjetas"}
+                {cards !== undefined ? "Mis tarjetas guardadas" : "No hay Tarjetas"}
               </Text>
               {cards !== undefined ? <Tarjeta card={cards} /> : <></>}
               <View style={styles.agregarTarjetaBtnContainer}>
@@ -161,7 +160,7 @@ const MicuentaScreen = ({ user, cards }) => {
                   style={styles.agregarTarjetaBtn}
                   onPress={() => navigation.navigate("AgregarTarjeta")}
                 >
-                  <Text style={styles.textoAgregarTarjetaBtn}>
+                  <Text style={styles.textoBtn}>
                     Agregar Tarjeta
                   </Text>
                 </TouchableOpacity>
@@ -171,10 +170,36 @@ const MicuentaScreen = ({ user, cards }) => {
         </List.Accordion>
       </List.Section>
       <TouchableOpacity
+        style={styles.bajaBtn}
+        onPress={() =>
+          Alert.alert(
+            "Eliminar Cuenta",
+            "¿Estas seguro de quieres eliminar tu cuenta? Te extrañaremos",
+            [
+              {
+                text: "Cancelar",
+                onPress: () => {
+                  setRefreshPage("refresh");
+                },
+              },
+              {
+                text: "Si",
+                onPress: () => {
+                  EliminarCuenta();
+                },
+              },
+            ],
+            { cancelable: false }
+          )
+        }
+      >
+        <Text style={styles.textoBtn}>Dar de Baja</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
         style={styles.logoutBtn}
         onPress={() => navigation.reset({ routes: [{ name: "Landing" }] })}
       >
-        <Text style={styles.textoAgregarTarjetaBtn}>Cerrar sesión</Text>
+        <Text style={styles.textoBtn}>Cerrar sesión</Text>
       </TouchableOpacity>
     </View>
   );
@@ -184,9 +209,36 @@ const Tarjeta = ({ card }) => {
   var num_sf = card.card_number;
   var num_cf = "";
   num_cf = "" + num_sf.substring(12, 16);
+  const [modalShow, setModalShow] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
 
   var url_icon = `../assets/${card.brand}.png`;
   console.log(url_icon);
+
+  const borrarTarjeta = async () => {
+    console.log("HOLA ", card.id);
+    setModalShow(true);
+    setLoading(true);
+    setMessage("Eliminando");
+    const datos = await fetch(
+      `http://college-mp-env.eba-kwusjvvc.us-east-2.elasticbeanstalk.com/api/v2/openpay/cards/${card.id}`,
+      {
+        method: "DELETE",
+      }
+    );
+    const resp = await datos.json();
+    if (resp.error) {
+      setLoading(false);
+      setMessage("Ocurrio un error: " + resp.error);
+      return;
+    }
+    setMessage("");
+    setLoading(false);
+    setModalShow(false);
+    return;
+  };
+
 
   return (
     <View style={styles.cardContainer}>
@@ -199,8 +251,41 @@ const Tarjeta = ({ card }) => {
       </Text>
       <Text>{num_cf}</Text>
       <Image style={styles.imageCard} source={require(`../assets/visa.png`)} />
+      <TouchableOpacity
+        style={{
+          backgroundColor: "red",
+          marginLeft: 5,
+          padding: 10,
+          borderRadius: 30
+        }}
+        onPress={borrarTarjeta}
+      >
+        <Text style={styles.textoBtn}>Borrar</Text>
+      </TouchableOpacity>
+      <LoadingModal
+        show={modalShow}
+        setShow={setModalShow}
+        loading={loading}
+        message={message}
+      ></LoadingModal>
     </View>
   );
+};
+
+
+const EliminarCuenta = async (id) => {
+  console.log("hola");
+  const eliminar = await fetch(
+    `http://college-mp-env.eba-kwusjvvc.us-east-2.elasticbeanstalk.com/api/v1/usuariosdelete/${id}`,
+    {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+    }
+  );
+  const resp = await eliminar.json();
+  console.log(resp);
+
+  navigation.reset({ routes: [{ name: "Landing" }] });
 };
 
 const styles = StyleSheet.create({
@@ -253,12 +338,13 @@ const styles = StyleSheet.create({
   },
   agregarTarjetaBtn: {
     marginTop: 20,
+    marginBottom: 10,
     width: "80%",
     padding: 15,
     borderRadius: 25,
     backgroundColor: "#16b585",
   },
-  textoAgregarTarjetaBtn: {
+  textoBtn: {
     textAlign: "center",
     color: "#FFF",
     fontWeight: "bold",
@@ -270,6 +356,14 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     height: 50,
     backgroundColor: "#de3535",
+  },
+  bajaBtn: {
+    marginTop: 20,
+    width: "40%",
+    padding: 15,
+    borderRadius: 25,
+    height: 50,
+    backgroundColor: "black",
   },
   imageCard: {
     width: 33,
@@ -284,6 +378,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFF",
     borderRadius: 25,
     padding: 5,
+    marginTop: 20,
   },
 });
 
