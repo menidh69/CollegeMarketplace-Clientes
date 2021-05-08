@@ -88,6 +88,7 @@ const MenuTienda = ({ route }) => {
         style={styles.listaContainer}
         data={items}
         renderItem={({ item }) => <Producto producto={item} />}
+        keyExtractor={item => item.id.toString()}
       />
     </>
   );

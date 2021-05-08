@@ -186,7 +186,6 @@ const Tarjeta = ({ card }) => {
   num_cf = "" + num_sf.substring(12, 16);
 
   var url_icon = `../assets/${card.brand}.png`;
-  console.log(url_icon);
 
   return (
     <View style={styles.cardContainer}>
