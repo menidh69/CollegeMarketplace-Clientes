@@ -86,6 +86,9 @@ const PedidosScreen = () => {
                 }>
                     <Text style={styles.txtbtn}>Pedidos Anteriores</Text>
                 </TouchableOpacity>
+
+            </Text>
+            <Text style={styles.titulo}>
                 {items.length > 0 ? "" : "No hay pedidos pendientes"}
             </Text>
 
@@ -162,7 +165,7 @@ const styles = StyleSheet.create({
         color: "#000",
         fontSize: 18,
         fontWeight: "bold",
-        marginTop: 15
+        marginTop: 15,
     },
     imageProducto: {
         width: 85,
@@ -216,7 +219,8 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         backgroundColor: "#FFAF4C",
-        marginTop: 20
+        marginTop: 20,
+
         //fontWeight: "bold",
     },
     txtbtn: {

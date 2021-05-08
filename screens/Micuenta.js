@@ -152,9 +152,9 @@ const MicuentaScreen = ({ user, cards }) => {
                   textAlign: "center",
                 }}
               >
-                {cards !== undefined ? "Mis tarjetas guardadas" : "No hay Tarjetas"}
+                {(cards !== undefined && cards.length !== 0) ? "Mis tarjetas guardadas" : "No hay Tarjetas"}
               </Text>
-              {cards !== undefined ? <Tarjeta card={cards} /> : <></>}
+              {(cards !== undefined && cards.length !== 0) ? <Tarjeta card={cards} /> : <></>}
               <View style={styles.agregarTarjetaBtnContainer}>
                 <TouchableOpacity
                   style={styles.agregarTarjetaBtn}
@@ -217,7 +217,7 @@ const Tarjeta = ({ card }) => {
   console.log(url_icon);
 
   const borrarTarjeta = async () => {
-    console.log("HOLA ", card.id);
+    console.log("HOLA el id a eliminar es ", card.id);
     setModalShow(true);
     setLoading(true);
     setMessage("Eliminando");

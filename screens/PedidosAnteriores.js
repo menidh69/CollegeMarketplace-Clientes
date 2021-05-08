@@ -46,8 +46,11 @@ const PedidosAnterioresScreen = () => {
           style={styles.btn}
           onPress={() => navigation.navigate("Pedidos")}
         >
-          <Text style={styles.txtbtn1}>Pedidos pendientes</Text>
+          <Text style={styles.txtbtn1}>Pedidos Pendientes</Text>
         </TouchableOpacity>
+
+      </Text>
+      <Text style={styles.titulobtn}>
         {items.length > 0 ? "" : "No hay pedidos pendientes"}
       </Text>
 
