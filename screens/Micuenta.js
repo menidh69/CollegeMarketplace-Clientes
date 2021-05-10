@@ -214,7 +214,6 @@ const Tarjeta = ({ card }) => {
   const [message, setMessage] = useState("");
 
   var url_icon = `../assets/${card.brand}.png`;
-  console.log(url_icon);
 
   const borrarTarjeta = async () => {
     console.log("HOLA el id a eliminar es ", card.id);

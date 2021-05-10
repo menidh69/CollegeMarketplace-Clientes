@@ -40,7 +40,7 @@ const Stack = createStackNavigator();
 const App = () => {
 
     useEffect(() => {
-        registerForPushNotification().then(token => console.log(token)).catch(err => console.log(Err))
+        registerForPushNotification().then(token => console.log(token)).catch(err => console.log(err))
     }, [])
 
     async function registerForPushNotification() {

@@ -84,11 +84,14 @@ const MenuTienda = ({ route }) => {
           dropDownStyle={{ backgroundColor: "#fafafa", width: 250 }}
         />
 
-        <FlatList
-          style={styles.listaContainer}
-          data={items}
-          renderItem={({ item }) => <Producto producto={item} />}
-        />
+
+      <FlatList
+        style={styles.listaContainer}
+        data={items}
+        renderItem={({ item }) => <Producto producto={item} />}
+        keyExtractor={item => item.id.toString()}
+      />
+
       </View>
     </>
 
