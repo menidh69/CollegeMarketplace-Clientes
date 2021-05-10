@@ -15,6 +15,7 @@ import {
 import { UserContext } from "../UserContext";
 import { useNavigation } from "@react-navigation/native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { ScrollView } from "react-native-gesture-handler";
 
 const PerfilTienda = ({ route }) => {
     const navigation = useNavigation();
@@ -122,99 +123,75 @@ const PerfilTienda = ({ route }) => {
                                 <Text style={styles.textStyle}>No existe</Text>
                             </TouchableOpacity>
                         </View>
-                        <View style={styles.tiendacontainer}>
-                            <View style={styles.txttiendainfo}>
-                                <Text>
-                                    Nombre tienda: {route.params.tienda.nombre} {"\n"}
-                        Tipo tienda: {tipoTienda} {"\n"}
-                        Horario: {route.params.tienda.horario} {"\n"}
-                        Forma de pago: {route.params.tienda.tarjeta ? "Tarjeta" : "Efectivo"} {"\n"}
-                                    {"\n"} {validada}
-                                </Text>
-                            </View>
-                            <View style={styles.botones}>
-                                <TouchableOpacity style={styles.menuBtn} >
-                                    <MaterialCommunityIcons name="silverware" size={30} onPress={() => navigation.navigate("MenuTienda", { tienda: route.params.tienda })} />
-                                    <Text style={styles.btnmenuText}>Ver menu</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={styles.menuBtn} >
-                                    <MaterialCommunityIcons name="phone" size={30} />
-                                    <Text style={styles.btnmenuText}>Llamar</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={styles.menuBtn} >
-                                    <MaterialCommunityIcons name="star" size={30} />
-                                    <Text style={styles.btnmenuText}>Reseñas</Text>
-                                </TouchableOpacity>
-                            </View>
 
-                        </View>
                     </View>
                 </View>
             </Modal>
-
-            <View style={styles.imgcontainer}>
-                <Image
-                    style={styles.imageProducto}
-                    source={{
-                        uri: route.params.tienda.url_imagen
-                            ? route.params.tienda.url_imagen
-                            : "../assets/restaurant.png",
-                    }}
-                    defaultSource={require("../assets/restaurant.png")}
-                />
-                <Text style={styles.titulo}>{route.params.tienda.nombre} </Text>
-            </View>
-            <View style={styles.tiendacontainer}>
-                <View style={styles.txttiendainfo}>
-                    <Text>
-                        Nombre tienda: {route.params.tienda.nombre} {"\n"}
+            <ScrollView >
+                <View style={styles.imgcontainer}>
+                    <Image
+                        style={styles.imageProducto}
+                        source={{
+                            uri: route.params.tienda.url_imagen
+                                ? route.params.tienda.url_imagen
+                                : "../assets/restaurant.png",
+                        }}
+                        defaultSource={require("../assets/restaurant.png")}
+                    />
+                    <Text style={styles.titulo}>{route.params.tienda.nombre} </Text>
+                </View>
+                <View style={styles.tiendacontainer}>
+                    <View style={styles.txttiendainfo}>
+                        <Text>
+                            Nombre tienda: {route.params.tienda.nombre} {"\n"}
             Tipo tienda: {tipoTienda} {"\n"}
             Horario: {route.params.tienda.horario} {"\n"}
             Forma de pago:{" "}
-                        {route.params.tienda.tarjeta ? "Tarjeta" : "Efectivo"} {"\n"}
-                        {"\n"} {validada}
-                    </Text>
-                </View>
-                <View style={styles.botones}>
-                    <TouchableOpacity style={styles.menuBtn}>
-                        <MaterialCommunityIcons
-                            name="silverware"
-                            size={30}
-                            onPress={() =>
-                                navigation.navigate("MenuTienda", {
-                                    tienda: route.params.tienda,
-                                })
-                            }
-                        />
-                        <Text style={styles.btnmenuText}>Ver menu</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.menuBtn}>
-                        <MaterialCommunityIcons name="phone" size={30} />
-                        <Text style={styles.btnmenuText}>Llamar</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.menuBtn}>
-                        <MaterialCommunityIcons name="star" size={30} />
-                        <Text style={styles.btnmenuText}>Reseñas</Text>
-                    </TouchableOpacity>
-                </View>
+                            {route.params.tienda.tarjeta ? "Tarjeta" : "Efectivo"} {"\n"}
+                            {"\n"} {validada}
+                        </Text>
+                    </View>
+                    <View style={styles.botones}>
+                        <TouchableOpacity style={styles.menuBtn}>
+                            <MaterialCommunityIcons
+                                name="silverware"
+                                size={30}
+                                onPress={() =>
+                                    navigation.navigate("MenuTienda", {
+                                        tienda: route.params.tienda,
+                                    })
+                                }
+                            />
+                            <Text style={styles.btnmenuText}>Ver menu</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.menuBtn}>
+                            <MaterialCommunityIcons name="phone" size={30} />
+                            <Text style={styles.btnmenuText}>Llamar</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.menuBtn}>
+                            <MaterialCommunityIcons name="star" size={30} />
+                            <Text style={styles.btnmenuText}>Reseñas</Text>
+                        </TouchableOpacity>
+                    </View>
 
-                <View style={styles.center}>
-                    <TouchableOpacity
-                        style={styles.validarBtn}
-                        onPress={() => Openmodal()}
-                    >
-                        <Text style={styles.btnText}>Validar Tienda</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={styles.validarBtn}
-                        onPress={() => navigation.navigate("mapa", {
-                            tienda: route.params.tienda
-                        })}
-                    >
-                        <Text style={styles.btnText}>Ver Ubicación</Text>
-                    </TouchableOpacity>
+                    <View style={styles.center}>
+                        <TouchableOpacity
+                            style={styles.validarBtn}
+                            onPress={() => Openmodal()}
+                        >
+                            <Text style={styles.btnText}>Validar Tienda</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.validarBtn}
+                            onPress={() => navigation.navigate("mapa", {
+                                tienda: route.params.tienda
+                            })}
+                        >
+                            <Text style={styles.btnText}>Ver Ubicación</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
-            </View>
+            </ScrollView>
         </View >
     );
 };
