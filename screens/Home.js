@@ -29,7 +29,6 @@ import PerfilTienda from "./PerfilTienda";
 import FiltroTienda from "./FiltroTienda";
 import FiltroProducto from "./FiltroProducto";
 import Busqueda from "./Busqueda";
-import PedidosAnteriores from "./PedidosAnteriores";
 import { ExpoTokenContext } from "../ExpoTokenContext";
 import Map from "./Map";
 
@@ -223,6 +222,7 @@ const Home = ({ route }) => {
             </Tab.Navigator>
         </>
     );
+
 };
 
 const Stack = createStackNavigator();
@@ -609,6 +609,7 @@ const styles = StyleSheet.create({
     //     alignItems: 'center',
     //     justifyContent: 'center',
     // },
+
 });
 
 export default Home;

@@ -37,7 +37,7 @@ const Registro = ({ navigation }) => {
     repetirContraseña: "",
     telefono: "",
     universidad: "",
-    expoToken: expotoken
+    expoToken: expotoken,
   });
   useEffect(() => {
     let isMounted = true;
@@ -66,6 +66,7 @@ const Registro = ({ navigation }) => {
       justifyContent: "center",
     },
     titulo: {
+      marginTop: -25,
       fontSize: 25,
       fontWeight: "bold",
     },
@@ -83,7 +84,6 @@ const Registro = ({ navigation }) => {
       backgroundColor: "#FFFFFF",
       height: 40,
       borderColor: "gray",
-      borderWidth: 1,
       borderRadius: 15,
       padding: 5,
       width: 300,
@@ -92,42 +92,53 @@ const Registro = ({ navigation }) => {
       backgroundColor: "#FFFFFF",
       height: 25,
       borderColor: "gray",
-      borderWidth: 1,
     },
 
     inputView: {
       backgroundColor: "#E2DFDF",
       borderRadius: 15,
-      width: 300,
-      height: 37,
+      height: 45,
       marginBottom: 20,
       paddingLeft: 10,
-      borderColor: "#9C9C9C",
-      borderWidth: 1,
+      borderRadius: 30,
+      //width: "70%",
+      flexDirection: 'row',
+      alignItems: "center",
     },
+
 
     loginBtn: {
-      width: "90%",
       borderRadius: 25,
-      height: 35,
+      height: 50,
+      marginTop: 15,
+      alignItems: "center",
+      justifyContent: "center",
       backgroundColor: "#E99125",
-      margin: 20,
-      alignSelf: "center",
     },
-    faceBtn: {
-      width: "90%",
-      borderRadius: 25,
-      height: 35,
-      backgroundColor: "#4267B2",
-      alignSelf: "center",
-    },
-
     loginText: {
-      fontSize: 20,
-      color: "#fff",
-      alignSelf: "center",
-      textTransform: "uppercase",
+      color: "white",
     },
+    fbView: {
+      backgroundColor: "#4267B2",
+      borderRadius: 30,
+      height: 50,
+      marginBottom: 20,
+      marginTop: 15,
+      flexDirection: 'row',
+      alignItems: "center",
+      justifyContent: 'center'
+    },
+    fbBtn: {
+      width: "80%",
+      borderRadius: 25,
+      height: 50,
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    fbIconoStyle: {
+      width: 25,
+      height: 25,
+    }
   });
 
   const handleSubmit = () => {
@@ -314,9 +325,16 @@ const Registro = ({ navigation }) => {
         >
           <Text style={styles.loginText}>Siguiente</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.faceBtn}>
-          <Text style={styles.loginText}>Login facebook</Text>
-        </TouchableOpacity>
+        <View style={styles.fbView}>
+          <Image
+            source={require('../assets/fbicon.png')}
+            style={styles.fbIconoStyle}
+          />
+          <TouchableOpacity style={styles.fbBtn}>
+            <Text style={styles.loginText}>Conectarse con Facebook</Text>
+          </TouchableOpacity>
+        </View>
+
         <ErrorModal message={message} show={showModal} setShow={setShowModal} />
       </ScrollView>
     </View>

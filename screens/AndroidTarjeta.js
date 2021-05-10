@@ -127,6 +127,7 @@ const AndroidTarjeta = () => {
             <Text style={styles.subtitle}>
                 Ingresa una tarjeta para continuar con el registro informacion bancaria
       </Text>
+
             <TextInput
                 style={styles.input}
                 onChangeText={(value) =>
@@ -183,6 +184,7 @@ const AndroidTarjeta = () => {
             ></WebView>
         </ScrollView>
     );
+
 };
 
 const styles = StyleSheet.create({
@@ -194,6 +196,7 @@ const styles = StyleSheet.create({
         alignContent: "center",
         paddingTop: 20,
     },
+
 
     btnPrimary: {
         marginTop: 20,
@@ -225,6 +228,7 @@ const styles = StyleSheet.create({
     rowContainer: {
         flexDirection: "row",
     },
+
 });
 
 export default AndroidTarjeta;
